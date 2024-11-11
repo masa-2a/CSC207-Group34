@@ -12,7 +12,7 @@ import com.google.maps.model.Size;
 import java.io.IOException;
 
 public class StaticMap {
-    static String API_KEY = "AIzaSyCE7_bfL1qF7QvFo9crvQ8v4wbslyufU1g";
+    static String API_KEY = System.getenv("API_KEY");
     static int width = 10;
     static int height = 10;
 
