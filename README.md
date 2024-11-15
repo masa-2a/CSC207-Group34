@@ -16,6 +16,8 @@ We are developing an interactive geographical guessing game that presents users 
 Player signs up or logs into the Game. A Geo Guesser Game that loads the Player to a random location on earth from the Map. The Player has the option to reveal up to 3 Hints with a 2-minute Timer ticking. The Player then makes a guess and chooses a chosen spot on the map.  The player receives Points based on the chosen location, the amount of time spent, and the number of hints used. 
 The Player has the option to play a new Game, logout, or view the Leaderboard
 
+### GUI
+![GUI plan.png](images%2FGUI%20plan.png)
 
 ### User Stories  
 **Team User Story**: User is shown a random location. User places guess on the map. Points are added to the users account based on how good the guess was.
@@ -29,7 +31,7 @@ The Player has the option to play a new Game, logout, or view the Leaderboard
 [Google Maps API](https://github.com/googlemaps/google-maps-services-java).
 
 ### Schedule and Meeting Times
-**Communication**: Discord adn Instagram groupchat.  
+**Communication**: Discord and Instagram groupchat.  
 **Meeting times**: Wednesday 5:00 - 8:00 pm Gerstein Library.  
 
 
