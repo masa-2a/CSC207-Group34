@@ -1,34 +1,44 @@
 package map2d;
 
+import com.google.maps.GeoApiContext;
 import com.google.maps.StaticMapsApi;
 import com.google.maps.StaticMapsRequest;
-
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Size;
+import com.google.maps.StaticMapsRequest.StaticMapType;
+import com.google.maps.model.LatLng;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class StaticMap {
     static String API_KEY = System.getenv("API_KEY");
-    static int width = 10;
-    static int height = 10;
+    static int width = 600;
+    static int height = 400;
 
     public static void main(String[] args) {
-//        StaticMapsApi test = new StaticMapsApi;
+        if (API_KEY == null || API_KEY.isEmpty()) {
+            System.err.println("API_KEY environment variable is not set.");
+            return;
+        }
+
+        double latitude = 37.422; // Example latitude
+        double longitude = -122.084; // Example longitude
+
         GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
         Size size = new Size(width, height);
-        StaticMapsRequest request = new StaticMapsRequest(context);
+        LatLng location = new LatLng(latitude, longitude);
+
+        StaticMapsRequest request = StaticMapsApi.newRequest(context, size)
+                .center(location)
+                .zoom(1)
+                .maptype(StaticMapType.roadmap);
 
         try {
-            GeocodingResult[] results = GeocodingApi.geocode(context, "1600 Amphitheatre Parkway, Mountain View, CA").await();
-            if (results != null && results.length > 0) {
-                System.out.println(results[0].formattedAddress);
-            } else {
-                System.out.println("No results found.");
-            }
+            byte[] imageBytes = request.await().imageData;
+            Files.write(Paths.get("static_map.png"), imageBytes);
+            System.out.println("Static map image saved as static_map.png");
         } catch (ApiException e) {
             System.err.println("API Exception: " + e.getMessage());
         } catch (InterruptedException e) {
