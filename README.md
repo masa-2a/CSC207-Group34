@@ -29,7 +29,7 @@ The Player has the option to play a new Game, logout, or view the Leaderboard
 [Google Maps API](https://github.com/googlemaps/google-maps-services-java).
 
 ### Schedule and Meeting Times
-**Communication**: Discord adn Instagram groupchat.  
+**Communication**: Discord and Instagram groupchat.  
 **Meeting times**: Wednesday 5:00 - 8:00 pm Gerstein Library.  
 
 
