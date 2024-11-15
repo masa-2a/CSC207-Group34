@@ -7,6 +7,8 @@ public class CommonUser implements User {
 
     private final String name;
     private final String password;
+    private int points;
+    private int numberOfGames;
 
     public CommonUser(String name, String password) {
         this.name = name;
@@ -17,6 +19,12 @@ public class CommonUser implements User {
     public String getName() {
         return name;
     }
+
+    @Override
+    public int getPoints() { return points; }
+
+    @Override
+    public int getNumberOfGames() {return numberOfGames; }
 
     @Override
     public String getPassword() {

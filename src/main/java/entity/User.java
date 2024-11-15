@@ -12,6 +12,18 @@ public interface User {
     String getName();
 
     /**
+     * Returns the points of the users
+     * @return the points of the user
+     */
+    int getPoints();
+
+    /**
+     * Return the number of games played
+     * @return the number of games played
+     */
+    int getNumberOfGames();
+
+    /**
      * Returns the password of the user.
      * @return the password of the user.
      */
