@@ -17,11 +17,15 @@ public interface User {
      */
     int getPoints();
 
+    void addPoints(int newpoints);
+
     /**
      * Return the number of games played
      * @return the number of games played
      */
     int getNumberOfGames();
+
+    void addGame();
 
     /**
      * Returns the password of the user.
