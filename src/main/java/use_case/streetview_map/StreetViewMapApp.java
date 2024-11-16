@@ -1,10 +1,14 @@
 package use_case.streetview_map;
 
 import javafx.application.Application;
+import javafx.concurrent.Worker;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.net.URL;
 
 public class StreetViewMapApp extends Application {
 
@@ -13,69 +17,34 @@ public class StreetViewMapApp extends Application {
         // Create a WebView
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
+        webEngine.setJavaScriptEnabled(true);
 
-        // HTML code for the Google Map Street View
-        String htmlContent = """
-        <!doctype html>
-        <html>
-        <head>
-          <title>Street View split-map-panes</title>
-        </head>
+        // Load the map.html file
+        try {
+            // Load map.html from the resources folder
+            URL htmlFileUrl = getClass().getResource("/map.html");
+            if (htmlFileUrl != null) {
+                webEngine.load(htmlFileUrl.toExternalForm());
+            } else {
+                System.out.println("Failed to find map.html in resources.");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Error loading map.html: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
 
-        <style>
-          html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-          }
-
-          #map, #pano {
-            float: left;
-            height: 100%;
-            width: 50%;
-          }
-        </style>
-
-        <body>
-        <div id="map"></div>
-        <div id="pano"></div>
-
-        <script
-                src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initialize"
-                defer
-        ></script>
-
-        <script>
-          let v = 1;
-          let panorama;
-          function initialize() {
-            const fenway = { lat: 42.345573, lng: -71.098326 }
-            const map = new google.maps.Map(document.getElementById("map"), {
-              center: fenway,
-              zoom: 14,
-            })
-            const panorama = new google.maps.StreetViewPanorama(
-              document.getElementById("pano"),
-              {
-                position: fenway,
-                pov: {
-                  heading: 34,
-                  pitch: 10,
-                },
-              },
-            )
-
-            map.setStreetView(panorama)
-          }
-
-          window.initialize = initialize
-        </script>
-        </body>
-        </html>
-        """;
-
-        // Load the HTML content into the WebView
-        webEngine.loadContent(htmlContent);
+        // Add debug listeners to WebEngine
+        webEngine.setOnError(event -> System.out.println("ERROR: " + event.getMessage()));
+        webEngine.setOnAlert(event -> System.out.println("ALERT: " + event.getData()));
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.FAILED) {
+                System.out.println("Failed to load: " + webEngine.getLocation());
+            } else if (newState == Worker.State.SUCCEEDED) {
+                System.out.println("Successfully loaded: " + webEngine.getLocation());
+            }
+        });
 
         // Set up the scene and stage
         Scene scene = new Scene(webView, 1200, 800); // Set the desired window size
