@@ -8,6 +8,19 @@
     <version>1.0-SNAPSHOT</version>
     <dependencies>
 
+        <!--Firebase API Dependency. Added by Masa-->
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>9.4.1</version>
+        </dependency>
+
+        <!-- Google Cloud Firestore dependency. Added by Masa -->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-firestore</artifactId>
+            <version>3.2.2</version>
+        </dependency>
         <!--Google Maps Api Dependency. Added by Purav-->
         <dependency>
             <groupId>com.google.maps</groupId>

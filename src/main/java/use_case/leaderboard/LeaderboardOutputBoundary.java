@@ -1,4 +1,7 @@
 package use_case.leaderboard;
 
-public class LeaderboardOutputBoundary {
+public interface LeaderboardOutputBoundary {
+
+    void prepareSuccessView(LeaderboardOutputData outputData);
+    void prepareFailView(String errorMessage);
 }

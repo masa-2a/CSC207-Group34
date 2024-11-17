@@ -72,7 +72,7 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Signup View to the application.
+     * Adds the Signup View to the applicaåtion.
      * @return this builder
      */
     public AppBuilder addSignupView() {
