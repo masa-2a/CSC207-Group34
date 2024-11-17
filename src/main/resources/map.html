@@ -7,8 +7,6 @@
 <html>
 <head>
   <title>Street View split-map-panes</title>
-  <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *; img-src * data: 'unsafe-inline'">
-  <!-- jsFiddle will insert css and js -->
 </head>
 
 <style>
@@ -38,9 +36,8 @@
 <div id="street-view"></div>
 </body>
 
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE7_bfL1qF7QvFo9crvQ8v4wbslyufU1g&callback=initialize&v=quarterly&loading=async"
-        defer
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE7_bfL1qF7QvFo9crvQ8v4wbslyufU1g&callback=initialize&v=3.56"
 ></script>
 
 <script>
