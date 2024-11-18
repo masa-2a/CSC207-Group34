@@ -13,38 +13,27 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class StaticMap {
-    private final String API_KEY = System.getenv("API_KEY");
-    double latitude; // Example latitude
-    double longitude; // Example longitude
+    static String API_KEY = System.getenv("API_KEY");
+    static int width = 600;
+    static int height = 400;
 
-
-    public StaticMap() {
-        this.latitude = 0;
-        this.longitude = 0;
-    }
-
-    public StaticMapsRequest getMap() {
+    public static void main(String[] args) {
         if (API_KEY == null || API_KEY.isEmpty()) {
             System.err.println("API_KEY environment variable is not set.");
             return;
         }
 
+        double latitude = 37.422; // Example latitude
+        double longitude = -122.084; // Example longitude
 
         GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
-        int width = 600;
-        int height = 400;
         Size size = new Size(width, height);
         LatLng location = new LatLng(latitude, longitude);
 
         StaticMapsRequest request = StaticMapsApi.newRequest(context, size)
                 .center(location)
-                .zoom(2)
+                .zoom(1)
                 .maptype(StaticMapType.roadmap);
-
-        return request;
-    }
-
-    public void saveMap(){
 
         try {
             byte[] imageBytes = request.await().imageData;
@@ -58,7 +47,5 @@ public class StaticMap {
         } catch (IOException e) {
             System.err.println("IO Exception: " + e.getMessage());
         }
-
-
     }
 }
