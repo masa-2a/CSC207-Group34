@@ -17,9 +17,9 @@ public class PointsCalculatorController {
      * @param randomLocation the location the user is trying to guess.
      * @param chosenLocation the location of the user's guess.
      */
-    public void execute(Map<String, Double> randomLocation, Map<String, Double> chosenLocation) {
+    public void execute(Map<String, Double> randomLocation, Map<String, Double> chosenLocation, double timespent) {
         final PointsCalculatorInputData pointsCalculatorInputData =
-                new PointsCalculatorInputData(randomLocation, chosenLocation);
+                new PointsCalculatorInputData(randomLocation, chosenLocation, timespent);
 
         pointsUseCaseInteractor.execute(pointsCalculatorInputData);
     }
