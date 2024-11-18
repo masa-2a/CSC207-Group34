@@ -13,6 +13,11 @@
             <id>josm-repo</id>
             <url>https://josm.openstreetmap.de/nexus/content/repositories/releases/</url>
         </repository>
+
+        <repository>
+            <id>java-firestore</id>
+            <url>https://github.com/googleapis/java-firestore</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -36,7 +41,7 @@
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
-      
+
       <!--Firebase API Dependency. Added by Masa-->
         <dependency>
             <groupId>com.google.firebase</groupId>
@@ -48,7 +53,7 @@
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-firestore</artifactId>
-            <version>3.2.2</version>
+            <version>3.29.0</version>
         </dependency>
       
         <dependency>
