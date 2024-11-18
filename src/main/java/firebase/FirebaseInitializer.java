@@ -23,6 +23,8 @@ public class FirebaseInitializer {
         } catch (Exception e) {
             System.err.println("Error initializing Firebase: " + e.getMessage());
         }
+
+        return initializeFirebase();
     }
 
 }

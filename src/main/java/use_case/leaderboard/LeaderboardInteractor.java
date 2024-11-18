@@ -15,8 +15,4 @@ public class LeaderboardInteractor {
         this.userDataAccessInterface = userDataAccessInterface;
     }
 
-    @Override
-    void execute(){
-
-    }
 }
