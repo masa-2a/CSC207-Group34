@@ -12,9 +12,24 @@ public interface User {
     String getName();
 
     /**
+     * Returns the points of the users
+     * @return the points of the user
+     */
+    int getPoints();
+
+    void addPoints(int newpoints);
+
+    /**
+     * Return the number of games played
+     * @return the number of games played
+     */
+    int getNumberOfGames();
+
+    void addGame();
+
+    /**
      * Returns the password of the user.
      * @return the password of the user.
      */
     String getPassword();
-
 }
