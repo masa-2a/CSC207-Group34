@@ -1,0 +1,679 @@
+{
+  "Afghanistan": {
+    "establishment_year": "1747",
+    "official_languages": "Pashto, Dari"
+  },
+  "Albania": {
+    "establishment_year": "1912",
+    "official_languages": "Albanian"
+  },
+  "Algeria": {
+    "establishment_year": "1962",
+    "official_languages": "Arabic, Tamazight"
+  },
+  "Andorra": {
+    "establishment_year": "1278",
+    "official_languages": "Catalan"
+  },
+  "Angola": {
+    "establishment_year": "1975",
+    "official_languages": "Portuguese"
+  },
+  "Argentina": {
+    "establishment_year": "1816",
+    "official_languages": "Spanish"
+  },
+  "Armenia": {
+    "establishment_year": "1991",
+    "official_languages": "Armenian"
+  },
+  "Australia": {
+    "establishment_year": "1901",
+    "official_languages": "English"
+  },
+  "Austria": {
+    "establishment_year": "1955",
+    "official_languages": "German"
+  },
+  "Azerbaijan": {
+    "establishment_year": "1991",
+    "official_languages": "Azerbaijani"
+  },
+  "Bahamas": {
+    "establishment_year": "1973",
+    "official_languages": "English"
+  },
+  "Bahrain": {
+    "establishment_year": "1971",
+    "official_languages": "Arabic"
+  },
+  "Bangladesh": {
+    "establishment_year": "1971",
+    "official_languages": "Bengali"
+  },
+  "Barbados": {
+    "establishment_year": "1966",
+    "official_languages": "English"
+  },
+  "Belarus": {
+    "establishment_year": "1991",
+    "official_languages": "Belarusian, Russian"
+  },
+  "Belgium": {
+    "establishment_year": "1830",
+    "official_languages": "Dutch, French, German"
+  },
+  "Belize": {
+    "establishment_year": "1981",
+    "official_languages": "English"
+  },
+  "Benin": {
+    "establishment_year": "1960",
+    "official_languages": "French"
+  },
+  "Bhutan": {
+    "establishment_year": "1949",
+    "official_languages": "Dzongkha"
+  },
+  "Bolivia": {
+    "establishment_year": "1825",
+    "official_languages": "Spanish, Quechua, Aymara"
+  },
+  "Bosnia and Herzegovina": {
+    "establishment_year": "1992",
+    "official_languages": "Bosnian, Croatian, Serbian"
+  },
+  "Botswana": {
+    "establishment_year": "1966",
+    "official_languages": "English, Tswana"
+  },
+  "Brazil": {
+    "establishment_year": "1822",
+    "official_languages": "Portuguese"
+  },
+  "Brunei": {
+    "establishment_year": "1984",
+    "official_languages": "Malay"
+  },
+  "Bulgaria": {
+    "establishment_year": "681",
+    "official_languages": "Bulgarian"
+  },
+  "Burkina Faso": {
+    "establishment_year": "1960",
+    "official_languages": "French"
+  },
+  "Burundi": {
+    "establishment_year": "1962",
+    "official_languages": "Kirundi, French, English"
+  },
+  "Cambodia": {
+    "establishment_year": "1953",
+    "official_languages": "Khmer"
+  },
+  "Cameroon": {
+    "establishment_year": "1960",
+    "official_languages": "English, French"
+  },
+  "Canada": {
+    "establishment_year": "1867",
+    "official_languages": "English, French"
+  },
+  "Chad": {
+    "establishment_year": "1960",
+    "official_languages": "French, Arabic"
+  },
+  "Chile": {
+    "establishment_year": "1818",
+    "official_languages": "Spanish"
+  },
+  "China": {
+    "establishment_year": "1949",
+    "official_languages": "Mandarin"
+  },
+  "Colombia": {
+    "establishment_year": "1810",
+    "official_languages": "Spanish"
+  },
+  "Comoros": {
+    "establishment_year": "1975",
+    "official_languages": "Comorian, Arabic, French"
+  },
+  "Congo": {
+    "establishment_year": "1960",
+    "official_languages": "French"
+  },
+  "Costa Rica": {
+    "establishment_year": "1821",
+    "official_languages": "Spanish"
+  },
+  "Croatia": {
+    "establishment_year": "1991",
+    "official_languages": "Croatian"
+  },
+  "Cuba": {
+    "establishment_year": "1902",
+    "official_languages": "Spanish"
+  },
+  "Cyprus": {
+    "establishment_year": "1960",
+    "official_languages": "Greek, Turkish"
+  },
+  "Czech Republic": {
+    "establishment_year": "1993",
+    "official_languages": "Czech"
+  },
+  "Denmark": {
+    "establishment_year": "10th Century",
+    "official_languages": "Danish"
+  },
+  "Djibouti": {
+    "establishment_year": "1977",
+    "official_languages": "French, Arabic"
+  },
+  "Dominica": {
+    "establishment_year": "1978",
+    "official_languages": "English"
+  },
+  "Dominican Republic": {
+    "establishment_year": "1844",
+    "official_languages": "Spanish"
+  },
+  "Ecuador": {
+    "establishment_year": "1822",
+    "official_languages": "Spanish"
+  },
+  "Egypt": {
+    "establishment_year": "1953",
+    "official_languages": "Arabic"
+  },
+  "El Salvador": {
+    "establishment_year": "1821",
+    "official_languages": "Spanish"
+  },
+  "Equatorial Guinea": {
+    "establishment_year": "1968",
+    "official_languages": "Spanish, French, Portuguese"
+  },
+  "Eritrea": {
+    "establishment_year": "1993",
+    "official_languages": "Tigrinya, Arabic, English"
+  },
+  "Estonia": {
+    "establishment_year": "1991",
+    "official_languages": "Estonian"
+  },
+  "Eswatini": {
+    "establishment_year": "1968",
+    "official_languages": "Swazi, English"
+  },
+  "Ethiopia": {
+    "establishment_year": "980 BCE",
+    "official_languages": "Amharic"
+  },
+  "Fiji": {
+    "establishment_year": "1970",
+    "official_languages": "English, Fijian, Hindi"
+  },
+  "Finland": {
+    "establishment_year": "1917",
+    "official_languages": "Finnish, Swedish"
+  },
+  "France": {
+    "establishment_year": "843",
+    "official_languages": "French"
+  },
+  "Gabon": {
+    "establishment_year": "1960",
+    "official_languages": "French"
+  },
+  "Gambia": {
+    "establishment_year": "1965",
+    "official_languages": "English"
+  },
+  "Georgia": {
+    "establishment_year": "1991",
+    "official_languages": "Georgian"
+  },
+  "Germany": {
+    "establishment_year": "1990",
+    "official_languages": "German"
+  },
+  "Ghana": {
+    "establishment_year": "1957",
+    "official_languages": "English"
+  },
+  "Greece": {
+    "establishment_year": "1821",
+    "official_languages": "Greek"
+  },
+  "Grenada": {
+    "establishment_year": "1974",
+    "official_languages": "English"
+  },
+  "Guatemala": {
+    "establishment_year": "1821",
+    "official_languages": "Spanish"
+  },
+  "Guinea": {
+    "establishment_year": "1958",
+    "official_languages": "French"
+  },
+  "Guinea-Bissau": {
+    "establishment_year": "1973",
+    "official_languages": "Portuguese"
+  },
+  "Guyana": {
+    "establishment_year": "1966",
+    "official_languages": "English"
+  },
+  "Haiti": {
+    "establishment_year": "1804",
+    "official_languages": "French, Haitian Creole"
+  },
+  "Honduras": {
+    "establishment_year": "1821",
+    "official_languages": "Spanish"
+  },
+  "Hungary": {
+    "establishment_year": "1000",
+    "official_languages": "Hungarian"
+  },
+  "Iceland": {
+    "establishment_year": "1944",
+    "official_languages": "Icelandic"
+  },
+  "India": {
+    "establishment_year": "1947",
+    "official_languages": "Hindi, English"
+  },
+  "Indonesia": {
+    "establishment_year": "1945",
+    "official_languages": "Indonesian"
+  },
+  "Iran": {
+    "establishment_year": "1979",
+    "official_languages": "Persian"
+  },
+  "Iraq": {
+    "establishment_year": "1932",
+    "official_languages": "Arabic, Kurdish"
+  },
+  "Ireland": {
+    "establishment_year": "1922",
+    "official_languages": "Irish, English"
+  },
+  "Israel": {
+    "establishment_year": "1948",
+    "official_languages": "Hebrew"
+  },
+  "Italy": {
+    "establishment_year": "1861",
+    "official_languages": "Italian"
+  },
+  "Jamaica": {
+    "establishment_year": "1962",
+    "official_languages": "English"
+  },
+  "Japan": {
+    "establishment_year": "660 BCE",
+    "official_languages": "Japanese"
+  },
+  "Jordan": {
+    "establishment_year": "1946",
+    "official_languages": "Arabic"
+  },
+  "Kazakhstan": {
+    "establishment_year": "1991",
+    "official_languages": "Kazakh, Russian"
+  },
+  "Kenya": {
+    "establishment_year": "1963",
+    "official_languages": "English, Swahili"
+  },
+  "Kiribati": {
+    "establishment_year": "1979",
+    "official_languages": "English"
+  },
+  "Kuwait": {
+    "establishment_year": "1961",
+    "official_languages": "Arabic"
+  },
+  "Kyrgyzstan": {
+    "establishment_year": "1991",
+    "official_languages": "Kyrgyz, Russian"
+  },
+  "Laos": {
+    "establishment_year": "1949",
+    "official_languages": "Lao"
+  },
+  "Latvia": {
+    "establishment_year": "1991",
+    "official_languages": "Latvian"
+  },
+  "Lebanon": {
+    "establishment_year": "1943",
+    "official_languages": "Arabic, French"
+  },
+  "Lesotho": {
+    "establishment_year": "1966",
+    "official_languages": "English, Sesotho"
+  },
+  "Liberia": {
+    "establishment_year": "1847",
+    "official_languages": "English"
+  },
+  "Libya": {
+    "establishment_year": "1951",
+    "official_languages": "Arabic"
+  },
+  "Liechtenstein": {
+    "establishment_year": "1719",
+    "official_languages": "German"
+  },
+  "Lithuania": {
+    "establishment_year": "1991",
+    "official_languages": "Lithuanian"
+  },
+  "Luxembourg": {
+    "establishment_year": "1815",
+    "official_languages": "Luxembourgish, French, German"
+  },
+  "Madagascar": {
+    "establishment_year": "1960",
+    "official_languages": "Malagasy, French"
+  },
+  "Malawi": {
+    "establishment_year": "1964",
+    "official_languages": "English, Chichewa"
+  },
+  "Malaysia": {
+    "establishment_year": "1957",
+    "official_languages": "Malay"
+  },
+  "Maldives": {
+    "establishment_year": "1965",
+    "official_languages": "Dhivehi"
+  },
+  "Mali": {
+    "establishment_year": "1960",
+    "official_languages": "French"
+  },
+  "Malta": {
+    "establishment_year": "1964",
+    "official_languages": "Maltese, English"
+  },
+  "Marshall Islands": {
+    "establishment_year": "1986",
+    "official_languages": "Marshallese, English"
+  },
+  "Mauritania": {
+    "establishment_year": "1960",
+    "official_languages": "Arabic"
+  },
+  "Mauritius": {
+    "establishment_year": "1968",
+    "official_languages": "English"
+  },
+  "Mexico": {
+    "establishment_year": "1821",
+    "official_languages": "Spanish"
+  },
+  "Micronesia": {
+    "establishment_year": "1986",
+    "official_languages": "English"
+  },
+  "Moldova": {
+    "establishment_year": "1991",
+    "official_languages": "Romanian"
+  },
+  "Monaco": {
+    "establishment_year": "1297",
+    "official_languages": "French"
+  },
+  "Mongolia": {
+    "establishment_year": "1921",
+    "official_languages": "Mongolian"
+  },
+  "Montenegro": {
+    "establishment_year": "2006",
+    "official_languages": "Montenegrin"
+  },
+  "Morocco": {
+    "establishment_year": "1956",
+    "official_languages": "Arabic, Berber"
+  },
+  "Mozambique": {
+    "establishment_year": "1975",
+    "official_languages": "Portuguese"
+  },
+  "Myanmar": {
+    "establishment_year": "1948",
+    "official_languages": "Burmese"
+  },
+  "Namibia": {
+    "establishment_year": "1990",
+    "official_languages": "English"
+  },
+  "Nauru": {
+    "establishment_year": "1968",
+    "official_languages": "Nauruan, English"
+  },
+  "Nepal": {
+    "establishment_year": "1951",
+    "official_languages": "Nepali"
+  },
+  "Netherlands": {
+    "establishment_year": "1581",
+    "official_languages": "Dutch"
+  },
+  "New Zealand": {
+    "establishment_year": "1840",
+    "official_languages": "English, Māori, New Zealand Sign Language"
+  },
+  "Nicaragua": {
+    "establishment_year": "1821",
+    "official_languages": "Spanish"
+  },
+  "Niger": {
+    "establishment_year": "1960",
+    "official_languages": "French"
+  },
+  "Nigeria": {
+    "establishment_year": "1960",
+    "official_languages": "English"
+  },
+  "North Korea": {
+    "establishment_year": "1948",
+    "official_languages": "Korean"
+  },
+  "North Macedonia": {
+    "establishment_year": "1991",
+    "official_languages": "Macedonian"
+  },
+  "Norway": {
+    "establishment_year": "1905",
+    "official_languages": "Norwegian"
+  },
+  "Oman": {
+    "establishment_year": "1650",
+    "official_languages": "Arabic"
+  },
+  "Pakistan": {
+    "establishment_year": "1947",
+    "official_languages": "Urdu, English"
+  },
+  "Palau": {
+    "establishment_year": "1994",
+    "official_languages": "Palauan, English"
+  },
+  "Panama": {
+    "establishment_year": "1903",
+    "official_languages": "Spanish"
+  },
+  "Papua New Guinea": {
+    "establishment_year": "1975",
+    "official_languages": "English, Tok Pisin, Hiri Motu"
+  },
+  "Paraguay": {
+    "establishment_year": "1811",
+    "official_languages": "Spanish, Guaraní"
+  },
+  "Peru": {
+    "establishment_year": "1821",
+    "official_languages": "Spanish, Quechua, Aymara"
+  },
+  "Philippines": {
+    "establishment_year": "1898",
+    "official_languages": "Filipino, English"
+  },
+  "Poland": {
+    "establishment_year": "966",
+    "official_languages": "Polish"
+  },
+  "Portugal": {
+    "establishment_year": "1139",
+    "official_languages": "Portuguese"
+  },
+  "Qatar": {
+    "establishment_year": "1971",
+    "official_languages": "Arabic"
+  },
+  "Romania": {
+    "establishment_year": "1859",
+    "official_languages": "Romanian"
+  },
+  "Russia": {
+    "establishment_year": "1991",
+    "official_languages": "Russian"
+  },
+  "Rwanda": {
+    "establishment_year": "1962",
+    "official_languages": "Kinyarwanda, French, English"
+  },
+  "Saint Kitts and Nevis": {
+    "establishment_year": "1983",
+    "official_languages": "English"
+  },
+  "Saint Lucia": {
+    "establishment_year": "1979",
+    "official_languages": "English"
+  },
+  "Saint Vincent and the Grenadines": {
+    "establishment_year": "1979",
+    "official_languages": "English"
+  },
+  "Samoa": {
+    "establishment_year": "1962",
+    "official_languages": "Samoan, English"
+  },
+  "San Marino": {
+    "establishment_year": "301",
+    "official_languages": "Italian"
+  },
+  "Sao Tome and Principe": {
+    "establishment_year": "1975",
+    "official_languages": "Portuguese"
+  },
+  "Saudi Arabia": {
+    "establishment_year": "1932",
+    "official_languages": "Arabic"
+  },
+  "Senegal": {
+    "establishment_year": "1960",
+    "official_languages": "French"
+  },
+  "Serbia": {
+    "establishment_year": "2006",
+    "official_languages": "Serbian"
+  },
+  "Seychelles": {
+    "establishment_year": "1976",
+    "official_languages": "Seychellois Creole, English, French"
+  },
+  "Sierra Leone": {
+    "establishment_year": "1961",
+    "official_languages": "English"
+  },
+  "Singapore": {
+    "establishment_year": "1965",
+    "official_languages": "English, Malay, Mandarin, Tamil"
+  },
+  "Slovakia": {
+    "establishment_year": "1993",
+    "official_languages": "Slovak"
+  },
+  "Slovenia": {
+    "establishment_year": "1991",
+    "official_languages": "Slovene"
+  },
+  "Solomon Islands": {
+    "establishment_year": "1978",
+    "official_languages": "English"
+  },
+  "Somalia": {
+    "establishment_year": "1960",
+    "official_languages": "Somali, Arabic"
+  },
+  "South Africa": {
+    "establishment_year": "1994",
+    "official_languages": "Afrikaans, English, Ndebele, Northern Sotho, Sotho, Swazi, Tswana, Tsonga, Venda, Xhosa, Zulu"
+  },
+  "South Korea": {
+    "establishment_year": "1948",
+    "official_languages": "Korean"
+  },
+  "South Sudan": {
+    "establishment_year": "2011",
+    "official_languages": "English"
+  },
+  "Spain": {
+    "establishment_year": "1479",
+    "official_languages": "Spanish"
+  },
+  "Sri Lanka": {
+    "establishment_year": "1948",
+    "official_languages": "Sinhala, Tamil"
+  },
+  "Sudan": {
+    "establishment_year": "1956",
+    "official_languages": "Arabic, English"
+  },
+  "Suriname": {
+    "establishment_year": "1975",
+    "official_languages": "Dutch"
+  },
+  "Sweden": {
+    "establishment_year": "1523",
+    "official_languages": "Swedish"
+  },
+  "Switzerland": {
+    "establishment_year": "1291",
+    "official_languages": "German, French, Italian, Romansh"
+  },
+  "Syria": {
+    "establishment_year": "1946",
+    "official_languages": "Arabic"
+  },
+  "Taiwan": {
+    "establishment_year": "1949",
+    "official_languages": "Mandarin"
+  },
+  "Tajikistan": {
+    "establishment_year": "1991",
+    "official_languages": "Tajik"
+  },
+  "Tanzania": {
+    "establishment_year": "1961",
+    "official_languages": "Swahili, English"
+  },
+  "Thailand": {
+    "establishment_year": "1238",
+    "official_languages": "Thai"
+  },
+  "Timor-Leste": {
+    "establishment_year": "2002",
+    "official_languages": "Tetum, Portuguese"
+  },
+  // Remaining countries omitted for brevity.
+}
