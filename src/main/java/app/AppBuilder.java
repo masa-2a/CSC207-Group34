@@ -18,6 +18,9 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.main_menu.MenuController;
+import interface_adapter.main_menu.MenuPresenter;
+import interface_adapter.main_menu.MenuViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -30,13 +33,13 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.menu.MenuInputBoundary;
+import use_case.menu.MenuInteractor;
+import use_case.menu.MenuOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import view.LoggedInView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -66,13 +69,15 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private MenuView menuView;
+    private MenuViewModel menuViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
 
     /**
-     * Adds the Signup View to the application.
+     * Adds the Signup View to the applicaåtion.
      * @return this builder
      */
     public AppBuilder addSignupView() {
@@ -103,6 +108,17 @@ public class AppBuilder {
         cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
     }
+    /**
+     * Adds the LoggedIn View to the application.
+     * @return this builder
+     */
+    public AppBuilder addMenuView() {
+        menuViewModel = new MenuViewModel();
+        menuView = new MenuView(menuViewModel);
+        cardPanel.add(menuView,menuView.getViewName());
+        return this;
+    }
+
 
     /**
      * Adds the Signup Use Case to the application.
@@ -124,8 +140,7 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoginUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loginViewModel, signupViewModel, menuViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
@@ -133,6 +148,21 @@ public class AppBuilder {
         loginView.setLoginController(loginController);
         return this;
     }
+
+    /**
+     * Adds the Menu Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addMenuUseCase() {
+        final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel, viewManagerModel);
+        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
+
+        final MenuController menuController = new MenuController(menuInteractor);
+        menuView.setMenuController(menuController);
+        return this;
+    }
+
+
 
     /**
      * Adds the Change Password Use Case to the application.

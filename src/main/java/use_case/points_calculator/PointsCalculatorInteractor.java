@@ -20,7 +20,7 @@ public class PointsCalculatorInteractor implements PointsCalculatorInputBoundary
      */
 
 @Override
-public double execute(PointsCalculatorInputData pointsCalculatorInputData){
+public int execute(PointsCalculatorInputData pointsCalculatorInputData){
     final Map<String, Double> randomLocation = pointsCalculatorInputData.getRandomLocation();
     final Map<String, Double> chosenLocation = pointsCalculatorInputData.getChosenLocation();
     double distance = calculateDistance(randomLocation, chosenLocation);
@@ -29,7 +29,7 @@ public double execute(PointsCalculatorInputData pointsCalculatorInputData){
     // each hint costs 1000 points - we can change later depending on the hints?
     double timespent = 150 - CountdownTimer.calculateRemainingTimeOnSubmit();
     //int hintsused = hintCounter();
-    double points = MAX_SCORE - distance/10 - timespent; //need to add hints later
+    int points = (int) Math.floor(MAX_SCORE - distance/10 - timespent); //need to add hints later
     return points;
 }
 
