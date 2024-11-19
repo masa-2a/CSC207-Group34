@@ -5,13 +5,18 @@ import com.google.cloud.firestore.*;
 import entity.CommonUser;
 import entity.User;
 import firebase.FirebaseInitializer;
+import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.login.LoginUserDataAccessInterface;
+import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.points_calculator.PointsCalculatorUserDataAccessInterface;
+import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
-public class FirestoreDataAccessObject extends AbstractDataAccessObject {
+public class FirestoreDataAccessObject extends AbstractDataAccessObject implements LoginUserDataAccessInterface, SignupUserDataAccessInterface, ChangePasswordUserDataAccessInterface, LogoutUserDataAccessInterface {
 
     private final Firestore firestore;
     private String currentUsername;
