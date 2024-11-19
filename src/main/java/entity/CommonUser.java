@@ -15,7 +15,12 @@ public class CommonUser implements User {
         this.password = password;
     }
 
-    public CommonUser(String name, String password, int points, int numberOfGames) {}
+    public CommonUser(String name, String password, int points, int numberOfGames) {
+        this.name = name;
+        this.password = password;
+        this.points = points;
+        this.numberOfGames = numberOfGames;
+    }
 
     @Override
     public String getName() {
