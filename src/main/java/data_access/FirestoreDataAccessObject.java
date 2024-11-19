@@ -1,12 +1,11 @@
 package data_access;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import entity.CommonUser;
 import entity.User;
+import firebase.FirebaseInitializer;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -23,8 +22,8 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject {
     private static final String USERSCOLLECTION = "Users";
 
     // Constructor to initialize Firestore instance
-    public FirestoreDataAccessObject(Firestore db) {
-        this.firestore = db;
+    public FirestoreDataAccessObject() {
+        this.firestore = FirebaseInitializer.initializeFirebase();
         this.currentUsername = "";  // Default state, no user logged in
     }
 
