@@ -5,8 +5,8 @@ package entity;
  */
 public class CommonUser implements User {
 
-    private final String name;
-    private final String password;
+    private String name = "";
+    private String password = "";
     private int points;
     private int numberOfGames;
 

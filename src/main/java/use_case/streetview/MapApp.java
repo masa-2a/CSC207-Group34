@@ -33,17 +33,4 @@ public class MapApp extends JMapViewer {
             System.out.println("Frame dimensions: " + FRAME_WIDTH + "x" + FRAME_HEIGHT);
         });
     }
-
-    @Override
-    public void setZoomButtonStyle(JMapViewer.ZOOM_BUTTON_STYLE style) {
-        int buttonX = FRAME_WIDTH / 2 - 60; // Position near the edge of the map
-        int buttonY = FRAME_HEIGHT - 100; // Near the bottom edge
-        int buttonSize = 40; // Button size
-
-        zoomSlider.setBounds(0, 0, 0, 0); // Hide the slider
-        zoomOutButton.setBounds(buttonX, buttonY, buttonSize, buttonSize);
-        zoomInButton.setBounds(buttonX - buttonSize - 10, buttonY, buttonSize, buttonSize);
-
-        repaint();
-    }
 }

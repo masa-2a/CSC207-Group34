@@ -24,6 +24,8 @@ public class FirebaseInitializer {
             System.err.println("Error initializing Firebase: " + e.getMessage());
             return null;
         }
+
+        return initializeFirebase();
     }
 
 }

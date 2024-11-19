@@ -1,46 +1,49 @@
 package use_case.streetview_map;
 
+import com.teamdev.jxbrowser.browser.Browser;
+
+import com.teamdev.jxbrowser.engine.Engine;
+import com.teamdev.jxbrowser.engine.EngineOptions;
+import com.teamdev.jxbrowser.engine.RenderingMode;
+import com.teamdev.jxbrowser.view.javafx.BrowserView;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.net.URL;
+import java.nio.file.Paths;
 
 public class StreetViewMapApp extends Application {
+    @Override
+    public void start(Stage stage) {
+        // Initialize the JxBrowser engine.
+        Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
+                .licenseKey("OK6AEKNYF2KFR6YGPA0GCYPPB72XLN3MY23BQUDMBVBH16NZHXTGMGGFTQW5FLHQKINRCZEOMFN8HA7VMJ62H2QPSQRIS1NUW21Y2V2H7Q05GH9I5U6APVLUPVHA1C4RMED8O7H7U9Q1BJMFK").build());
 
-    @Override public void start(Stage stage) {
-        // Create the WebView
-        final WebView webView = new WebView();
+        // Create a browser instance.
+        Browser browser = engine.newBrowser();
 
-        // Obtain the WebEngine from the WebView
-        final WebEngine webEngine = webView.getEngine();
+        // Create a JavaFX BrowserView.
+        BrowserView browserView = BrowserView.newInstance(browser);
 
-        webEngine.setOnAlert(event -> System.out.println("JavaScript Alert: " + event.getData()));
+        // Load the local HTML file.
+        String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
+        browser.navigation().loadUrl(htmlPath);
 
-        // Load the googlemap.html file
-        URL htmlFileUrl = getClass().getResource("/map.html");
-        if (htmlFileUrl != null) {
-            webEngine.load(htmlFileUrl.toString());
-        } else {
-            System.out.println("Error: map.html not found in resources.");
-        }
+        // Setup the JavaFX scene.
+        StackPane root = new StackPane();
+        root.getChildren().add(browserView);
 
-        // create scene
-        stage.setTitle("Web Map");
-        Scene scene = new Scene(webView,1000,700, Color.web("#666970"));
+        Scene scene = new Scene(root, 1000, 700);
+        stage.setTitle("Web Map - JxBrowser");
         stage.setScene(scene);
-        // show stage
         stage.show();
+
+        // Ensure the engine is shut down when the application closes.
+        stage.setOnCloseRequest(event -> engine.close());
     }
 
-    static { // use system proxy settings when standalone application
-        System.setProperty("java.net.useSystemProxies", "true");
-    }
-
-    public static void main(String[] args){
-        Application.launch(args);
+    public static void main(String[] args) {
+        launch(args);
     }
 }
