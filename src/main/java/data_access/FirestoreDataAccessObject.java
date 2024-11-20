@@ -10,7 +10,7 @@ import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.points_calculator.PointsCalculatorUserDataAccessInterface;
+import use_case.points_calculator.PointsCalculatorDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
-public class FirestoreDataAccessObject extends AbstractDataAccessObject implements LoginUserDataAccessInterface, SignupUserDataAccessInterface, ChangePasswordUserDataAccessInterface, LogoutUserDataAccessInterface, LeaderboardUserDataAccessInterface, PointsCalculatorUserDataAccessInterface {
+public class FirestoreDataAccessObject extends AbstractDataAccessObject implements LoginUserDataAccessInterface, SignupUserDataAccessInterface, ChangePasswordUserDataAccessInterface, LogoutUserDataAccessInterface, LeaderboardUserDataAccessInterface, PointsCalculatorDataAccessInterface {
 
     private final Firestore firestore;
     private String currentUsername;
@@ -113,6 +113,6 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
 
     @Override
     public List<CommonUser> returnAllUsers() {
-
+    return null;
     }
 }
