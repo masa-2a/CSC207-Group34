@@ -4,14 +4,15 @@
 /httpRequests/
 /dataSources/
 /dataSources.local.xml
+.idea/misc.xml
 
 # Ignore compiled Java class files
 *.class
 
 # Ignore build directories
-/out/
-/target/
-/build/
+out/
+target/
+build/
 
 # Ignore logs and temporary files
 *.log
