@@ -6,12 +6,16 @@ import com.google.firebase.FirebaseOptions;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.cloud.FirestoreClient;
 
+import java.io.FileInputStream;
+
 public class FirebaseInitializer {
 
     public static Firestore initializeFirebase() {
         try {
+            FileInputStream serviceAccount = new FileInputStream(" add your path to the service account");
+            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.getApplicationDefault())
+                    .setCredentials(credentials)
                     .build();
 
             FirebaseApp defaultApp = FirebaseApp.initializeApp(options);
