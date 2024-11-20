@@ -9,6 +9,6 @@ public interface PointsCalculatorInputBoundary {
      * Executes the points calculator use case.
      * @param pointsCalculatorInputData the input data
      */
-    int execute(PointsCalculatorInputData pointsCalculatorInputData);
+    void execute(PointsCalculatorInputData pointsCalculatorInputData);
 }
 
