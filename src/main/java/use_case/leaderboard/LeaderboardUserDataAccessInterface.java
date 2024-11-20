@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LeaderboardUserDataAccessInterface {
     /**
-     * Returns a list of all the users in the data base
+     * Returns a list of all the users in the database
      * @return List<CommonUser>
      */
     List<CommonUser> returnAllUsers();
