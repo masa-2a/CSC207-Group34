@@ -1,0 +1,88 @@
+<!doctype html>
+<!--
+ @license
+ Copyright 2019 Google LLC. All Rights Reserved.
+ SPDX-License-Identifier: Apache-2.0
+-->
+<html>
+<head>
+  <title>Street View split-map-panes</title>
+</head>
+
+<style>
+  /**
+   * @license
+   * Copyright 2019 Google LLC. All Rights Reserved.
+   * SPDX-License-Identifier: Apache-2.0
+   */
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #map, #pano {
+    float: left;
+    height: 100%;
+    width: 50%;
+  }
+
+</style>
+
+<body>
+<div id="map"></div>
+<div id="pano"></div>
+<div id="street-view"></div>
+</body>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE7_bfL1qF7QvFo9crvQ8v4wbslyufU1g&callback=initialize&v=weekly"
+></script>
+
+<script>
+  /**
+   * @license
+   * Copyright 2019 Google LLC. All Rights Reserved.
+   * SPDX-License-Identifier: Apache-2.0
+   */
+  let v = 1;
+  let panorama;
+  function initialize() {
+    if (v === 1) {
+      const fenway = { lat: 42.345573, lng: -71.098326 }
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: fenway,
+        zoom: 8,
+      })
+      const panorama = new google.maps.StreetViewPanorama(
+        document.getElementById("pano"),
+        {
+          position: fenway,
+          pov: {
+            heading: 34,
+            pitch: 10,
+          },
+        },
+      )
+
+      map.setStreetView(panorama)
+
+    } else {
+      panorama = new google.maps.StreetViewPanorama(
+        document.getElementById("street-view"),
+        {
+          position: { lat: 37.86926, lng: -122.254811 },
+          pov: { heading: 165, pitch: 0 },
+          zoom: 1,
+        },
+      )
+
+    }
+
+  }
+
+  window.initialize = initialize
+</script>
+
+</html>
