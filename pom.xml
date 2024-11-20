@@ -13,9 +13,17 @@
             <id>josm-repo</id>
             <url>https://josm.openstreetmap.de/nexus/content/repositories/releases/</url>
         </repository>
+
+      <!-- This is Steven's changes, but Purav is fixing them while git merging.-->
+      <!-- While I am fixing this there may be some downstream affects, so we may need to fix it later.-->
         <repository>
             <id>com.teamdev</id>
             <url>https://europe-maven.pkg.dev/jxbrowser/releases</url>
+        </repository>
+
+        <repository>
+            <id>java-firestore</id>
+            <url>https://github.com/googleapis/java-firestore</url>
         </repository>
     </repositories>
 
@@ -42,7 +50,7 @@
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
-      
+
       <!--Firebase API Dependency. Added by Masa-->
         <dependency>
             <groupId>com.google.firebase</groupId>

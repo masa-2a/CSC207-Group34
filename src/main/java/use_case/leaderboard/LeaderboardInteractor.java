@@ -14,5 +14,4 @@ public class LeaderboardInteractor {
         this.leaderboardOutputBoundary = leaderboardOutputBoundary;
         this.userDataAccessInterface = userDataAccessInterface;
     }
-
 }

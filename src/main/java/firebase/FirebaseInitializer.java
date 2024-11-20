@@ -10,7 +10,7 @@ public class FirebaseInitializer {
 
     public static Firestore initializeFirebase() {
         try {
-            FirebaseOptions options = new FirebaseOptions.Builder()
+            FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.getApplicationDefault())
                     .build();
 
@@ -22,6 +22,7 @@ public class FirebaseInitializer {
             return db;
         } catch (Exception e) {
             System.err.println("Error initializing Firebase: " + e.getMessage());
+            return null;
         }
 
         return initializeFirebase();
