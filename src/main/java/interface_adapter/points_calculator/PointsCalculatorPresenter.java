@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import use_case.login.LoginOutputData;
 import use_case.points_calculator.PointsCalculatorInputBoundary;
 import use_case.points_calculator.PointsCalculatorOutputBoundary;
+import use_case.points_calculator.PointsCalculatorOutputData;
 
 public class PointsCalculatorPresenter implements PointsCalculatorOutputBoundary {
     private final PointsCalculatorViewModel pointsCalculatorViewModel;
@@ -20,7 +21,10 @@ public class PointsCalculatorPresenter implements PointsCalculatorOutputBoundary
      * @param outputData the output data
      */
     @Override
-    public void prepareSuccessView(LoginOutputData outputData) {
+    public void prepareSuccessView(PointsCalculatorOutputData outputData) {
+
+
+
 
     }
 }
