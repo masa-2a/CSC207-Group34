@@ -14,6 +14,7 @@ import use_case.points_calculator.PointsCalculatorUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -110,6 +111,8 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
     }
 
 
+    @Override
+    public List<CommonUser> returnAllUsers() {
 
-
+    }
 }

@@ -12,7 +12,7 @@ public class FirebaseInitializer {
 
     public static Firestore initializeFirebase() {
         try {
-            FileInputStream serviceAccount = new FileInputStream(" add your path to the service account");
+            FileInputStream serviceAccount = new FileInputStream("/Users/masaarja/Desktop/geoguesser_firesbase_service_account");
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(credentials)
