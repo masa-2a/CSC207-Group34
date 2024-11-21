@@ -24,6 +24,7 @@ public class PointsCalculatorInteractor implements PointsCalculatorInputBoundary
     public void execute(PointsCalculatorInputData pointsCalculatorInputData) {
         final Map<String, Double> randomLocation = pointsCalculatorInputData.getRandomLocation();
         final Map<String, Double> chosenLocation = pointsCalculatorInputData.getChosenLocation();
+        final String imagepath = pointsCalculatorInputData.getImagepath();
 
         double distance = PointsCalculator.calculateDistance(randomLocation, chosenLocation);
         double timespent = pointsCalculatorInputData.getTimespent();
@@ -34,10 +35,17 @@ public class PointsCalculatorInteractor implements PointsCalculatorInputBoundary
         User user = pointsDataAccessObject.get(username);
         user.addPoints(points);
 
-
         String message = "You scored " + points + "points!";
-        final PointsCalculatorOutputData pointsCalculatorOutputData = new PointsCalculatorOutputData(points, message);
+        final PointsCalculatorOutputData pointsCalculatorOutputData = new PointsCalculatorOutputData(points, message, imagepath);
         pointsCalculatorPresenter.prepareSuccessView(pointsCalculatorOutputData);
 
+    }
+
+    /**
+     * Executes the switch to new round view use case.
+     */
+    @Override
+    public void switchToMenuView() {
+        pointsCalculatorPresenter.switchToMenuView();
     }
 }
