@@ -8,7 +8,6 @@ public class PointsCalculator {
 
 
     public PointsCalculator() {
-
     }
 
     public static double calculateDistance(Map<String, Double> randomLocation, Map<String, Double> chosenLocation){
