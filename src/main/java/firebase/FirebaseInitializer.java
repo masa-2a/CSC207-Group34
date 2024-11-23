@@ -25,7 +25,5 @@ public class FirebaseInitializer {
             return null;
         }
 
-        return initializeFirebase();
     }
-
 }

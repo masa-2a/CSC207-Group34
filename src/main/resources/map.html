@@ -1,88 +1,120 @@
 <!doctype html>
-<!--
- @license
- Copyright 2019 Google LLC. All Rights Reserved.
- SPDX-License-Identifier: Apache-2.0
--->
 <html>
 <head>
   <title>Street View split-map-panes</title>
 </head>
 
 <style>
-  /**
-   * @license
-   * Copyright 2019 Google LLC. All Rights Reserved.
-   * SPDX-License-Identifier: Apache-2.0
-   */
   html,
   body {
     height: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #map-container {
+    flex: 1;
+    display: flex;
   }
 
   #map, #pano {
-    float: left;
+    flex: 1;
     height: 100%;
-    width: 50%;
   }
 
+  #controls {
+    padding: 10px;
+    text-align: center;
+    background: #f1f1f1;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
 </style>
 
 <body>
-<div id="map"></div>
-<div id="pano"></div>
-<div id="street-view"></div>
+<div id="controls">
+  <button id="submitButton">Submit Coordinates</button>
+</div>
+<div id="map-container">
+  <div id="map"></div>
+  <div id="pano"></div>
+</div>
 </body>
 
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE7_bfL1qF7QvFo9crvQ8v4wbslyufU1g&callback=initialize&v=weekly"
-></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE7_bfL1qF7QvFo9crvQ8v4wbslyufU1g&callback=initialize&v=weekly">
+</script>
 
 <script>
-  /**
-   * @license
-   * Copyright 2019 Google LLC. All Rights Reserved.
-   * SPDX-License-Identifier: Apache-2.0
-   */
-  let v = 1;
-  let panorama;
+  let currentMarker = null; // To store the current marker's location
+
   function initialize() {
-    if (v === 1) {
-      const fenway = { lat: 42.345573, lng: -71.098326 }
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: fenway,
-        zoom: 8,
-      })
-      const panorama = new google.maps.StreetViewPanorama(
-        document.getElementById("pano"),
-        {
-          position: fenway,
-          pov: {
-            heading: 34,
-            pitch: 10,
-          },
-        },
-      )
+    const initialLocation = { lat: 42, lng: -71 };
 
-      map.setStreetView(panorama)
+    // Create the map with Street View control disabled
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: initialLocation,
+      zoom: 8,
+      streetViewControl: false, // Disable Pegman
+      disableDefaultUI: true,  // Disable all default UI
+    });
 
-    } else {
-      panorama = new google.maps.StreetViewPanorama(
-        document.getElementById("street-view"),
-        {
-          position: { lat: 37.86926, lng: -122.254811 },
-          pov: { heading: 165, pitch: 0 },
-          zoom: 1,
-        },
-      )
+    // Create a single marker but do not set its position yet
+    const marker = new google.maps.Marker({
+      map: map,
+      icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Red pin icon
+    });
 
-    }
+    // Add an event listener to move the marker to the clicked location
+    map.addListener("click", (event) => {
+      const clickedLocation = event.latLng;
 
+      // Move the existing marker to the new location
+      marker.setPosition(clickedLocation);
+      currentMarker = clickedLocation; // Update the current marker's location
+    });
+
+    // Create the panorama with address and info UI disabled
+    const panorama = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+              position: initialLocation,
+              pov: {
+                heading: 34,
+                pitch: 10,
+              },
+              addressControl: false, // Disable address info
+              linksControl: false,   // Disable navigation links
+              panControl: false,     // Disable pan control
+              zoomControl: false,    // Disable zoom control
+            }
+    );
+
+    map.setStreetView(panorama);
+
+    // Add a click event listener for the submit button
+    document.getElementById("submitButton").addEventListener("click", () => {
+      if (currentMarker) {
+        const lat = currentMarker.lat();
+        const lng = currentMarker.lng();
+        console.log(`Coordinates: Latitude = ${lat}, Longitude = ${lng}`);
+        // Example: Send data to Java using a hypothetical JavaScript bridge
+        if (typeof java !== "undefined" && java !== null) {
+          java.printCoordinates(lat, lng); // Call a Java function to print the coordinates
+        }
+      } else {
+        console.log("No marker placed yet!");
+      }
+    });
   }
 
-  window.initialize = initialize
+  window.initialize = initialize;
 </script>
 
 </html>
