@@ -5,12 +5,11 @@ import java.util.Map;
 public class calculateDistance {
 
     public static double getDistance(Map<String, Double> randomLocation, Map<String, Double> chosenLocation) {
-        if (!randomLocation.containsKey("latitude") || !randomLocation.containsKey("longitude")) {
-            throw new IllegalArgumentException("Random location must contain 'latitude' and 'longitude' keys.");
+        if (!randomLocation.containsKey("latitude") || !randomLocation.containsKey("longitude") || !chosenLocation.containsKey("latitude") ||
+                !chosenLocation.containsKey("longitude")) {
+            throw new IllegalArgumentException("Random location and Chosen location must contain 'latitude' and 'longitude' keys.");
         }
-        if (!chosenLocation.containsKey("latitude") || !chosenLocation.containsKey("longitude")) {
-            throw new IllegalArgumentException("Chosen location must contain 'latitude' and 'longitude' keys.");
-        }
+
 
         double lat1 = Math.toRadians(randomLocation.get("latitude"));
         double lon1 = Math.toRadians(randomLocation.get("longitude"));

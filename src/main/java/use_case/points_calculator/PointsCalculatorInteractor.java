@@ -30,7 +30,7 @@ public class PointsCalculatorInteractor implements PointsCalculatorInputBoundary
         User user = pointsDataAccessObject.get(username);
         user.addPoints(points);
 
-        String message = "You scored " + points + "points!";
+        String message = "You scored " + points + " points!";
         final PointsCalculatorOutputData pointsCalculatorOutputData = new PointsCalculatorOutputData(points, message, imagepath);
         pointsCalculatorPresenter.prepareSuccessView(pointsCalculatorOutputData);
 

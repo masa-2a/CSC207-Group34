@@ -2,7 +2,6 @@ package use_case.points_calculator;
 
 import entity.CommonUser;
 import entity.User;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,6 +66,9 @@ public class PointsCalculatorInteractorTest {
             @Override
             public void prepareSuccessView(PointsCalculatorOutputData outputData) {
                 assertEquals(4584, outputData.getPoints());
+                assertEquals("C:/Users/maira/IdeaProjects/CSC207-Group34/images/GUI plan.png", outputData.getImagepath());
+                assertEquals("You scored 4584 points!", outputData.getMessage());
+
             }
 
             /**
@@ -75,14 +77,54 @@ public class PointsCalculatorInteractorTest {
             @Override
             public void switchToMenuView() {
 
-
             }
 
         };
         PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, successPresenter);
         interactor.execute(inputData);
+        interactor.switchToMenuView();
 
     }
+
+    @Test
+    void failureTest() {
+        Map<String, Double> randomLocation = new HashMap<>();
+
+        Map<String, Double> chosenLocation = new HashMap<>();
+
+        PointsCalculatorInputData inputData = new PointsCalculatorInputData(randomLocation, chosenLocation, 80, 1, "C:/Users/maira/IdeaProjects/CSC207-Group34/images/GUI plan.png");
+
+
+        PointsCalculatorOutputBoundary failurePresenter = new PointsCalculatorOutputBoundary() {
+            /**
+             * Prepares the success view for the PointsCalculator Use Case.
+             *
+             * @param outputData the output data
+             */
+            @Override
+            public void prepareSuccessView(PointsCalculatorOutputData outputData) {
+                fail("Use case success is unexpected.");
+
+            }
+
+            /**
+             * Switches to the Main Menu View.
+             */
+            @Override
+            public void switchToMenuView() {
+
+            }
+        };
+        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter);
+        try {
+            interactor.execute(inputData);  // This should throw an IllegalArgumentException
+            fail("Expected IllegalArgumentException to be thrown.");  // This line ensures that if no exception is thrown, the test fails
+        } catch (IllegalArgumentException e) {
+            // Check that the exception message is as expected
+            assertEquals("Random location and Chosen location must contain 'latitude' and 'longitude' keys.", e.getMessage());
+        }
+
+        }
 }
 
 
