@@ -1,7 +1,7 @@
 package use_case.points_calculator;
 
 /**
- * Input Boundary for actions which are related to logging in.
+ * Input Boundary for actions which are related to calculating points
  */
 public interface PointsCalculatorInputBoundary {
 

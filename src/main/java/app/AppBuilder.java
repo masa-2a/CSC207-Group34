@@ -7,13 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import data_access.FirestoreDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.leaderboard.LeaderboardViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -72,6 +72,7 @@ public class AppBuilder {
     private LoginView loginView;
     private MenuView menuView;
     private MenuViewModel menuViewModel;
+    private LeaderboardViewModel leaderboardViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -155,7 +156,7 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addMenuUseCase() {
-        final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel, viewManagerModel);
+        final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel, viewManagerModel, leaderboardViewModel );
         final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
 
         final MenuController menuController = new MenuController(menuInteractor);
@@ -197,6 +198,14 @@ public class AppBuilder {
         loggedInView.setLogoutController(logoutController);
         return this;
     }
+
+//    /**
+//     * Adds leaderboard Use Case to the application
+//     * @return this builder
+//     */
+//    public AppBuilder addLeaderboardUseCase() {
+//        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter()
+//    }
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.

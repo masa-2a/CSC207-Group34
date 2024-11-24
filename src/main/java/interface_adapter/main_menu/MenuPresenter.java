@@ -2,6 +2,7 @@ package interface_adapter.main_menu;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.leaderboard.LeaderboardViewModel;
 import use_case.menu.MenuOutputBoundary;
 
 public class MenuPresenter implements MenuOutputBoundary {
@@ -9,14 +10,15 @@ public class MenuPresenter implements MenuOutputBoundary {
     private final MenuViewModel menuViewModel;
     private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;
-    //private final LeaderboardViewModel leaderboardViewModel;
+    private final LeaderboardViewModel leaderboardViewModel;
     //private final NewRoundViewModel newRoundViewModel;
 
 
-    public MenuPresenter(MenuViewModel menuViewModel, LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
+    public MenuPresenter(MenuViewModel menuViewModel, LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel, LeaderboardViewModel leaderboardViewModel) {
         this.menuViewModel = menuViewModel;
         this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.leaderboardViewModel = leaderboardViewModel;
     }
 
 
@@ -33,7 +35,8 @@ public class MenuPresenter implements MenuOutputBoundary {
      */
     @Override
     public void switchToLeaderboardView() {
-
+        viewManagerModel.setState(leaderboardViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
     /**
