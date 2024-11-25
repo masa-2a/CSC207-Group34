@@ -14,14 +14,13 @@ import use_case.streetview_map.StreetViewMapInteractor;
 import use_case.streetview_map.StreetViewMapOutputBoundary;
 import use_case.streetview_map.StreetViewMapOutputData;
 
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.nio.file.Paths;
 
-public class MapView extends Application {
+public class MapView {
     private final StreetViewMapController controller;
 
     public MapView() {
@@ -43,7 +42,6 @@ public class MapView extends Application {
         this.controller = controller;
     }
 
-    @Override
     public void start(Stage stage) {
         // Initialize the JxBrowser engine.
         Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
@@ -90,9 +88,5 @@ public class MapView extends Application {
     @JsAccessible
     public void printCoordinates(double totalDistance) {
         controller.printCoordinates(totalDistance);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
