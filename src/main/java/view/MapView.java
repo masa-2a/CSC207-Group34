@@ -22,10 +22,9 @@ import javafx.stage.Stage;
 import java.nio.file.Paths;
 
 public class MapView extends Application {
-
     private final StreetViewMapController controller;
 
-    public StreetViewMapApp() {
+    public MapView() {
         // Create presenter and use case output boundary
         StreetViewMapPresenter presenter = new StreetViewMapPresenter();
         StreetViewMapOutputBoundary outputBoundary = new StreetViewMapOutputBoundary() {
@@ -40,6 +39,10 @@ public class MapView extends Application {
         this.controller = new StreetViewMapController(interactor, presenter);
     }
 
+    public MapView(StreetViewMapController controller) {
+        this.controller = controller;
+    }
+
     @Override
     public void start(Stage stage) {
         // Initialize the JxBrowser engine.
@@ -51,7 +54,7 @@ public class MapView extends Application {
 
         browser.set(InjectJsCallback.class, params -> {
             JsObject window = params.frame().executeJavaScript("window");
-            window.putProperty("java", new StreetViewMapApp());
+            window.putProperty("java", new MapView());
             return InjectJsCallback.Response.proceed();
         });
 
