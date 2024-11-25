@@ -24,7 +24,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
-        menuViewModel.addPropertyChangeListener(this);
+        this.menuViewModel.addPropertyChangeListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
