@@ -12,7 +12,6 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) {
-        FirebaseInitializer.initializeFirebase();
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                                             .addLoginView()
