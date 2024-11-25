@@ -37,7 +37,7 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary{
         int currentUserRank = 1;
         for (int i=0; i<sortedUsers.size(); i++){
             if (sortedUsers.get(i).getName().equals(inputData.getCurrentUsername())) {
-                topUsers.put(i, sortedUsers.get(i));
+                topUsers.put(i+1, sortedUsers.get(i));
                 currentUserRank = i+1;
                 continue;
                 }
@@ -46,7 +46,7 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary{
             }
         }
 
-        LeaderboardOutputData leaderboardOutputData = new LeaderboardOutputData(topUsers, currentUserRank );
+        LeaderboardOutputData leaderboardOutputData = new LeaderboardOutputData(topUsers, currentUserRank , inputData.getCurrentUsername() );
         leaderboardOutputBoundary.prepareSuccessView(leaderboardOutputData);
 
     }

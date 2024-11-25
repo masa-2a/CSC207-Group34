@@ -7,10 +7,10 @@ import use_case.leaderboard.LeaderboardInputData;
  * Controller for leaderboard Use Case
  */
 public class LeaderboardController {
-    private final LeaderboardInputBoundary leaderboardInputBoundary;
+    private final LeaderboardInputBoundary leaderboardInteractor;
 
     public LeaderboardController(LeaderboardInputBoundary leaderboardInputBoundary) {
-        this.leaderboardInputBoundary = leaderboardInputBoundary;
+        this.leaderboardInteractor = leaderboardInputBoundary;
     }
 
     /**
@@ -20,7 +20,7 @@ public class LeaderboardController {
     public void execute(String currentUserName) {
         final LeaderboardInputData leaderboardInputData = new LeaderboardInputData(currentUserName);
 
-        leaderboardInputBoundary.execute(leaderboardInputData);
+        leaderboardInteractor.execute(leaderboardInputData);
     }
 
     public void switchToMenuView() {

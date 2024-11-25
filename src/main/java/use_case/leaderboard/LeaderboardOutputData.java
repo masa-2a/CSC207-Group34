@@ -1,20 +1,19 @@
 package use_case.leaderboard;
 
 import entity.CommonUser;
-import entity.User;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class LeaderboardOutputData {
 
     private Map<Integer, CommonUser> topUsers;
     private int currentUserRank;
+    private String currentUsername;
 
-    public LeaderboardOutputData(Map<Integer, CommonUser> topUsers, int currentUserRank) {
+    public LeaderboardOutputData(Map<Integer, CommonUser> topUsers, int currentUserRank, String currentUsername) {
         this.topUsers = topUsers;
         this.currentUserRank = currentUserRank;
+        this.currentUsername = currentUsername;
     }
 
     public Map<Integer, CommonUser> getTopUsers() {
@@ -24,4 +23,6 @@ public class LeaderboardOutputData {
     public int getCurrentUserRank() {
         return currentUserRank;
     }
+
+    public String getCurrentUsername() { return currentUsername; }
 }

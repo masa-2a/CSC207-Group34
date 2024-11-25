@@ -12,7 +12,6 @@ import java.beans.PropertyChangeListener;
 
 public class LeaderboardView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "Leaderboard";
-
     private final LeaderboardViewModel leaderboardViewModel;
     private final JButton menu;
 
@@ -22,7 +21,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         this.leaderboardViewModel = new LeaderboardViewModel();
         leaderboardViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel("Leaderboard");
+        JLabel title = new JLabel(LeaderboardViewModel.TITLE_LABEL);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         title.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(title, BorderLayout.NORTH);
@@ -32,22 +31,27 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         leaderboardPanel.setBackground(Color.WHITE);
 
         // populate with top users
-        List<LeaderboardViewModel.UserData> users = leaderboardViewModel.getUsers();
         leaderboardPanel.removeAll();
 
         //display top users
-        for (int i = 0; i < Math.min(3, users.size()); i++) {
-            LeaderboardViewModel.UserData user = users.get(i);
-            leaderboardPanel.add(createUserPanel(i + 1, user.getName(), Math.floor(user.getAveragePoints())));
-        }
+
+        leaderboardPanel.add(createUserPanel(1,LeaderboardViewModel.FIRST_PLACE_NAME, LeaderboardViewModel.FIRST_PLACE_POINTS);
+        leaderboardPanel.add(createUserPanel(2, LeaderboardViewModel.SECOND_PLACE_NAME, LeaderboardViewModel.SECOND_PLACE_POINTS);
+        leaderboardPanel.add(createUserPanel(3, LeaderboardViewModel.THIRD_PLACE_NAME, LeaderboardViewModel.THIRD_PLACE_POINTS));
+
+
+        leaderboardPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add some spacing
+        leaderboardPanel.add(createUserPanel(Integer.valueOf(LeaderboardViewModel.CURRENT_USER_PLACE), LeaderboardViewModel.YOU_LABEL, LeaderboardViewModel.CURRENT_USER_POINTS));
 
         JScrollPane scrollPane = new JScrollPane(leaderboardPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.add(scrollPane, BorderLayout.CENTER);
 
+
         JPanel buttonsPanel = new JPanel();
-        menu = new JButton(leaderboardViewModel.BACK_TO_MENU_BUTTON);
+        menu = new JButton(LeaderboardViewModel.BACK_TO_MENU_BUTTON);
+        menu.setFont(new Font("Arial", Font.PLAIN, 16));
         menu.setAlignmentX(Component.CENTER_ALIGNMENT);
         menu.addActionListener(
                 new ActionListener() {
@@ -56,12 +60,11 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
                     }
                 }
         );
-
-        buttonsPanel.add(menu);
+        this.add(menu, BorderLayout.SOUTH);
 
     }
 
-    private JPanel createUserPanel(int rank, String name, double avgPoints) {
+    private JPanel createUserPanel(Integer rank, String name, String avgPoints) {
         JPanel userPanel = new JPanel();
         userPanel.setLayout(new BorderLayout());
         userPanel.setPreferredSize(new Dimension(350, 80));
@@ -78,7 +81,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         nameLabel.setFont(new Font("Arial", Font.BOLD, 24));
         nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
-        JLabel pointsLabel = new JLabel(String.valueOf((int) avgPoints));
+        JLabel pointsLabel = new JLabel(avgPoints);
         pointsLabel.setFont(new Font("Arial", Font.BOLD, 24));
         pointsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
