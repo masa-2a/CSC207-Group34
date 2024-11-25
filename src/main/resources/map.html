@@ -58,11 +58,19 @@
     background-color: #3e8e41; /* Even darker green on click */
     transform: scale(0.95); /* Shrink slightly on click */
   }
+
+  #distance {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 10px;
+  }
 </style>
 
 <body>
 <div id="controls">
   <button id="submitButton">Submit Coordinates</button>
+  <div id="distance"></div> <!-- Distance will be displayed here -->
 </div>
 <div id="map-container">
   <div id="map"></div>
@@ -77,6 +85,8 @@
 <script>
 
   let currentMarker = null; // To store the current marker's location
+  let correctMarker = null;
+  let line = null;
 
   function initialize() {
     const defaultLocation = {lat: 43.661775712671215, lng: -79.3951077927884};
@@ -113,8 +123,6 @@
     // Add an event listener to move the marker to the clicked location
     map.addListener("click", (event) => {
       const clickedLocation = event.latLng;
-
-      // Move the existing marker to the new location
       marker.setPosition(clickedLocation);
       currentMarker = clickedLocation; // Update the current marker's location
     });
@@ -148,8 +156,39 @@
 
         console.log(`Coordinates: Latitude = ${lat}, Longitude = ${lng}`);
 
-        window.java.printCoordinates(totalDistance); // Call the Java function to print the coordinates
+        // Display the distance next to the button
+        document.getElementById("distance").textContent = `Distance: ${totalDistance.toFixed(2)} km`;
 
+        // If a correct marker already exists, remove it
+        if (correctMarker) {
+          correctMarker.setMap(null);
+        }
+
+        // Place the correct green marker
+        correctMarker = new google.maps.Marker({
+          position: initialLocation,
+          map: map,
+          icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png", // Green pin for the correct location
+          title: "Correct Location",
+        });
+
+        // If a previous line exists, remove it
+        if (line) {
+          line.setMap(null);
+        }
+
+        // Draw the line between the guessed location and the correct location
+        line = new google.maps.Polyline({
+          path: [currentMarker, correctMarker.getPosition()],
+          geodesic: false, // Set to false for a straight line
+          strokeColor: "#FF0000", // Red line
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        line.setMap(map);
+
+        // Optionally, send the distance to Java for further handling
+        window.java.printCoordinates(totalDistance); // Call the Java function to print the coordinates
       } else {
         console.log("No marker placed yet!");
       }
