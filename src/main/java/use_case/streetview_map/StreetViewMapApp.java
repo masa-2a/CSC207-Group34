@@ -41,7 +41,7 @@ public class StreetViewMapApp extends Application {
 
         // Expose the Java object to JavaScript.
         browser.mainFrame().ifPresent(frame ->
-                frame.executeJavaScript("window.java = { printCoordinates: function(lat, lng) { java.printCoordinates(lat, lng); }};")
+                frame.executeJavaScript("window.java = { printCoordinates: function(totalDistance) { java.printCoordinates(totalDistance); }};")
         );
 
         // Setup the JavaFX scene.
@@ -62,8 +62,8 @@ public class StreetViewMapApp extends Application {
 
     // Java method to be called from JavaScript (print the coordinates)
     @JsAccessible
-    public void printCoordinates(double latitude, double longitude) {
-        System.out.printf("Coordinates received: Latitude = %.6f, Longitude = %.6f%n", latitude, longitude);
+    public void printCoordinates(double totalDistance) {
+        System.out.println(totalDistance);
     }
 
     public static void main(String[] args) {
