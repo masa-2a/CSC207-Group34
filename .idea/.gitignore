@@ -17,6 +17,3 @@ build/
 # Ignore logs and temporary files
 *.log
 *.tmp
-
-# Ignore firebase initializer as we have our own paths in here
-src/main/java/firebase/FirebaseInitializer.java

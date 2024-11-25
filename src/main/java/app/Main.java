@@ -23,8 +23,6 @@ public class Main {
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
                                             .addMenuUseCase()
-                                            .addMap2DView()
-                                            .addMap2DUseCase()
                                             .build();
 
         application.pack();
