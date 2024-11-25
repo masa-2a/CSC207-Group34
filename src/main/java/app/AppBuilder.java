@@ -22,6 +22,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.main_menu.MenuController;
 import interface_adapter.main_menu.MenuPresenter;
 import interface_adapter.main_menu.MenuViewModel;
+import interface_adapter.map2d.Map2DController;
+import interface_adapter.map2d.Map2DPresenter;
+import interface_adapter.map2d.Map2DViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -34,6 +37,9 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.map2d.Map2DInputBoundary;
+import use_case.map2d.Map2DOutputBoundary;
+import use_case.map2d.Map2DUseCaseInteractor;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
@@ -72,6 +78,8 @@ public class AppBuilder {
     private LoginView loginView;
     private MenuView menuView;
     private MenuViewModel menuViewModel;
+    private Map2DView map2DView;
+    private Map2DViewModel map2DViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -117,6 +125,17 @@ public class AppBuilder {
         menuViewModel = new MenuViewModel();
         menuView = new MenuView(menuViewModel);
         cardPanel.add(menuView,menuView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds a Map2D View to the application
+     * @return this builder
+     */
+    public AppBuilder addMap2DView() {
+        map2DViewModel = new Map2DViewModel();
+        map2DView = new Map2DView(map2DViewModel);
+        cardPanel.add(map2DView,map2DView.getViewName());
         return this;
     }
 
@@ -197,6 +216,23 @@ public class AppBuilder {
         loggedInView.setLogoutController(logoutController);
         return this;
     }
+
+
+    /**
+     * Adds the Map2D Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addMap2DUseCase() {
+        final Map2DOutputBoundary map2DOutputBoundary = new Map2DPresenter(viewManagerModel,
+                map2DViewModel);
+        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor(
+                map2DOutputBoundary);
+
+        final Map2DController controller = new Map2DController(map2DUseCaseInteractor);
+        map2DView.setMap2DController(controller);
+        return this;
+    }
+
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.

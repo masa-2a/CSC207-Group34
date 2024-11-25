@@ -19,12 +19,20 @@ public class Map2DUseCaseInteractor implements Map2DInputBoundary{
         int zoom = map2DInputData.getZoom();
         double latitude = map2DInputData.getLatitude();
         double longitude = map2DInputData.getLongitude();
+        double guessLat = map2DInputData.getGuessLat();
+        double guessLong = map2DInputData.getGuessLong();
+        double answerLat = map2DInputData.getAnswerLat();
+        double answerLong = map2DInputData.getAnswerLong();
+        boolean guessed = map2DInputData.isGuessed();
+        boolean answered = map2DInputData.isAnswered();
 
-        map2D.createMap(width,height,latitude,longitude,zoom);
+
+        map2D.createMap(width, height, latitude, longitude,
+                zoom, guessLat, guessLong, answerLat, answerLong, guessed, answered);
         String path = map2D.saveMap();
-
         final Map2DOutputData map2DOutputData = new Map2DOutputData(path);
-        map2DPresenter.prepareSuccessView(map2DOutputData);
+
+        map2DPresenter.prepareMapView(map2DOutputData);
     }
 //    int width = 600;
 //    int height = 400;

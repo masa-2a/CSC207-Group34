@@ -34,17 +34,72 @@ public class Map2D {
      * @param latitude: the latitude to create a map of
      * @param longitude: the longitude to create a map of
      * @param zoom: the zoom of the map to be saved
+     * @param guessLat: the latitude of the guess
+     * @param guessLong: the longitude of the guess
+     * @param answerLat: the latitude of the answer
+     * @param answerLong: the longitude of the answer
+     * @param guessed: true or false, guessed or not. place 1 marker down?
+     * @param answered: true or false, answered or not. place 2 marker and path down?
      */
-    public void createMap(int width, int height, double latitude, double longitude, int zoom) {
+    public void createMap(int width, int height, double latitude, double longitude,
+                          int zoom, double guessLat, double guessLong, double answerLat,
+                          double answerLong, boolean guessed, boolean answered) {
 
         Size size = new Size(width, height);
         LatLng location = new LatLng(latitude, longitude);
 
-        this.builtMap = StaticMapsApi.newRequest(context, size)
-                .center(location)
-                .zoom(zoom)
-                .maptype(StaticMapType.roadmap);
+        if (answered) {
+            LatLng guess = new LatLng(guessLat, guessLong);
+            StaticMapsRequest.Markers marker = new StaticMapsRequest.Markers();
+            marker.addLocation(guess);
+            marker.color("red");
+            marker.size(StaticMapsRequest.Markers.MarkersSize.mid);
+
+            LatLng answer = new LatLng(answerLat, answerLong);
+            StaticMapsRequest.Markers marker2 = new StaticMapsRequest.Markers();
+            marker2.addLocation(answer);
+            marker2.color("black");
+            marker2.size(StaticMapsRequest.Markers.MarkersSize.mid);
+
+            StaticMapsRequest.Path path = new StaticMapsRequest.Path();
+            path.addPoint(guess);
+            path.addPoint(answer);
+            path.color("black");
+            path.weight(10);
+
+
+            this.builtMap = StaticMapsApi.newRequest(getContext(), size)
+                    .center(location)
+                    .zoom(zoom)
+                    .maptype(StaticMapType.roadmap)
+                    .markers(marker)
+                    .markers(marker2)
+                    .path(path);
+        }
+
+        else if (guessed) {
+            LatLng guess = new LatLng(guessLat, guessLong);
+            StaticMapsRequest.Markers marker = new StaticMapsRequest.Markers();
+            marker.addLocation(guess);
+            marker.color("red");
+            marker.size(StaticMapsRequest.Markers.MarkersSize.mid);
+
+            this.builtMap = StaticMapsApi.newRequest(getContext(), size)
+                    .center(location)
+                    .zoom(zoom)
+                    .maptype(StaticMapType.roadmap)
+                    .markers(marker);
+        }
+
+        else {
+            this.builtMap = StaticMapsApi.newRequest(getContext(), size)
+                    .center(location)
+                    .zoom(zoom)
+                    .maptype(StaticMapType.roadmap);
+        }
+
     }
+
 
     /**
      * Creating a get map method
@@ -59,7 +114,7 @@ public class Map2D {
      */
     public String saveMap(){
         try {
-            byte[] imageBytes = builtMap.await().imageData;
+            byte[] imageBytes = getMap().await().imageData;
             Files.write(Paths.get("static_map.png"), imageBytes);
             System.out.println("Static map image saved as static_map.png");
             return Paths.get("static_map.png").toString();
@@ -71,6 +126,10 @@ public class Map2D {
         } catch (IOException e) {
             System.err.println("IO Exception: " + e.getMessage());
         }
+        return null;
     }
 
+    public GeoApiContext getContext() {
+        return context;
+    }
 }
