@@ -1,6 +1,7 @@
 package interface_adapter.points_calculator;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginState;
 import interface_adapter.main_menu.MenuViewModel;
 import use_case.login.LoginOutputData;
 import use_case.points_calculator.PointsCalculatorInputBoundary;
@@ -31,6 +32,7 @@ public class PointsCalculatorPresenter implements PointsCalculatorOutputBoundary
 
 
     }
+
 
     /**
      * Switches to the Main Menu View.
