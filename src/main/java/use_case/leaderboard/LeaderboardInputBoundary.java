@@ -9,4 +9,9 @@ public interface LeaderboardInputBoundary {
      * @param inputData the input data
      */
     void execute(LeaderboardInputData inputData);
+
+    /**
+     * Executes the switch to the main menu
+     */
+    void switchToMenuView();
 }

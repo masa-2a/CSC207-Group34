@@ -35,13 +35,16 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
 
         //display top users
 
-        leaderboardPanel.add(createUserPanel(1,LeaderboardViewModel.FIRST_PLACE_NAME, LeaderboardViewModel.FIRST_PLACE_POINTS);
-        leaderboardPanel.add(createUserPanel(2, LeaderboardViewModel.SECOND_PLACE_NAME, LeaderboardViewModel.SECOND_PLACE_POINTS);
-        leaderboardPanel.add(createUserPanel(3, LeaderboardViewModel.THIRD_PLACE_NAME, LeaderboardViewModel.THIRD_PLACE_POINTS));
+        leaderboardPanel.add(createUserPanel(1, LeaderboardViewModel.getFirstPlaceName(), LeaderboardViewModel.getFirstPlacePoints()));
+        leaderboardPanel.add(createUserPanel(2, LeaderboardViewModel.getSecondPlaceName(), LeaderboardViewModel.getSecondPlacePoints()));
+        leaderboardPanel.add(createUserPanel(3, LeaderboardViewModel.getThirdPlaceName(), LeaderboardViewModel.getThirdPlacePoints()));
 
 
         leaderboardPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add some spacing
-        leaderboardPanel.add(createUserPanel(Integer.valueOf(LeaderboardViewModel.CURRENT_USER_PLACE), LeaderboardViewModel.YOU_LABEL, LeaderboardViewModel.CURRENT_USER_POINTS));
+        if (LeaderboardViewModel.getCurrentUserPlace() != null) {
+            leaderboardPanel.add(createUserPanel(Integer.valueOf(LeaderboardViewModel.getCurrentUserPlace()), LeaderboardViewModel.YOU_LABEL, LeaderboardViewModel.getCurrentUserPoints()));
+        }
+
 
         JScrollPane scrollPane = new JScrollPane(leaderboardPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -49,7 +52,6 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         this.add(scrollPane, BorderLayout.CENTER);
 
 
-        JPanel buttonsPanel = new JPanel();
         menu = new JButton(LeaderboardViewModel.BACK_TO_MENU_BUTTON);
         menu.setFont(new Font("Arial", Font.PLAIN, 16));
         menu.setAlignmentX(Component.CENTER_ALIGNMENT);

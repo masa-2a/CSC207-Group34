@@ -13,6 +13,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.leaderboard.LeaderboardController;
+import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -28,6 +30,9 @@ import interface_adapter.signup.SignupViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.leaderboard.LeaderboardInputBoundary;
+import use_case.leaderboard.LeaderboardInteractor;
+import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -73,6 +78,7 @@ public class AppBuilder {
     private MenuView menuView;
     private MenuViewModel menuViewModel;
     private LeaderboardViewModel leaderboardViewModel;
+    private LeaderboardView leaderboardView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -121,6 +127,16 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds Leaderboard View to the application
+     * @return this builder
+     */
+    public AppBuilder addLeaderboardView() {
+        leaderboardViewModel = new LeaderboardViewModel();
+        leaderboardView = new LeaderboardView(leaderboardViewModel);
+        cardPanel.add(leaderboardView, leaderboardView.getViewName());
+        return this;
+    }
 
     /**
      * Adds the Signup Use Case to the application.
@@ -199,13 +215,22 @@ public class AppBuilder {
         return this;
     }
 
-//    /**
-//     * Adds leaderboard Use Case to the application
-//     * @return this builder
-//     */
-//    public AppBuilder addLeaderboardUseCase() {
-//        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter()
-//    }
+    /**
+     * Adds leaderboard Use Case to the application
+     * @return this builder
+     */
+    public AppBuilder addLeaderboardUseCase() {
+        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewModel,
+                viewManagerModel, menuViewModel);
+
+        final LeaderboardInputBoundary leaderboardInteractor =
+                new LeaderboardInteractor(leaderboardOutputBoundary, userDataAccessObject);
+
+        final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
+
+        leaderboardView.setLeaderboardController(leaderboardController);
+        return this;
+    }
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.

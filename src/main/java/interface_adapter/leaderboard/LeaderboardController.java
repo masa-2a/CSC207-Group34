@@ -24,6 +24,6 @@ public class LeaderboardController {
     }
 
     public void switchToMenuView() {
-
+        leaderboardInteractor.switchToMenuView();
     }
 }

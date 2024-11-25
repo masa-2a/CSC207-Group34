@@ -8,40 +8,80 @@ public class LeaderboardViewModel extends ViewModel<LeaderboardState> {
     public static final String BACK_TO_MENU_BUTTON = "Back";
     public static final String TITLE_LABEL = "Leaderboard";
     public static final String YOU_LABEL = "You";
-    public static String FIRST_PLACE_NAME;
-    public static String SECOND_PLACE_NAME;
-    public static String THIRD_PLACE_NAME;
-    public static String CURRENT_USERNAME;
-    public static String CURRENT_USER_PLACE;
-    public static String CURRENT_USER_POINTS;
-    public static String FIRST_PLACE_POINTS;
-    public static String SECOND_PLACE_POINTS;
-    public static String THIRD_PLACE_POINTS;
+    private static String firstPlaceName;
+    private static String secondPlaceName;
+    private static String thirdPlaceName;
+    private static String currentUsername;
+    private static String currentUserPlace;
+    private static String currentUserPoints;
+    private static String firstPlacePoints;
+    private static String secondPlacePoints;
+    private static String thirdPlacePoints;
 
     public LeaderboardViewModel() {
         super(TITLE_LABEL);
         setState(new LeaderboardState());
     }
 
-
-    public void setCurrentUserStats(Integer currentUserRank, String currentUsername, Integer averagePoints) {
-        CURRENT_USERNAME = currentUsername;
-        CURRENT_USER_PLACE = String.valueOf(currentUserRank);
-        CURRENT_USER_POINTS = String.valueOf(averagePoints);
+    public static String getFirstPlacePoints() {
+        return firstPlacePoints;
     }
 
-    public void setFirstPlaceStats(String name, int averagePoints) {
-        FIRST_PLACE_NAME = name;
-        FIRST_PLACE_POINTS = String.valueOf(averagePoints);
+    public static void setFirstPlacePoints(String firstPlacePoints) {
+        LeaderboardViewModel.firstPlacePoints = firstPlacePoints;
     }
 
-    public void setSecondPlaceStats(String name, int averagePoints) {
-        SECOND_PLACE_NAME = name;
-        SECOND_PLACE_POINTS = String.valueOf(averagePoints);
+    public static String getSecondPlacePoints() {
+        return secondPlacePoints;
     }
 
-    public void setThirdPlaceStats(String name, int averagePoints) {
-        THIRD_PLACE_NAME = name;
-        THIRD_PLACE_POINTS = String.valueOf(averagePoints);
+    public static String getThirdPlacePoints() {
+        return thirdPlacePoints;
+    }
+
+    public static String getThirdPlaceName() {
+        return thirdPlaceName;
+    }
+
+    public static String getSecondPlaceName() {
+        return secondPlaceName;
+    }
+
+    public static String getFirstPlaceName() {
+        return firstPlaceName;
+    }
+
+    public static String getCurrentUserPlace() {
+        return currentUserPlace;
+    }
+
+    public static String getCurrentUserPoints() {
+        return currentUserPoints;
+    }
+
+
+    public static void setCurrentUserStats(Integer currentUserRank, String currentUsername, Integer averagePoints) {
+        LeaderboardViewModel.currentUsername = currentUsername;
+        currentUserPlace = String.valueOf(currentUserRank);
+        currentUserPoints = String.valueOf(averagePoints);
+    }
+
+    public static void setFirstPlaceStats(String name, int averagePoints) {
+        firstPlaceName = name;
+        setFirstPlacePoints(String.valueOf(averagePoints));
+    }
+
+    public static void setSecondPlaceStats(String name, int averagePoints) {
+        secondPlaceName = name;
+        secondPlacePoints = String.valueOf(averagePoints);
+    }
+
+    public static void setThirdPlaceStats(String name, int averagePoints) {
+        thirdPlaceName = name;
+        thirdPlacePoints = String.valueOf(averagePoints);
+    }
+
+    public static String getCurrentUsername() {
+        return currentUsername;
     }
 }

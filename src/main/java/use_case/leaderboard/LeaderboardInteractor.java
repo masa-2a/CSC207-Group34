@@ -1,14 +1,11 @@
 package use_case.leaderboard;
 
 import entity.CommonUser;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginUserDataAccessInterface;
 
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class LeaderboardInteractor implements LeaderboardInputBoundary{
 
@@ -49,5 +46,10 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary{
         LeaderboardOutputData leaderboardOutputData = new LeaderboardOutputData(topUsers, currentUserRank , inputData.getCurrentUsername() );
         leaderboardOutputBoundary.prepareSuccessView(leaderboardOutputData);
 
+    }
+
+    @Override
+    public void switchToMenuView() {
+        leaderboardOutputBoundary.switchToMenuView();
     }
 }
