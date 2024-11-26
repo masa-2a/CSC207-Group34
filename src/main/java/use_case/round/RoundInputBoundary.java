@@ -9,8 +9,8 @@ public interface RoundInputBoundary {
 
     /**
      * Executes the view 2d map use case.
-     * @param map2DInputData the input data
+     * @param roundInputData the input data
      */
-    void execute(Map2DInputData map2DInputData);
+    void execute(RoundInputData roundInputData);
 
 }
