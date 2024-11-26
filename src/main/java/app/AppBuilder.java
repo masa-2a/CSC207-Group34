@@ -25,6 +25,9 @@ import interface_adapter.main_menu.MenuViewModel;
 import interface_adapter.map2d.Map2DController;
 import interface_adapter.map2d.Map2DPresenter;
 import interface_adapter.map2d.Map2DViewModel;
+import interface_adapter.round.RoundController;
+import interface_adapter.round.RoundPresenter;
+import interface_adapter.round.RoundViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -43,6 +46,9 @@ import use_case.map2d.Map2DUseCaseInteractor;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
+import use_case.round.RoundInputBoundary;
+import use_case.round.RoundInteractor;
+import use_case.round.RoundOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -80,6 +86,8 @@ public class AppBuilder {
     private MenuViewModel menuViewModel;
     private Map2DView map2DView;
     private Map2DViewModel map2DViewModel;
+    private RoundView roundView;
+    private RoundViewModel roundViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -117,6 +125,18 @@ public class AppBuilder {
         cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
     }
+
+    /**
+     * Adds a Round View to the application
+     * @return this builder
+     */
+    public AppBuilder addRoundView() {
+        this.roundViewModel = new RoundViewModel();
+        this.roundView = new RoundView(roundViewModel);
+        cardPanel.add(roundView,roundView.getViewName());
+        return this;
+    }
+
     /**
      * Adds the LoggedIn View to the application.
      * @return this builder
@@ -170,21 +190,6 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Menu Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addMenuUseCase() {
-        final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel, viewManagerModel);
-        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
-
-        final MenuController menuController = new MenuController(menuInteractor);
-        menuView.setMenuController(menuController);
-        return this;
-    }
-
-
-
-    /**
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
@@ -217,6 +222,20 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the Menu Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addMenuUseCase() {
+        final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel,
+                viewManagerModel, roundViewModel);
+        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
+
+        final MenuController menuController = new MenuController(menuInteractor);
+        menuView.setMenuController(menuController);
+        return this;
+    }
+
 
     /**
      * Adds the Map2D Use Case to the application.
@@ -233,6 +252,21 @@ public class AppBuilder {
         return this;
     }
 
+
+    /**
+     * Adds the Round Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addRoundUseCase() {
+        final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel, map2DViewModel,
+                viewManagerModel);
+        final RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(
+                roundOutputBoundary);
+
+        final RoundController roundController = new RoundController(roundUseCaseInteractor);
+        roundView.setRoundController(roundController);
+        return this;
+    }
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
