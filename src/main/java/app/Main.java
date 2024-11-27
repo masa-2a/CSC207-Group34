@@ -1,5 +1,6 @@
 package app;
 
+import firebase.FirebaseInitializer;
 import javax.swing.JFrame;
 
 /**
@@ -16,10 +17,16 @@ public class Main {
                                             .addLoginView()
                                             .addSignupView()
                                             .addLoggedInView()
+                                            .addMenuView()
+                                            .addRoundView()
+                                            .addMap2DView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
+                                            .addMenuUseCase()
+                                            .addMap2DUseCase()
+                                            .addRoundUseCase()
                                             .build();
 
         application.pack();
