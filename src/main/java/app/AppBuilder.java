@@ -160,7 +160,7 @@ public class AppBuilder {
         return this;
     }
 
-leaderboard
+
     /**
      * Adds Leaderboard View to the application
      * @return this builder
@@ -169,6 +169,8 @@ leaderboard
         leaderboardViewModel = new LeaderboardViewModel();
         leaderboardView = new LeaderboardView(leaderboardViewModel);
         cardPanel.add(leaderboardView, leaderboardView.getViewName());
+        return this;
+    }
 
 //    /**
 //     * Adds a Map2D View to the application
@@ -252,23 +254,6 @@ leaderboard
     }
 
     /**
-
-     * Adds the Menu Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addMenuUseCase() {
-        final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel, viewManagerModel, leaderboardViewModel );
-        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
-
-        final MenuController menuController = new MenuController(menuInteractor);
-        menuView.setMenuController(menuController);
-        return this;
-    }
-
-
-
-    /**
-
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
