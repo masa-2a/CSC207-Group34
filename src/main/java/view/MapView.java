@@ -1,4 +1,4 @@
-package use_case.streetview_map;
+package view;
 
 import com.teamdev.jxbrowser.browser.Browser;
 import com.teamdev.jxbrowser.browser.callback.InjectJsCallback;
@@ -8,16 +8,38 @@ import com.teamdev.jxbrowser.engine.RenderingMode;
 import com.teamdev.jxbrowser.js.JsAccessible;
 import com.teamdev.jxbrowser.js.JsObject;
 import com.teamdev.jxbrowser.view.javafx.BrowserView;
-import javafx.application.Application;
+import interface_adapter.streetview_map.StreetViewMapController;
+import interface_adapter.streetview_map.StreetViewMapPresenter;
+import interface_adapter.streetview_map.StreetViewMapViewModel;
+import use_case.streetview_map.StreetViewMapInteractor;
+import use_case.streetview_map.StreetViewMapOutputBoundary;
+import use_case.streetview_map.StreetViewMapOutputData;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.nio.file.Paths;
 
-public class StreetViewMapApp extends Application {
+public class MapView {
+    private final String viewName = "Street View Map Game";
+    private final StreetViewMapController controller;
 
-    @Override
+    public MapView(StreetViewMapViewModel viewModel) {
+        // Create presenter and use case output boundary
+        StreetViewMapPresenter presenter = new StreetViewMapPresenter();
+        StreetViewMapOutputBoundary outputBoundary = new StreetViewMapOutputBoundary() {
+            @Override
+            public void present(StreetViewMapOutputData outputData) {
+               // controller.presentCoordinates(outputData);
+            }
+        };
+
+        // Create interactor and controller
+        StreetViewMapInteractor interactor = new StreetViewMapInteractor(outputBoundary);
+        this.controller = new StreetViewMapController(interactor, presenter);
+    }
+
     public void start(Stage stage) {
         // Initialize the JxBrowser engine.
         Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
@@ -28,7 +50,7 @@ public class StreetViewMapApp extends Application {
 
         browser.set(InjectJsCallback.class, params -> {
             JsObject window = params.frame().executeJavaScript("window");
-            window.putProperty("java", new StreetViewMapApp());
+            window.putProperty("java", new MapView(new StreetViewMapViewModel()));
             return InjectJsCallback.Response.proceed();
         });
 
@@ -39,16 +61,10 @@ public class StreetViewMapApp extends Application {
         String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
         browser.navigation().loadUrl(htmlPath);
 
-
+        // Expose the Java object to JavaScript.
         browser.mainFrame().ifPresent(frame ->
-                frame.executeJavaScript(
-                        "window.java = {" +
-                                "  getGoalCoordinates: function(goalLat, goalLng) { java.getGoalCoordinates(goalLat, goalLng); }," +
-                                "  getUserCoordinates: function(userLat, userLng) { java.getUserCoordinates(userLat, userLng); }" +
-                                "};"
-                )
+                frame.executeJavaScript("window.java = { printCoordinates: function(totalDistance) { java.printCoordinates(totalDistance); }};")
         );
-
 
         // Setup the JavaFX scene.
         StackPane root = new StackPane();
@@ -66,19 +82,13 @@ public class StreetViewMapApp extends Application {
         stage.setOnCloseRequest(event -> engine.close());
     }
 
+    // Java method to be called from JavaScript (print the coordinates)
     @JsAccessible
-    public void getGoalCoordinates(double goalLat, double goalLng) {
-        System.out.println(goalLat);
-        System.out.println(goalLng);
+    public void printCoordinates(double totalDistance) {
+        controller.printCoordinates(totalDistance);
     }
 
-    @JsAccessible
-    public void getUserCoordinates(double userLat, double userLng) {
-        System.out.println(userLat);
-        System.out.println(userLng);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    public String getMapName() {
+        return viewName;
     }
 }
