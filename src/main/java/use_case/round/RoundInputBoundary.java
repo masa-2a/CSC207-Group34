@@ -12,5 +12,4 @@ public interface RoundInputBoundary {
      * @param roundInputData the input data
      */
     void execute(RoundInputData roundInputData);
-
 }

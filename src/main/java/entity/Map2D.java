@@ -115,9 +115,9 @@ public class Map2D {
     public String saveMap(){
         try {
             byte[] imageBytes = getMap().await().imageData;
-            Files.write(Paths.get("static_map.png"), imageBytes);
-            System.out.println("Static map image saved as static_map.png");
-            return Paths.get("static_map.png").toString();
+            Files.write(Paths.get("src/main/resources/static_map.png"), imageBytes);
+            System.out.println("Static map image saved as src/main/resources/static_map.png");
+            return Paths.get("src/main/resources/static_map.png").toString();
         } catch (ApiException e) {
             System.err.println("API Exception: " + e.getMessage());
         } catch (InterruptedException e) {

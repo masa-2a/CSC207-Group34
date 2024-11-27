@@ -148,17 +148,56 @@ public class AppBuilder {
         return this;
     }
 
+//    /**
+//     * Adds a Map2D View to the application
+//     * @return this builder
+//     */
+//    public AppBuilder addMap2DView() {
+//        map2DViewModel = new Map2DViewModel();
+//        map2DView = new Map2DView(map2DViewModel);
+//        cardPanel.add(map2DView,map2DView.getViewName());
+//        return this;
+//    }
+//    /**
+//     * Adds the Map2D Use Case to the application.
+//     * @return this builder
+//     */
+//    public AppBuilder addMap2DUseCase() {
+//        map2DViewModel = new Map2DViewModel();
+//        map2DView = new Map2DView(map2DViewModel);
+//        final Map2DOutputBoundary map2DOutputBoundary = new Map2DPresenter(viewManagerModel,
+//                map2DViewModel);
+//        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor(
+//                map2DOutputBoundary);
+//
+//        final Map2DController controller = new Map2DController(map2DUseCaseInteractor);
+//        map2DView.setMap2DController(controller);
+//        return this;
+//    }
+
     /**
-     * Adds a Map2D View to the application
+     * Adds the Round Use Case to the application.
      * @return this builder
      */
-    public AppBuilder addMap2DView() {
+    public AppBuilder addRoundUseCase() {
+        // Map2D Stuff
         map2DViewModel = new Map2DViewModel();
         map2DView = new Map2DView(map2DViewModel);
-        cardPanel.add(map2DView,map2DView.getViewName());
+        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor();
+
+
+        final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
+                viewManagerModel);
+        final RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor,
+                roundOutputBoundary);
+
+        final RoundController roundController = new RoundController(roundUseCaseInteractor);
+
+
+        roundView.setRoundController(roundController);
+//        roundView.setMap2DController(map2DController);
         return this;
     }
-
 
     /**
      * Adds the Signup Use Case to the application.
@@ -236,37 +275,6 @@ public class AppBuilder {
         return this;
     }
 
-
-    /**
-     * Adds the Map2D Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addMap2DUseCase() {
-        final Map2DOutputBoundary map2DOutputBoundary = new Map2DPresenter(viewManagerModel,
-                map2DViewModel);
-        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor(
-                map2DOutputBoundary);
-
-        final Map2DController controller = new Map2DController(map2DUseCaseInteractor);
-        map2DView.setMap2DController(controller);
-        return this;
-    }
-
-
-    /**
-     * Adds the Round Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addRoundUseCase() {
-        final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel, map2DViewModel,
-                viewManagerModel);
-        final RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(
-                roundOutputBoundary);
-
-        final RoundController roundController = new RoundController(roundUseCaseInteractor);
-        roundView.setRoundController(roundController);
-        return this;
-    }
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
