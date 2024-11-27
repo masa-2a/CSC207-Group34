@@ -1,17 +1,16 @@
 package entity;
 
 public class Map {
-    private double totalDistance;
+    private final double[] userCoordinates;
+    private final double[] goalCoordinates;
 
-    public Map() {
-
+    public Map(double[] userCoordinates, double[] goalCoordinates) {
+        this.userCoordinates = userCoordinates;
+        this.goalCoordinates = goalCoordinates;
     }
 
-    public void setTotalDistance(double totalDistance) {
-        this.totalDistance = totalDistance;
-    }
+    public double[] getUserCoordinates() { return userCoordinates; }
 
-    public double getTotalDistance() {
-        return totalDistance;
-    }
+    public double[] getGoalCoordinates() { return goalCoordinates; }
+
 }

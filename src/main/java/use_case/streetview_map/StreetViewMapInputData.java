@@ -1,15 +1,15 @@
 package use_case.streetview_map;
 
 public class StreetViewMapInputData {
-    private final double totalDistance;
+    private final double[] userCoordinates;
+    private final double[] goalCoordinates;
 
-    // Constructor to initialize the input data
-    public StreetViewMapInputData(double totalDistance) {
-        this.totalDistance = totalDistance;
+    public StreetViewMapInputData(double[] userCoordinates, double[] goalCoordinates) {
+        this.userCoordinates = userCoordinates;
+        this.goalCoordinates = goalCoordinates;
     }
 
-    // Getter for totalDistance
-    public double getTotalDistance() {
-        return totalDistance;
-    }
+    public double[] getUserCoordinates() { return userCoordinates; }
+
+    public double[] getGoalCoordinates() { return goalCoordinates; }
 }

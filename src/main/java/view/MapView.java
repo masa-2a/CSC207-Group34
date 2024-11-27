@@ -9,8 +9,9 @@ import com.teamdev.jxbrowser.js.JsAccessible;
 import com.teamdev.jxbrowser.js.JsObject;
 import com.teamdev.jxbrowser.view.javafx.BrowserView;
 import interface_adapter.streetview_map.StreetViewMapController;
-import interface_adapter.streetview_map.StreetViewMapPresenter;
 import interface_adapter.streetview_map.StreetViewMapViewModel;
+import javafx.application.Application;
+import use_case.streetview_map.StreetViewMapApp;
 import use_case.streetview_map.StreetViewMapInteractor;
 import use_case.streetview_map.StreetViewMapOutputBoundary;
 import use_case.streetview_map.StreetViewMapOutputData;
@@ -21,25 +22,25 @@ import javafx.stage.Stage;
 
 import java.nio.file.Paths;
 
-public class MapView {
+public class MapView extends Application {
     private final String viewName = "Street View Map Game";
     private final StreetViewMapController controller;
 
     public MapView(StreetViewMapViewModel viewModel) {
         // Create presenter and use case output boundary
-        StreetViewMapPresenter presenter = new StreetViewMapPresenter();
-        StreetViewMapOutputBoundary outputBoundary = new StreetViewMapOutputBoundary() {
+        StreetViewMapOutputBoundary presenter = new StreetViewMapOutputBoundary() {
             @Override
             public void present(StreetViewMapOutputData outputData) {
-               // controller.presentCoordinates(outputData);
+               controller.presentCoordinates(outputData);
             }
         };
 
         // Create interactor and controller
-        StreetViewMapInteractor interactor = new StreetViewMapInteractor(outputBoundary);
+        StreetViewMapInteractor interactor = new StreetViewMapInteractor(presenter);
         this.controller = new StreetViewMapController(interactor, presenter);
     }
 
+    @Override
     public void start(Stage stage) {
         // Initialize the JxBrowser engine.
         Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
@@ -50,7 +51,7 @@ public class MapView {
 
         browser.set(InjectJsCallback.class, params -> {
             JsObject window = params.frame().executeJavaScript("window");
-            window.putProperty("java", new MapView(new StreetViewMapViewModel()));
+            window.putProperty("java", new StreetViewMapApp());
             return InjectJsCallback.Response.proceed();
         });
 
@@ -61,10 +62,16 @@ public class MapView {
         String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
         browser.navigation().loadUrl(htmlPath);
 
-        // Expose the Java object to JavaScript.
+
         browser.mainFrame().ifPresent(frame ->
-                frame.executeJavaScript("window.java = { printCoordinates: function(totalDistance) { java.printCoordinates(totalDistance); }};")
+                frame.executeJavaScript(
+                        "window.java = {" +
+                                "  getGoalCoordinates: function(goalLat, goalLng) { java.getGoalCoordinates(goalLat, goalLng); }," +
+                                "  getUserCoordinates: function(userLat, userLng) { java.getUserCoordinates(userLat, userLng); }" +
+                                "};"
+                )
         );
+
 
         // Setup the JavaFX scene.
         StackPane root = new StackPane();
@@ -82,13 +89,15 @@ public class MapView {
         stage.setOnCloseRequest(event -> engine.close());
     }
 
-    // Java method to be called from JavaScript (print the coordinates)
     @JsAccessible
-    public void printCoordinates(double totalDistance) {
-        controller.printCoordinates(totalDistance);
+    public void getGoalCoordinates(double goalLat, double goalLng) {
+        System.out.println(goalLat);
+        System.out.println(goalLng);
     }
 
-    public String getMapName() {
-        return viewName;
+    @JsAccessible
+    public void getUserCoordinates(double userLat, double userLng) {
+        System.out.println(userLat);
+        System.out.println(userLng);
     }
 }

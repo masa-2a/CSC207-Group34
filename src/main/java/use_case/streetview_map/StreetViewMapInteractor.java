@@ -1,15 +1,18 @@
 package use_case.streetview_map;
 
 public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
-    private final StreetViewMapOutputBoundary outputBoundary;
+    private final StreetViewMapOutputBoundary streetViewPresenter;
 
-    public StreetViewMapInteractor(StreetViewMapOutputBoundary outputBoundary) {
-        this.outputBoundary = outputBoundary;
+    public StreetViewMapInteractor(StreetViewMapOutputBoundary streetViewPresenter) {
+        this.streetViewPresenter = streetViewPresenter;
     }
 
     @Override
-    public void printCoordinates(double totalDistance) {
-        StreetViewMapOutputData outputData = new StreetViewMapOutputData(totalDistance);
-        outputBoundary.present(outputData);
+    public void execute(StreetViewMapInputData streetViewInputData) {
+        final double[] userCoordinates = streetViewInputData.getUserCoordinates();
+        final double[] goalCoordinates = streetViewInputData.getGoalCoordinates();
+
+        StreetViewMapOutputData outputData = new StreetViewMapOutputData(userCoordinates, goalCoordinates);
+        streetViewPresenter.present(outputData);
     }
 }
