@@ -7,6 +7,11 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="com.teamdev" />
+      <option name="name" value="com.teamdev" />
+      <option name="url" value="https://europe-maven.pkg.dev/jxbrowser/releases" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="josm-repo" />
       <option name="name" value="josm-repo" />
       <option name="url" value="https://josm.openstreetmap.de/nexus/content/repositories/releases/" />

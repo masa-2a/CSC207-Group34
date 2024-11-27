@@ -1,18 +1,25 @@
 package data_access;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import entity.CommonUser;
+import entity.PointsCalculator;
 import entity.User;
+import firebase.FirebaseInitializer;
+import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.leaderboard.LeaderboardUserDataAccessInterface;
+import use_case.login.LoginUserDataAccessInterface;
+import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.points_calculator.PointsCalculatorDataAccessInterface;
+import use_case.signup.SignupUserDataAccessInterface;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
-public class FirestoreDataAccessObject extends AbstractDataAccessObject {
+public class FirestoreDataAccessObject extends AbstractDataAccessObject implements LoginUserDataAccessInterface, SignupUserDataAccessInterface, ChangePasswordUserDataAccessInterface, LogoutUserDataAccessInterface, LeaderboardUserDataAccessInterface, PointsCalculatorDataAccessInterface {
 
     private final Firestore firestore;
     private String currentUsername;
@@ -23,8 +30,8 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject {
     private static final String USERSCOLLECTION = "Users";
 
     // Constructor to initialize Firestore instance
-    public FirestoreDataAccessObject(Firestore db) {
-        this.firestore = db;
+    public FirestoreDataAccessObject() {
+        this.firestore = FirebaseInitializer.initializeFirebase();
         this.currentUsername = "";  // Default state, no user logged in
     }
 
@@ -104,6 +111,8 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject {
     }
 
 
-
-
+    @Override
+    public List<CommonUser> returnAllUsers() {
+    return null;
+    }
 }
