@@ -12,23 +12,19 @@ public class RoundController {
     }
 
     /**
-     * Executes the Menu Use Case.
+     * Executes the Round Use Case.
      */
-    public void execute() {
-        final RoundInputData roundInputData = new RoundInputData();
+    public void execute(int width, int height, double latitude,
+                        double longitude, int zoom, double guessLat, double guessLong,
+                        double answerLat, double answerLong, boolean guessed, boolean answered) {
+        final RoundInputData roundInputData = new RoundInputData(width, height, latitude, longitude,
+                zoom, guessLat, guessLong, answerLat, answerLong, guessed, answered);
 
         roundUseCaseInteractor.execute(roundInputData);
+
     }
-    /**
-     * Executes the "switch to LogoutView" Use Case.
-     */
-    public void switchToLogoutView() {
-    }
-    /**
-     * Executes the "switch to Leaderboard" Use Case.
-     */
-    public void switchToLeaderboardView() {
-    }
+
+
     /**
      * Executes the "switch to New Round" Use Case.
      */
