@@ -10,6 +10,7 @@ import com.teamdev.jxbrowser.js.JsObject;
 import com.teamdev.jxbrowser.view.javafx.BrowserView;
 import interface_adapter.streetview_map.StreetViewMapController;
 import interface_adapter.streetview_map.StreetViewMapPresenter;
+import interface_adapter.streetview_map.StreetViewMapViewModel;
 import use_case.streetview_map.StreetViewMapInteractor;
 import use_case.streetview_map.StreetViewMapOutputBoundary;
 import use_case.streetview_map.StreetViewMapOutputData;
@@ -21,25 +22,22 @@ import javafx.stage.Stage;
 import java.nio.file.Paths;
 
 public class MapView {
+    private final String viewName = "Street View Map Game";
     private final StreetViewMapController controller;
 
-    public MapView() {
+    public MapView(StreetViewMapViewModel viewModel) {
         // Create presenter and use case output boundary
         StreetViewMapPresenter presenter = new StreetViewMapPresenter();
         StreetViewMapOutputBoundary outputBoundary = new StreetViewMapOutputBoundary() {
             @Override
             public void present(StreetViewMapOutputData outputData) {
-                controller.presentCoordinates(outputData); // delegate to controller
+               // controller.presentCoordinates(outputData);
             }
         };
 
         // Create interactor and controller
         StreetViewMapInteractor interactor = new StreetViewMapInteractor(outputBoundary);
         this.controller = new StreetViewMapController(interactor, presenter);
-    }
-
-    public MapView(StreetViewMapController controller) {
-        this.controller = controller;
     }
 
     public void start(Stage stage) {
@@ -52,7 +50,7 @@ public class MapView {
 
         browser.set(InjectJsCallback.class, params -> {
             JsObject window = params.frame().executeJavaScript("window");
-            window.putProperty("java", new MapView());
+            window.putProperty("java", new MapView(new StreetViewMapViewModel()));
             return InjectJsCallback.Response.proceed();
         });
 
@@ -88,5 +86,9 @@ public class MapView {
     @JsAccessible
     public void printCoordinates(double totalDistance) {
         controller.printCoordinates(totalDistance);
+    }
+
+    public String getMapName() {
+        return viewName;
     }
 }

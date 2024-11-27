@@ -39,10 +39,16 @@ public class StreetViewMapApp extends Application {
         String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
         browser.navigation().loadUrl(htmlPath);
 
-        // Expose the Java object to JavaScript.
+
         browser.mainFrame().ifPresent(frame ->
-                frame.executeJavaScript("window.java = { printCoordinates: function(totalDistance) { java.printCoordinates(totalDistance); }};")
+                frame.executeJavaScript(
+                        "window.java = {" +
+                                "  getGoalCoordinates: function(goalLat, goalLng) { java.getGoalCoordinates(goalLat, goalLng); }," +
+                                "  getUserCoordinates: function(userLat, userLng) { java.getUserCoordinates(userLat, userLng); }" +
+                                "};"
+                )
         );
+
 
         // Setup the JavaFX scene.
         StackPane root = new StackPane();
@@ -60,10 +66,16 @@ public class StreetViewMapApp extends Application {
         stage.setOnCloseRequest(event -> engine.close());
     }
 
-    // Java method to be called from JavaScript (print the coordinates)
     @JsAccessible
-    public void printCoordinates(double totalDistance) {
-        System.out.println(totalDistance);
+    public void getGoalCoordinates(double goalLat, double goalLng) {
+        System.out.println(goalLat);
+        System.out.println(goalLng);
+    }
+
+    @JsAccessible
+    public void getUserCoordinates(double userLat, double userLng) {
+        System.out.println(userLat);
+        System.out.println(userLng);
     }
 
     public static void main(String[] args) {

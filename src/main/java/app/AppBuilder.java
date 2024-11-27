@@ -24,6 +24,7 @@ import interface_adapter.main_menu.MenuViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.streetview_map.StreetViewMapViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -71,6 +72,8 @@ public class AppBuilder {
     private LoginView loginView;
     private MenuView menuView;
     private MenuViewModel menuViewModel;
+    private StreetViewMapViewModel streetViewMapViewModel;
+    private MapView mapView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -161,7 +164,6 @@ public class AppBuilder {
         menuView.setMenuController(menuController);
         return this;
     }
-
 
 
     /**

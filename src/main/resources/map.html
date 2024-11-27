@@ -105,6 +105,10 @@
     ];
 
     const initialLocation = randomLocations[rand];
+    let initLng = initialLocation.lng;
+    let initLat = initialLocation.lat;
+
+    window.java.getGoalCoordinates(initLat, initLng);
 
     // Create the map with Street View control disabled
     const map = new google.maps.Map(document.getElementById("map"), {
@@ -148,65 +152,20 @@
     // Add a click event listener for the submit button
     document.getElementById("submitButton").addEventListener("click", () => {
       if (currentMarker) {
-        let lat = currentMarker.lat();
-        let lng = currentMarker.lng();
-        let initLng = initialLocation.lng;
-        let initLat = initialLocation.lat;
-        let totalDistance = haversine(lat, lng, initLat, initLng);
-
-        console.log(`Coordinates: Latitude = ${lat}, Longitude = ${lng}`);
-
-        // Display the distance next to the button
-        // document.getElementById("distance").textContent = `Distance: ${totalDistance.toFixed(2)} km`;
+        let userLat = currentMarker.lat();
+        let userLng = currentMarker.lng();
 
         // If a correct marker already exists, remove it
         if (correctMarker) {
           correctMarker.setMap(null);
         }
 
-        // Place the correct green marker
-        correctMarker = new google.maps.Marker({
-          position: initialLocation,
-          map: map,
-          icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png", // Green pin for the correct location
-          title: "Correct Location",
-        });
+        window.java.getUserCoordinates(userLat, userLng);
 
-        // If a previous line exists, remove it
-        if (line) {
-          line.setMap(null);
-        }
-
-        // Draw the line between the guessed location and the correct location
-        line = new google.maps.Polyline({
-          path: [currentMarker, correctMarker.getPosition()],
-          geodesic: false, // Set to false for a straight line
-          strokeColor: "#FF0000", // Red line
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-        line.setMap(map);
-
-        // Optionally, send the distance to Java for further handling
-        window.java.printCoordinates(totalDistance); // Call the Java function to print the coordinates
       } else {
         console.log("No marker placed yet!");
       }
     });
-  }
-
-  function haversine(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Radius of the Earth in kilometers
-    const dLat = (lat2 - lat1) * Math.PI / 180;  // Convert degrees to radians
-    const dLon = (lon2 - lon1) * Math.PI / 180;  // Convert degrees to radians
-
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));  // Angular distance in radians
-    const distance = R * c;  // Distance in kilometers
-    return distance;
   }
 
   window.initialize = initialize;

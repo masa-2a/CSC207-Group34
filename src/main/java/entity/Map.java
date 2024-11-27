@@ -3,11 +3,11 @@ package entity;
 public class Map {
     private double totalDistance;
 
-    public Map(double totalDistance) {
-        this.totalDistance = totalDistance;
+    public Map() {
+
     }
 
-    public void MapCoordinates(double totalDistance) {
+    public void setTotalDistance(double totalDistance) {
         this.totalDistance = totalDistance;
     }
 

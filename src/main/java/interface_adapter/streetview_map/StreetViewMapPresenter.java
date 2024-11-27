@@ -4,12 +4,9 @@ import use_case.streetview_map.StreetViewMapOutputData;
 
 public class StreetViewMapPresenter {
 
-    // The present method formats or processes the data before passing it to the view
     public void present(StreetViewMapOutputData outputData) {
-        // Example of formatting or processing data
         double formattedDistance = formatDistance(outputData.getTotalDistance());
 
-        // Call a method to update the UI (could be done via JavaFX bindings, etc.)
         updateView(formattedDistance);
     }
 

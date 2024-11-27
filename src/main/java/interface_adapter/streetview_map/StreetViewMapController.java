@@ -16,7 +16,6 @@ public class StreetViewMapController {
         interactor.printCoordinates(totalDistance);
     }
 
-    // This method can be used to update the presenter with the results
     public void presentCoordinates(StreetViewMapOutputData outputData) {
         presenter.present(outputData);
     }
