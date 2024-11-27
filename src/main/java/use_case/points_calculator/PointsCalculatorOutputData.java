@@ -6,12 +6,14 @@ package use_case.points_calculator;
 public class PointsCalculatorOutputData {
     private final int points;
     private final String message;
+    private final String imagepath;
 
-    public PointsCalculatorOutputData(int points, String message) {
+    public PointsCalculatorOutputData(int points, String message, String imagepath) {
         this.points = points;
         this.message = message;
+        this.imagepath = imagepath;
     }
     public int getPoints() {return points;}
     public String getMessage() {return message;}
-
+    public String getImagepath() {return imagepath;}
 }

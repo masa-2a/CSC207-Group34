@@ -10,4 +10,8 @@ public interface PointsCalculatorOutputBoundary {
      */
     void prepareSuccessView(PointsCalculatorOutputData outputData);
 
+    /**
+     * Switches to the Main Menu View.
+     */
+    void switchToMenuView();
 }

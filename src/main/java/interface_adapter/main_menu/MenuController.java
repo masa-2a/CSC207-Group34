@@ -35,7 +35,10 @@ public class MenuController {
     /**
      * Executes the "switch to New Round" Use Case.
      */
-    public void switchToNewRoundView() {}
+    public void switchToNewRoundView() {
+        menuUseCaseInteractor.switchToNewRoundView();
+    }
+
 
 }
 

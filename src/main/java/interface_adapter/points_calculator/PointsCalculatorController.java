@@ -17,11 +17,20 @@ public class PointsCalculatorController {
      * @param randomLocation the location the user is trying to guess.
      * @param chosenLocation the location of the user's guess.
      */
-    public void execute(Map<String, Double> randomLocation, Map<String, Double> chosenLocation, double timespent, int hintsused) {
+    public void execute(Map<String, Double> randomLocation, Map<String, Double> chosenLocation, double timespent, int hintsused, String imagepath) {
         final PointsCalculatorInputData pointsCalculatorInputData =
-                new PointsCalculatorInputData(randomLocation, chosenLocation, timespent, hintsused);
+                new PointsCalculatorInputData(randomLocation, chosenLocation, timespent, hintsused, imagepath);
 
         pointsUseCaseInteractor.execute(pointsCalculatorInputData);
     }
+
+    /**
+     * Executes the "switch to Menu View" Use Case.
+     */
+    public void switchToMenuView() {
+        pointsUseCaseInteractor.switchToMenuView();
+    }
+
+
 
 }

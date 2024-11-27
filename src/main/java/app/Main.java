@@ -19,12 +19,14 @@ public class Main {
                                             .addLoggedInView()
                                             .addMenuView()
                                             .addLeaderboardView()
+                                            .addRoundView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
                                             .addMenuUseCase()
                                             .addLeaderboardUseCase()
+                                            .addRoundUseCase()
                                             .build();
 
         application.pack();

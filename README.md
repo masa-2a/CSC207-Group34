@@ -1,38 +1,50 @@
 # CSC207-Group34 🗻🍃
-## Project Specification
-**Team Name:** The Geologists :mountain:  
 
-### Domain
-We are developing an interactive geographical guessing game that presents users with random street views from various locations around the world. The objective is for players to pinpoint the exact location of the street view on a map as accurately as possible.  
+**Team Name:** Map Master
 
-### Software Specification
-***Player*** has a *username* and *password* and can **login**, **sign up**, **logout**, **reveal a hint**, **make a guess** and **recieve points**  
-***Game*** can **load**  
-***Map*** has a *random location* and *guessed location*   
-***Hint***  
-***LeaderBoard***
-***Points***
+Map Master is an interactive geographical guessing game that presents users with random street views from various locations around the world. The objective of the game is for the user to pinpoint the exact location of the street view on the world map as accurately as possible. 
 
-Player signs up or logs into the Game. A Geo Guesser Game that loads the Player to a random location on earth from the Map. The Player has the option to reveal up to 3 Hints with a 2-minute Timer ticking. The Player then makes a guess and chooses a chosen spot on the map.  The player receives Points based on the chosen location, the amount of time spent, and the number of hints used. 
-The Player has the option to play a new Game, logout, or view the Leaderboard
+This project was made for the course CSC207 - Software Design at University of Toronto St George Campus Fall 2024.
 
-### GUI
-![GUI plan.png](images%2FGUI%20plan.png)
+## Table of Contents
+- [Features](#features)
+- [Installation Instructions](#installation-instructions)
+- [Usage](#usage)
+- [License](#license)
+- [Feedback and Contributions](#feedback-and-contributions)
 
-### User Stories  
-**Team User Story**: User is shown a random location. User places guess on the map. Points are added to the users account based on how good the guess was.
-**Masa**: User creates an account with a username and password. User logs into account.  
-**Steven**: User can move around a map with their cursor and submit a guess by clicking a point on the map.  
-**Maira**: User receives points based on how close it is to the actual location.  
-**Purav**: Player/Interested party can check the leaderboard and find the player ranked at the top with the highest points on average per game.  
-**Cheryl**:  User receives hints (country/within specific area) when they click the hint button. 
+## Features
+- **Signup and Login**: Users can create an account and log in to track their progress and compete on the leaderboard.
+- **Play a New Round**: Players can start a new round where they are presented with a random street view. Players have a maximum time of 2 minutes and 30 seconds to make a guess, and they can use up to 3 hints, which will affect their points. Once they submit their guess, their earned points for this round will be displayed to them.
+- **Leaderboard**: A leaderboard displays the highest-ranked players, sorted by their average points.
 
-### APIs
-[Google Maps API](https://github.com/googlemaps/google-maps-services-java).
+## Installation Instructions
+1. Clone the repository from GitHub:
+   ```bash
+   git clone https://github.com/masa-2a/CSC207-Group34.git
+2. Open the project in your IDE
+3. APIKEY!!!!!!!!!!!!!!!!!!!!!!!!!! Instructions to be added
 
-### Schedule and Meeting Times
-**Communication**: Discord and Instagram groupchat.  
-**Meeting times**: Wednesday 5:00 - 8:00 pm Gerstein Library.  
+## Usage
+1. In your IDE, navigate to src/main/java/app
+2. Locate the Main.java file and Run it. 
+
+## License
+MIT License
+
+Copyright (c) 2024 Map Master Team
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+## Feedback and contributions
+Created by Maira Masroor, Masa Abu Arja, Cheryl Tong, Purav Gupta and Steven Qiao.
+Please fill out this form: https://forms.gle/okprPAfZ1eHAPpi89
+
 
 
 

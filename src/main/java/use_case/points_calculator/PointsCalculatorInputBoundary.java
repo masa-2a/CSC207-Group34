@@ -10,5 +10,9 @@ public interface PointsCalculatorInputBoundary {
      * @param pointsCalculatorInputData the input data
      */
     void execute(PointsCalculatorInputData pointsCalculatorInputData);
+    /**
+     * Executes the switch to Logout view use case.
+     */
+    void switchToMenuView();
 }
 
