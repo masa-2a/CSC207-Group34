@@ -31,7 +31,7 @@ public class CommonUser implements User {
     public int getPoints() { return points; }
 
     @Override
-    public void addPoints(int newpoints) {this.points += newpoints;}
+    public void addEarnedPoints(int newpoints) {this.points += newpoints;}
 
     @Override
     public int getNumberOfGames() {return numberOfGames; }

@@ -17,7 +17,7 @@ public interface User {
      */
     int getPoints();
 
-    void addPoints(int newpoints);
+    void addEarnedPoints(int newpoints);
 
     /**
      * Return the number of games played
