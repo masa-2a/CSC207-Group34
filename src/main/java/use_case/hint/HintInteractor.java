@@ -73,8 +73,10 @@ public class HintInteractor {
         for (String country : jsonObject.keySet()) {
             JSONObject countryDetails = jsonObject.getJSONObject(country);
             Map<String, String> countryMap = new HashMap<>();
-            countryMap.put("year_of_establishment", countryDetails.optString("year_of_establishment", "Unknown"));
-            countryMap.put("official_languages", countryDetails.optString("official_languages", "Unknown"));
+            countryMap.put("year_of_establishment", countryDetails.optString("year_of_establishment",
+                    "Unknown"));
+            countryMap.put("official_languages", countryDetails.optString("official_languages",
+                    "Unknown"));
             countryMap.put("flag", countryDetails.optString("flag", "Unknown"));
             countryData.put(country, countryMap);
         }

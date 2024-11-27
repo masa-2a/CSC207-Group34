@@ -1,88 +1,174 @@
 <!doctype html>
-<!--
- @license
- Copyright 2019 Google LLC. All Rights Reserved.
- SPDX-License-Identifier: Apache-2.0
--->
 <html>
 <head>
   <title>Street View split-map-panes</title>
 </head>
 
 <style>
-  /**
-   * @license
-   * Copyright 2019 Google LLC. All Rights Reserved.
-   * SPDX-License-Identifier: Apache-2.0
-   */
   html,
   body {
     height: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #map-container {
+    flex: 1;
+    display: flex;
   }
 
   #map, #pano {
-    float: left;
+    flex: 1;
     height: 100%;
-    width: 50%;
   }
 
+  #controls {
+    position: fixed; /* Fix the controls to the bottom of the screen */
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Make the controls span the full width */
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+    color: white; /* White text for contrast */
+    text-align: center;
+    padding: 15px 0; /* Add some padding */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    z-index: 100; /* Ensure it appears above other elements */
+  }
+
+  button {
+    padding: 12px 30px; /* Larger padding for a prominent button */
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #4caf50; /* Green background */
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+
+  button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+
+  button:active {
+    background-color: #3e8e41; /* Even darker green on click */
+    transform: scale(0.95); /* Shrink slightly on click */
+  }
+
+  #distance {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 10px;
+  }
 </style>
 
 <body>
-<div id="map"></div>
-<div id="pano"></div>
-<div id="street-view"></div>
+<div id="controls">
+  <button id="submitButton">Submit Coordinates</button>
+  <div id="distance"></div> <!-- Distance will be displayed here -->
+</div>
+<div id="map-container">
+  <div id="map"></div>
+  <div id="pano"></div>
+</div>
 </body>
 
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE7_bfL1qF7QvFo9crvQ8v4wbslyufU1g&callback=initialize&v=weekly"
-></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE7_bfL1qF7QvFo9crvQ8v4wbslyufU1g&callback=initialize&v=weekly">
+</script>
 
 <script>
-  /**
-   * @license
-   * Copyright 2019 Google LLC. All Rights Reserved.
-   * SPDX-License-Identifier: Apache-2.0
-   */
-  let v = 1;
-  let panorama;
+
+  let currentMarker = null; // To store the current marker's location
+  let correctMarker = null;
+  let line = null;
+
   function initialize() {
-    if (v === 1) {
-      const fenway = { lat: 42.345573, lng: -71.098326 }
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: fenway,
-        zoom: 8,
-      })
-      const panorama = new google.maps.StreetViewPanorama(
-        document.getElementById("pano"),
-        {
-          position: fenway,
-          pov: {
-            heading: 34,
-            pitch: 10,
-          },
-        },
-      )
+    const defaultLocation = {lat: 43.661775712671215, lng: -79.3951077927884};
+    const rand = Math.floor(Math.random() * 10);
+    const randomLocations = [
+      {lat: 42, lng: -71},
+      {lat: 34.0361343941081, lng: 108.92676837088668},
+      {lat: 52.03238908452306, lng: 5.3389802540091695},
+      {lat: 20.993765372145273, lng: 72.81394739228956},
+      {lat: 54.11652744386116, lng: 61.57774339280659},
+      {lat: 65.61559922810795, lng: -37.63672282227504},
+      {lat: -20.065367990935233, lng: 57.55697525742677},
+      {lat: -3.044898738488582, lng: -59.99374885308898},
+      {lat: 35.12033659399063, lng: 129.08105506884803},
+      {lat: -1.0476618968428848, lng: 36.88403391295389}
+    ];
 
-      map.setStreetView(panorama)
+    const initialLocation = randomLocations[rand];
+    let initLng = window.java.sendGoalLng();
+    let initLat = window.java.sendGoalLat();
 
-    } else {
-      panorama = new google.maps.StreetViewPanorama(
-        document.getElementById("street-view"),
-        {
-          position: { lat: 37.86926, lng: -122.254811 },
-          pov: { heading: 165, pitch: 0 },
-          zoom: 1,
-        },
-      )
+    window.java.getGoalCoordinates(initLat, initLng);
 
-    }
+    // Create the map with Street View control disabled
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: defaultLocation,
+      zoom: 3,
+      streetViewControl: false, // Disable Pegman
+      disableDefaultUI: true,  // Disable all default UI
+    });
 
+    // Create a single marker but do not set its position yet
+    const marker = new google.maps.Marker({
+      map: map,
+      icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Red pin icon
+    });
+
+    // Add an event listener to move the marker to the clicked location
+    map.addListener("click", (event) => {
+      const clickedLocation = event.latLng;
+      marker.setPosition(clickedLocation);
+      currentMarker = clickedLocation; // Update the current marker's location
+    });
+
+    // Create the panorama with address and info UI disabled
+    const panorama = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+              position: initialLocation,
+              pov: {
+                heading: 34,
+                pitch: 10,
+              },
+              addressControl: false, // Disable address info
+              linksControl: false,   // Disable navigation links
+              panControl: false,     // Disable pan control
+              zoomControl: false,    // Disable zoom control
+            }
+    );
+
+    map.setStreetView(panorama);
+
+    // Add a click event listener for the submit button
+    document.getElementById("submitButton").addEventListener("click", () => {
+      if (currentMarker) {
+        let userLat = currentMarker.lat();
+        let userLng = currentMarker.lng();
+
+        // If a correct marker already exists, remove it
+        if (correctMarker) {
+          correctMarker.setMap(null);
+        }
+
+        window.java.getUserCoordinates(userLat, userLng);
+
+      } else {
+        console.log("No marker placed yet!");
+      }
+    });
   }
 
-  window.initialize = initialize
+  window.initialize = initialize;
 </script>
 
 </html>

@@ -1,7 +1,6 @@
 package interface_adapter.main_menu;
 
 import interface_adapter.ViewModel;
-import interface_adapter.change_password.LoggedInState;
 
 public class MenuViewModel extends ViewModel<MenuState> {
     public static final String TITLE_LABEL = "Main Menu";
