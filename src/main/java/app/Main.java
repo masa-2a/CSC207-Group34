@@ -18,11 +18,15 @@ public class Main {
                                             .addSignupView()
                                             .addLoggedInView()
                                             .addMenuView()
+                                            .addRoundView()
+                                            .addMap2DView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
                                             .addMenuUseCase()
+                                            .addMap2DUseCase()
+                                            .addRoundUseCase()
                                             .build();
 
         application.pack();
