@@ -105,8 +105,8 @@
     ];
 
     const initialLocation = randomLocations[rand];
-    let initLng = initialLocation.lng;
-    let initLat = initialLocation.lat;
+    let initLng = window.java.sendGoalLng();
+    let initLat = window.java.sendGoalLat();
 
     window.java.getGoalCoordinates(initLat, initLng);
 
