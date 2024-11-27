@@ -11,7 +11,7 @@ public class HintInteractor {
     public HintInteractor(String filePath, HintInputData inputData) {
         Map<String, Map<String, String>> countryData = HintCountryDataLoader.loadCountryData(filePath);
         HintGenerator hintGenerator = new HintGenerator(countryData);
-        String country = getCountryFromCoordinates(inputData.getLatitude(), inputData.getLongitude()); // Assume API for this
+        String country = inputData.getCountry();
 
         HintOutputData outputData = hintGenerator.generateHint(country);
         hints = List.of(
@@ -27,10 +27,5 @@ public class HintInteractor {
         } else {
             return "No more hints available.";
         }
-    }
-
-    private String getCountryFromCoordinates(double latitude, double longitude) {
-        // Here, you would use an actual API to get the country from coordinates
-        return "Germany"; // For example, you can use OpenCage API to get the country
     }
 }
