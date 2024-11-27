@@ -23,6 +23,7 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
 
     private final Firestore firestore;
     private String currentUsername;
+    private User currentUser;
     private static final String PASSWORD = "password";
     private static final String NAME = "name";
     private static final String POINTS = "points";
@@ -32,7 +33,7 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
     // Constructor to initialize Firestore instance
     public FirestoreDataAccessObject() {
         this.firestore = FirebaseInitializer.initializeFirebase();
-        this.currentUsername = "";  // Default state, no user logged in
+        this.currentUsername = "";// Default state, no user logged in
     }
 
     @Override
@@ -83,6 +84,9 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
     }
 
     @Override
+    public void setCurrentUser(User currentUser) { this.currentUser = currentUser; }
+
+    @Override
     public boolean existsByName(String username) {
         try {
             DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(username);
@@ -98,12 +102,19 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
     public void changePassword(User user) {
         try {
             DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
-            userRef.update(PASSWORD, user.getPassword());
+            ApiFuture<WriteResult> future = userRef.update(PASSWORD, user.getPassword());
+            setCurrentUser(user);
             System.out.println("Password updated for user: " + user.getName());
         } catch (Exception e) {
             System.err.println("Error changing password in Firestore: " + e.getMessage());
         }
     }
+
+    @Override
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
 
     @Override
     public String getCurrentUsername() {

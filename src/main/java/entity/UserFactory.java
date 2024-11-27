@@ -11,5 +11,6 @@ public interface UserFactory {
      * @return the new user
      */
     User create(String name, String password);
+    User create(String name, String password, int Points, int numberOfGames);
 
 }

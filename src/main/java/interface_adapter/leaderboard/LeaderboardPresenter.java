@@ -32,17 +32,18 @@ public class LeaderboardPresenter implements LeaderboardOutputBoundary {
         for(Integer rank : topUsers.keySet()) {
             CommonUser currentUser = topUsers.get(rank);
             if(currentUser.getName().equals(outputData.getCurrentUsername())){
-                leaderboardViewModel.setCurrentUserStats(rank, outputData.getCurrentUsername(), (Integer) currentUser.getAveragePoints() );
+                LeaderboardViewModel.setCurrentUserStats(rank, outputData.getCurrentUsername(), currentUser.getAveragePoints() );
             }
             switch(rank) {
+                default:
                 case 1:
-                    leaderboardViewModel.setFirstPlaceStats(currentUser.getName(), currentUser.getAveragePoints());
+                    LeaderboardViewModel.setFirstPlaceStats(currentUser.getName(), currentUser.getAveragePoints());
                     break;
                 case 2:
-                    leaderboardViewModel.setSecondPlaceStats(currentUser.getName(), currentUser.getAveragePoints());
+                    LeaderboardViewModel.setSecondPlaceStats(currentUser.getName(), currentUser.getAveragePoints());
                     break;
                 case 3:
-                    leaderboardViewModel.setThirdPlaceStats(currentUser.getName(), currentUser.getAveragePoints());
+                    LeaderboardViewModel.setThirdPlaceStats(currentUser.getName(), currentUser.getAveragePoints());
                     break;
             }
         }

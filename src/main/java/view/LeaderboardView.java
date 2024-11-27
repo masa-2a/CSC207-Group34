@@ -21,17 +21,25 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         this.leaderboardViewModel = new LeaderboardViewModel();
         leaderboardViewModel.addPropertyChangeListener(this);
 
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
         JLabel title = new JLabel(LeaderboardViewModel.TITLE_LABEL);
         title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        this.add(title, BorderLayout.NORTH);
+        //this.add(title, BorderLayout.NORTH);
+        mainPanel.add(title);
+
+        //this.add(Box.createRigidArea(new Dimension(0, 20)));
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JPanel leaderboardPanel = new JPanel();
         leaderboardPanel.setLayout(new BoxLayout(leaderboardPanel, BoxLayout.Y_AXIS));
-        leaderboardPanel.setBackground(Color.WHITE);
+        //leaderboardPanel.setBackground(Color.WHITE);
 
         // populate with top users
-        leaderboardPanel.removeAll();
+        //leaderboardPanel.removeAll();
 
         //display top users
 
@@ -45,12 +53,12 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
             leaderboardPanel.add(createUserPanel(Integer.valueOf(LeaderboardViewModel.getCurrentUserPlace()), LeaderboardViewModel.YOU_LABEL, LeaderboardViewModel.getCurrentUserPoints()));
         }
 
+        mainPanel.add(leaderboardPanel);
 
-        JScrollPane scrollPane = new JScrollPane(leaderboardPanel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        this.add(scrollPane, BorderLayout.CENTER);
-
+//        JScrollPane scrollPane = new JScrollPane(leaderboardPanel);
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//        this.add(scrollPane, BorderLayout.CENTER);
 
         menu = new JButton(LeaderboardViewModel.BACK_TO_MENU_BUTTON);
         menu.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -62,7 +70,13 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
                     }
                 }
         );
-        this.add(menu, BorderLayout.SOUTH);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        mainPanel.add(menu);
+
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        this.add(scrollPane);
+        this.setVisible(true);
 
     }
 
@@ -85,7 +99,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
 
         JLabel pointsLabel = new JLabel(avgPoints);
         pointsLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        pointsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        pointsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         JPanel userDetails = new JPanel(new BorderLayout());
         userDetails.add(nameLabel, BorderLayout.WEST);
@@ -94,6 +108,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
 
         userPanel.add(rankLabel, BorderLayout.WEST);
         userPanel.add(userDetails, BorderLayout.CENTER);
+        userPanel.add(pointsLabel, BorderLayout.EAST);
 
         return userPanel;
     }

@@ -1,6 +1,9 @@
 package use_case.login;
 
+import entity.CommonUser;
+import entity.CommonUserFactory;
 import entity.User;
+import entity.UserFactory;
 
 /**
  * The Login Interactor.
@@ -32,6 +35,7 @@ public class LoginInteractor implements LoginInputBoundary {
                 final User user = userDataAccessObject.get(loginInputData.getUsername());
 
                 userDataAccessObject.setCurrentUsername(user.getName());
+                userDataAccessObject.setCurrentUser(user);
                 final LoginOutputData loginOutputData = new LoginOutputData(user.getName(), false);
                 loginPresenter.prepareSuccessView(loginOutputData);
             }

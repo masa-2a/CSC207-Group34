@@ -42,13 +42,13 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         logout.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttons.add(logout);
 
-        newRound.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        menuController.switchToNewRoundView();
-                    }
-                }
-        );
+//        newRound.addActionListener(
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent e) {
+//                        menuController.switchToNewRoundView();
+//                    }
+//                }
+//        );
         leaderboard.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {

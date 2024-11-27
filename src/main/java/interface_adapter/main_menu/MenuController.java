@@ -30,15 +30,14 @@ public class MenuController {
     /**
      * Executes the "switch to Leaderboard" Use Case.
      */
-    public void switchToLeaderboardView() {
-    }
+    public void switchToLeaderboardView() { menuUseCaseInteractor.switchToLeaderboardView(); }
+
     /**
      * Executes the "switch to New Round" Use Case.
      */
-    public void switchToNewRoundView() {
-    }
-
-
-
+    public void switchToNewRoundView() {}
 
 }
+
+
+

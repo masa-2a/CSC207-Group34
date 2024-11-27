@@ -41,6 +41,6 @@ public class MenuInteractor implements MenuInputBoundary {
      */
     @Override
     public void switchToLeaderboardView() {
-
+        menuPresenter.switchToLeaderboardView();
     }
 }
