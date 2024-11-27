@@ -25,10 +25,4 @@ public class RoundController {
     }
 
 
-    /**
-     * Executes the "switch to New Round" Use Case.
-     */
-    public void switchToNewRoundView() {
-    }
-
 }
