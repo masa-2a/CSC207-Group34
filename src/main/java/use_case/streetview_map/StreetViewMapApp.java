@@ -7,7 +7,6 @@ import com.teamdev.jxbrowser.engine.EngineOptions;
 import com.teamdev.jxbrowser.engine.RenderingMode;
 import com.teamdev.jxbrowser.js.JsAccessible;
 import com.teamdev.jxbrowser.js.JsObject;
-import com.teamdev.jxbrowser.navigation.event.LoadFinished;
 import com.teamdev.jxbrowser.view.javafx.BrowserView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -63,29 +62,16 @@ public class StreetViewMapApp extends Application {
         String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
         browser.navigation().loadUrl(htmlPath);
 
-        // Add a listener to execute JavaScript after the page has loaded.
-        browser.navigation().on(LoadFinished.class, event -> {
-            browser.mainFrame().ifPresent(frame ->
-                    frame.executeJavaScript(
-                            "window.java = {" +
-                                    "  getGoalCoordinates: function(goalLat, goalLng) { java.getGoalCoordinates(goalLat, goalLng); }," +
-                                    "  getUserCoordinates: function(userLat, userLng) { java.getUserCoordinates(userLat, userLng); }," +
-                                    "  sendGoalLat: function() { java.sendGoalLat(); }," +
-                                    "  sendGoalLng: function() { java.sendGoalLng(); }" +
-                                    "};"
-                    )
-            );
-        });
-//        browser.mainFrame().ifPresent(frame ->
-//                frame.executeJavaScript(
-//                        "window.java = {" +
-//                                "  getGoalCoordinates: function(goalLat, goalLng) { java.getGoalCoordinates(goalLat, goalLng); }," +
-//                                "  getUserCoordinates: function(userLat, userLng) { java.getUserCoordinates(userLat, userLng); }," +
-//                                "  sendGoalLat: function() { java.sendGoalLat(); }," +
-//                                "  sendGoalLng: function() { java.sendGoalLng(); }" +
-//                                "};"
-//                )
-//        );
+        browser.mainFrame().ifPresent(frame ->
+                frame.executeJavaScript(
+                        "window.java = {" +
+                                "  getGoalCoordinates: function(goalLat, goalLng) { java.getGoalCoordinates(goalLat, goalLng); }," +
+                                "  getUserCoordinates: function(userLat, userLng) { java.getUserCoordinates(userLat, userLng); }," +
+                                "  sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
+                                "  sendGoalLongitude: function() { java.sendGoalLongitude(); }" +
+                                "};"
+                )
+        );
 
         // Setup the JavaFX scene.
         StackPane root = new StackPane();
@@ -104,12 +90,12 @@ public class StreetViewMapApp extends Application {
     }
 
     @JsAccessible
-    public double sendGoalLat() {
+    public double sendGoalLatitude() {
         return lat;
     }
 
     @JsAccessible
-    public double sendGoalLng() {
+    public double sendGoalLongitude() {
         return lng;
     }
 

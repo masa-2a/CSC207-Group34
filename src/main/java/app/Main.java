@@ -1,6 +1,8 @@
 package app;
 
 import firebase.FirebaseInitializer;
+import javafx.application.Platform;
+
 import javax.swing.JFrame;
 
 /**
@@ -12,6 +14,8 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) {
+        Platform.startup(() -> {});
+
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                                             .addLoginView()
