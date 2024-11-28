@@ -23,9 +23,8 @@ public class Main {
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
-                                            .addMenuUseCase()
                                             .addRoundUseCase()
-                                            .addMapUseCase()
+                                            .addMenuUseCase()
                                             .build();
 
         application.pack();

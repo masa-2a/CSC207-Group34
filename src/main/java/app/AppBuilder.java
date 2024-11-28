@@ -91,7 +91,6 @@ public class AppBuilder {
     private RoundView roundView;
     private RoundViewModel roundViewModel;
     private RoundInputBoundary roundUseCaseInteractor;
-    private MapView mapView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -149,28 +148,6 @@ public class AppBuilder {
         menuViewModel = new MenuViewModel();
         menuView = new MenuView(menuViewModel);
         cardPanel.add(menuView,menuView.getViewName());
-        return this;
-    }
-
-
-    /**
-     * Adds the Round Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addRoundUseCase() {
-        // Map2D Stuff
-        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor();
-
-
-        final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
-                viewManagerModel);
-        roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor,
-                roundOutputBoundary);
-
-        final RoundController roundController = new RoundController(roundUseCaseInteractor);
-
-
-        roundView.setRoundController(roundController);
         return this;
     }
 
@@ -245,25 +222,37 @@ public class AppBuilder {
                 viewManagerModel, roundViewModel);
         final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
 
-        final MenuController menuController = new MenuController(menuInteractor,roundUseCaseInteractor);
+        final MenuController menuController = new MenuController(menuInteractor,
+                roundView.getRoundController());
         menuView.setMenuController(menuController);
         return this;
     }
 
     /**
-     * Adds the Street View Map Use Case to the application.
+     * Adds the Round Use Case to the application.
      * @return this builder
      */
-    public AppBuilder addMapUseCase() {
-        final StreetViewMapOutputBoundary mapOutputBoundary = new StreetViewMapPresenter();
-        final Map map = new Map();
+    public AppBuilder addRoundUseCase() {
+        // Map2D Stuff
+        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor();
 
-        final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor(mapOutputBoundary, map);
-        final StreetViewMapController mapController = new StreetViewMapController(mapInteractor);
+        // Streetview Stuff
 
-        mapView.setStreetViewMapController(mapController);
+        final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
+
+
+        final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
+                viewManagerModel);
+        roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor,
+                mapInteractor, roundOutputBoundary);
+
+        final RoundController roundController = new RoundController(roundUseCaseInteractor);
+
+
+        roundView.setRoundController(roundController);
         return this;
     }
+
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.

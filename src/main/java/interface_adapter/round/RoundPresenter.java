@@ -20,7 +20,7 @@ public class RoundPresenter implements RoundOutputBoundary {
      */
     @Override
     public void presentMapData(RoundOutputData roundOutputData) {
-        roundViewModel.setMapImagePath(roundOutputData.getMap2DOutputData().getMapPath());
+
         roundViewModel.setState(new RoundState("Map Changed"));
         viewManagerModel.setState(roundViewModel.getState().getViewName());
         viewManagerModel.firePropertyChanged();

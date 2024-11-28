@@ -3,16 +3,14 @@ package use_case.streetview_map;
 import entity.Map;
 
 public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
-    private final StreetViewMapOutputBoundary streetViewPresenter;
     private final Map map;
 
-    public StreetViewMapInteractor(StreetViewMapOutputBoundary streetViewPresenter, Map map) {
-        this.streetViewPresenter = streetViewPresenter;
-        this.map = map;
+    public StreetViewMapInteractor() {
+        this.map = new Map();
     }
 
     @Override
-    public void execute(StreetViewMapInputData streetViewInputData) {
+    public StreetViewMapOutputData execute(StreetViewMapInputData streetViewInputData) {
 
         final double goalLatitude = streetViewInputData.getGoalLatitude();
         final double goalLongitude = streetViewInputData.getGoalLongitude();
@@ -22,7 +20,8 @@ public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
         double userLatitude = map.getUserLatitude();
         double userLongitude = map.getUserLongitude();
 
-        final StreetViewMapOutputData streetViewMapOutputData = new StreetViewMapOutputData(userLatitude, userLongitude);
-        streetViewPresenter.present(streetViewMapOutputData);
+        final StreetViewMapOutputData streetViewMapOutputData = new
+                StreetViewMapOutputData(userLatitude, userLongitude);
+        return streetViewMapOutputData;
     }
 }

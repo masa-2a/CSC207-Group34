@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface RoundDataAccessInterface {
 
-    public Map<String, Map<String, String>> loadCountryData();
+    public Map<String, Map<String, Object>> loadCountryData();
 
 }
 

@@ -19,5 +19,7 @@ public interface RoundInputBoundary {
      * Gets the random location for use in round.
      * @return An Entry of the Hashmap of the random location's long, lat and country
      */
-    Map.Entry<String, Map<String, String>> getRandLocation();
+    Map<String, Object> getRandLocation(String jsonFilePath);
+
+
 }

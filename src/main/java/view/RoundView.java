@@ -54,19 +54,8 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         System.out.println("Click " + e.getActionCommand());
         if (e.getSource().equals(mapButton)) {
             // Simulate updating the map image path
-            int width = 600;
-            int height = 400;
-            double latitude = 0;
-            double longitude = 0;
-            int zoom = 3;
-            double guessLat = 0;
-            double guessLong = 0;
-            double answerLat = 0;
-            double answerLong = 0;
-            boolean guessed = false;
-            boolean answered = false;
-            roundController.execute(width, height, latitude, longitude,
-                    zoom, guessLat, guessLong, answerLat, answerLong, guessed, answered);
+
+            roundController.execute();
 
         }
     }
@@ -112,4 +101,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         this.roundController = roundController;
     }
 
+    public RoundController getRoundController() {
+        return roundController;
+    }
 }
