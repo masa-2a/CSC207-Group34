@@ -3,15 +3,13 @@ package data_access;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import entity.CommonUser;
-import entity.PointsCalculator;
 import entity.User;
 import firebase.FirebaseInitializer;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.menu.MenuUserDataAccessInterface;
-import use_case.points_calculator.PointsCalculatorDataAccessInterface;
+import use_case.pointsCalculator.PointsCalculatorDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import entity.CommonUserFactory;
 
@@ -19,7 +17,7 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 
-public class FirestoreDataAccessObject extends AbstractDataAccessObject implements LoginUserDataAccessInterface, SignupUserDataAccessInterface, ChangePasswordUserDataAccessInterface, LogoutUserDataAccessInterface, LeaderboardUserDataAccessInterface, PointsCalculatorDataAccessInterface, MenuUserDataAccessInterface {
+public class FirestoreDataAccessObject extends AbstractDataAccessObject implements LoginUserDataAccessInterface, SignupUserDataAccessInterface, ChangePasswordUserDataAccessInterface, LogoutUserDataAccessInterface, LeaderboardUserDataAccessInterface, PointsCalculatorDataAccessInterface {
 
     private final Firestore firestore;
     private String currentUsername;
@@ -33,13 +31,13 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
     // Constructor to initialize Firestore instance
     public FirestoreDataAccessObject() {
         this.firestore = FirebaseInitializer.initializeFirebase();
-        this.currentUsername = "";// Default state, no user logged in
+        this.currentUsername = "";  // Default state, no user logged in
     }
 
     @Override
     public void save(User user) {
         try {
-            //creates new doucment in User collection with id being username
+            //creates new document in User collection with id being username
             DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
             // create map with user data
             Map<String, Object> userData = new HashMap<>();
@@ -115,6 +113,19 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
         return currentUser;
     }
 
+
+    @Override
+    public void addEarnedPoints(int pointsEarned, User user) {
+        try {
+            DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
+            userRef.update(POINTS, FieldValue.increment(pointsEarned));
+            System.out.println("Earned points added for user: " + user.getName());
+        }
+        catch (Exception e) {
+            System.err.println("Error adding earned points to Firestore: " + e.getMessage());
+        }
+
+    }
 
     @Override
     public String getCurrentUsername() {

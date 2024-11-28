@@ -27,6 +27,7 @@ public class Main {
                                             .addMenuUseCase()
                                             .addLeaderboardUseCase()
                                             .addRoundUseCase()
+                                            .addMenuUseCase()
                                             .build();
 
         application.pack();

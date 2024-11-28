@@ -40,7 +40,6 @@ public class MenuInteractor implements MenuInputBoundary {
     @Override
     public void switchToNewRoundView() {
         menuPresenter.switchToNewRoundView();
-
     }
 
     /**

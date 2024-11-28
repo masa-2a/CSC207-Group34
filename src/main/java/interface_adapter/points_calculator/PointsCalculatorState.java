@@ -3,16 +3,28 @@ package interface_adapter.points_calculator;
 public class PointsCalculatorState {
     private int points;
     public String imagePath;
-    private String message;
-    private String error;
 
-
+    /**
+     * Getter method
+     * @return user points
+     */
     public int getPoints() {return points;}
+
+    /**
+     * Getter method
+     * @return image path
+     */
     public String getImagePath() {return imagePath;}
-    public void updatePoints(int points) {this.points = points;}
-    public void updateMessage(String message) {this.message = message;}
+
+    /**
+     * updates the points with the points earned
+     * @param pointsEarned
+     */
+    public void updatePoints(int pointsEarned) {this.points += pointsEarned;}
+
+    /**
+     * updates the imagePath
+     * @param imagePath
+     */
     public void updateImagePath(String imagePath) {this.imagePath = imagePath;}
-    public void setError(String inputError) {
-        this.error = inputError;
-    }
 }

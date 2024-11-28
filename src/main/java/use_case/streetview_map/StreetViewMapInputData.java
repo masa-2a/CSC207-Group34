@@ -1,15 +1,16 @@
 package use_case.streetview_map;
 
 public class StreetViewMapInputData {
-    private final double[] userCoordinates;
-    private final double[] goalCoordinates;
 
-    public StreetViewMapInputData(double[] userCoordinates, double[] goalCoordinates) {
-        this.userCoordinates = userCoordinates;
-        this.goalCoordinates = goalCoordinates;
+    private final double goalLongitude;
+    private final double goalLatitude;
+
+    public StreetViewMapInputData(double goalLongitude, double goalLatitude) {
+        this.goalLongitude = goalLongitude;
+        this.goalLatitude = goalLatitude;
     }
 
-    public double[] getUserCoordinates() { return userCoordinates; }
+    public double getGoalLongitude() { return goalLongitude; }
 
-    public double[] getGoalCoordinates() { return goalCoordinates; }
+    public double getGoalLatitude() { return goalLatitude; }
 }

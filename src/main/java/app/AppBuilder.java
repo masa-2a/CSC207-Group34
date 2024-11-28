@@ -8,6 +8,7 @@ import javax.swing.WindowConstants;
 
 import data_access.FirestoreDataAccessObject;
 import entity.CommonUserFactory;
+import entity.Map;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
@@ -24,15 +25,14 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.main_menu.MenuController;
 import interface_adapter.main_menu.MenuPresenter;
 import interface_adapter.main_menu.MenuViewModel;
-import interface_adapter.map2d.Map2DController;
-import interface_adapter.map2d.Map2DPresenter;
-import interface_adapter.map2d.Map2DViewModel;
 import interface_adapter.round.RoundController;
 import interface_adapter.round.RoundPresenter;
 import interface_adapter.round.RoundViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.streetview_map.StreetViewMapController;
+import interface_adapter.streetview_map.StreetViewMapPresenter;
 import interface_adapter.streetview_map.StreetViewMapViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
@@ -47,7 +47,6 @@ import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
 import use_case.map2d.Map2DInputBoundary;
-import use_case.map2d.Map2DOutputBoundary;
 import use_case.map2d.Map2DUseCaseInteractor;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
@@ -58,6 +57,9 @@ import use_case.round.RoundOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.streetview_map.StreetViewMapInputBoundary;
+import use_case.streetview_map.StreetViewMapInteractor;
+import use_case.streetview_map.StreetViewMapOutputBoundary;
 import view.*;
 
 /**
@@ -94,19 +96,16 @@ public class AppBuilder {
     private LeaderboardView leaderboardView;
 
     private StreetViewMapViewModel streetViewMapViewModel;
-    private MapView mapView;
-  
-    private Map2DView map2DView;
-    private Map2DViewModel map2DViewModel;
     private RoundView roundView;
     private RoundViewModel roundViewModel;
+    private RoundInputBoundary roundUseCaseInteractor;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
 
     /**
-     * Adds the Signup View to the applicaåtion.
+     * Adds the Signup View to the application.
      * @return this builder
      */
     public AppBuilder addSignupView() {
@@ -149,6 +148,13 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addLeaderboardView() {
+        this.leaderboardViewModel = new LeaderboardViewModel();
+        this.leaderboardView = new LeaderboardView(leaderboardViewModel);
+        cardPanel.add(leaderboardView, leaderboardView.getViewName());
+        return this;
+    }
+
     /**
      * Adds the LoggedIn View to the application.
      * @return this builder
@@ -157,70 +163,6 @@ public class AppBuilder {
         menuViewModel = new MenuViewModel();
         menuView = new MenuView(menuViewModel);
         cardPanel.add(menuView,menuView.getViewName());
-        return this;
-    }
-
-
-    /**
-     * Adds Leaderboard View to the application
-     * @return this builder
-     */
-    public AppBuilder addLeaderboardView() {
-        leaderboardViewModel = new LeaderboardViewModel();
-        leaderboardView = new LeaderboardView(leaderboardViewModel);
-        cardPanel.add(leaderboardView, leaderboardView.getViewName());
-        return this;
-    }
-
-//    /**
-//     * Adds a Map2D View to the application
-//     * @return this builder
-//     */
-//    public AppBuilder addMap2DView() {
-//        map2DViewModel = new Map2DViewModel();
-//        map2DView = new Map2DView(map2DViewModel);
-//        cardPanel.add(map2DView,map2DView.getViewName());
-//        return this;
-//    }
-//    /**
-//     * Adds the Map2D Use Case to the application.
-//     * @return this builder
-//     */
-//    public AppBuilder addMap2DUseCase() {
-//        map2DViewModel = new Map2DViewModel();
-//        map2DView = new Map2DView(map2DViewModel);
-//        final Map2DOutputBoundary map2DOutputBoundary = new Map2DPresenter(viewManagerModel,
-//                map2DViewModel);
-//        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor(
-//                map2DOutputBoundary);
-//
-//        final Map2DController controller = new Map2DController(map2DUseCaseInteractor);
-//        map2DView.setMap2DController(controller);
-//        return this;
-//    }
-
-    /**
-     * Adds the Round Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addRoundUseCase() {
-        // Map2D Stuff
-        map2DViewModel = new Map2DViewModel();
-        map2DView = new Map2DView(map2DViewModel);
-        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor();
-
-
-        final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
-                viewManagerModel);
-        final RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor,
-                roundOutputBoundary);
-
-        final RoundController roundController = new RoundController(roundUseCaseInteractor);
-
-
-        roundView.setRoundController(roundController);
-//        roundView.setMap2DController(map2DController);
-
         return this;
     }
 
@@ -308,12 +250,53 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addMenuUseCase() {
+
+        //leaderboard presenter
+        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewModel,
+                viewManagerModel, menuViewModel);
+        //leaderboard interactor
+        final LeaderboardInputBoundary leaderboardInteractor =
+                new LeaderboardInteractor(leaderboardOutputBoundary, userDataAccessObject);
+        //leaderboard controll er
+        final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
+
+        leaderboardView.setLeaderboardController(leaderboardController);
+        //menu presenter
         final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel,
                 viewManagerModel, roundViewModel, leaderboardViewModel);
-        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
+        //menu interactor
+        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary,leaderboardInteractor );
 
-        final MenuController menuController = new MenuController(menuInteractor);
+
+
+        final MenuController menuController = new MenuController(menuInteractor,
+                roundView.getRoundController());
         menuView.setMenuController(menuController);
+        return this;
+    }
+
+    /**
+     * Adds the Round Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addRoundUseCase() {
+        // Map2D Stuff
+        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor();
+
+        // Streetview Stuff
+
+        final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
+
+
+        final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
+                viewManagerModel);
+        roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor,
+                mapInteractor, roundOutputBoundary);
+
+        final RoundController roundController = new RoundController(roundUseCaseInteractor);
+
+
+        roundView.setRoundController(roundController);
         return this;
     }
 
@@ -333,4 +316,6 @@ public class AppBuilder {
 
         return application;
     }
+
+
 }

@@ -3,13 +3,19 @@ package use_case.round;
 import use_case.map2d.Map2DOutputData;
 
 public class RoundOutputData {
-    private final Map2DOutputData map2DOutputData;
+    private final double guessLat;
+    private final double guessLong;
 
-    public RoundOutputData (Map2DOutputData map2DOutputData) {
-        this.map2DOutputData = map2DOutputData;
+    public RoundOutputData (double guessLat,double guessLong) {
+        this.guessLat = guessLat;
+        this.guessLong = guessLong;
     }
 
-    public Map2DOutputData getMap2DOutputData() {
-        return map2DOutputData;
+    public double getGuessLat() {
+        return guessLat;
+    }
+
+    public double getGuessLong() {
+        return guessLong;
     }
 }

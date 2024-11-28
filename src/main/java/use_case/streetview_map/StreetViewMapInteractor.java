@@ -1,18 +1,31 @@
 package use_case.streetview_map;
 
-public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
-    private final StreetViewMapOutputBoundary streetViewPresenter;
+import entity.Map;
+import javafx.stage.Stage;
 
-    public StreetViewMapInteractor(StreetViewMapOutputBoundary streetViewPresenter) {
-        this.streetViewPresenter = streetViewPresenter;
+public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
+    private final Map map;
+
+    public StreetViewMapInteractor() {
+        this.map = new Map();
     }
 
     @Override
-    public void execute(StreetViewMapInputData streetViewInputData) {
-        final double[] userCoordinates = streetViewInputData.getUserCoordinates();
-        final double[] goalCoordinates = streetViewInputData.getGoalCoordinates();
+    public StreetViewMapOutputData execute(StreetViewMapInputData streetViewInputData) {
 
-        StreetViewMapOutputData outputData = new StreetViewMapOutputData(userCoordinates, goalCoordinates);
-        streetViewPresenter.present(outputData);
+        final double goalLatitude = streetViewInputData.getGoalLatitude();
+        final double goalLongitude = streetViewInputData.getGoalLongitude();
+
+        Stage stage = new Stage();
+
+        map.giveCoords(goalLatitude, goalLongitude);
+        map.start(stage);
+
+        double userLatitude = map.getUserLatitude();
+        double userLongitude = map.getUserLongitude();
+
+        final StreetViewMapOutputData streetViewMapOutputData = new
+                StreetViewMapOutputData(userLatitude, userLongitude);
+        return streetViewMapOutputData;
     }
 }

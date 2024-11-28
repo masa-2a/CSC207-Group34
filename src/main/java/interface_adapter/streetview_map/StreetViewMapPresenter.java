@@ -6,14 +6,13 @@ import use_case.streetview_map.StreetViewMapOutputData;
 public class StreetViewMapPresenter implements StreetViewMapOutputBoundary {
 
     public void present(StreetViewMapOutputData outputData) {
-        double[] userCoordinates = outputData.getUserCoordinates();
-        double[] goalCoordinates = outputData.getGoalCoordinates();
+        double userLatitude = outputData.getUserLatitude();
+        double userLongitude = outputData.getUserLongitude();
 
-        transferCoordinates(userCoordinates, goalCoordinates);
+        transferCoordinates(userLatitude, userLongitude);
     }
 
-    private void transferCoordinates(double[] userCoordinates, double[] goalCoordinates) {
-        System.out.println(userCoordinates[0] + " " + userCoordinates[1]);
-        System.out.println(goalCoordinates[0] + " " + goalCoordinates[1]);
+    private void transferCoordinates(double userLatitude, double userLongitude) {
+        System.out.println(userLatitude + " " + userLongitude);
     }
 }
