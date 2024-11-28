@@ -4,4 +4,5 @@ public interface LeaderboardOutputBoundary {
 
     void prepareSuccessView(LeaderboardOutputData outputData);
     void prepareFailView(String errorMessage);
+    void switchToMenuView();
 }

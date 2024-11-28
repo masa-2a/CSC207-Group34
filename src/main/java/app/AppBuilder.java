@@ -14,6 +14,9 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.leaderboard.LeaderboardController;
+import interface_adapter.leaderboard.LeaderboardPresenter;
+import interface_adapter.leaderboard.LeaderboardViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -34,6 +37,9 @@ import interface_adapter.streetview_map.StreetViewMapViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.leaderboard.LeaderboardInputBoundary;
+import use_case.leaderboard.LeaderboardInteractor;
+import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -86,6 +92,8 @@ public class AppBuilder {
     private LoginView loginView;
     private MenuView menuView;
     private MenuViewModel menuViewModel;
+    private LeaderboardViewModel leaderboardViewModel;
+    private LeaderboardView leaderboardView;
 
     private StreetViewMapViewModel streetViewMapViewModel;
     private RoundView roundView;
@@ -137,6 +145,13 @@ public class AppBuilder {
         this.roundViewModel = new RoundViewModel();
         this.roundView = new RoundView(roundViewModel);
         cardPanel.add(roundView,roundView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addLeaderboardView() {
+        this.leaderboardViewModel = new LeaderboardViewModel();
+        this.leaderboardView = new LeaderboardView(leaderboardViewModel);
+        cardPanel.add(leaderboardView, leaderboardView.getViewName());
         return this;
     }
 
@@ -214,13 +229,45 @@ public class AppBuilder {
     }
 
     /**
+     * Adds leaderboard Use Case to the application
+     * @return this builder
+     */
+    public AppBuilder addLeaderboardUseCase() {
+        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewModel,
+                viewManagerModel, menuViewModel);
+
+        final LeaderboardInputBoundary leaderboardInteractor =
+                new LeaderboardInteractor(leaderboardOutputBoundary, userDataAccessObject);
+
+        final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
+
+        leaderboardView.setLeaderboardController(leaderboardController);
+        return this;
+    }
+
+     /**
      * Adds the Menu Use Case to the application.
      * @return this builder
      */
     public AppBuilder addMenuUseCase() {
+
+        //leaderboard presenter
+        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewModel,
+                viewManagerModel, menuViewModel);
+        //leaderboard interactor
+        final LeaderboardInputBoundary leaderboardInteractor =
+                new LeaderboardInteractor(leaderboardOutputBoundary, userDataAccessObject);
+        //leaderboard controll er
+        final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
+
+        leaderboardView.setLeaderboardController(leaderboardController);
+        //menu presenter
         final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel,
-                viewManagerModel, roundViewModel);
-        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
+                viewManagerModel, roundViewModel, leaderboardViewModel);
+        //menu interactor
+        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary,leaderboardInteractor );
+
+
 
         final MenuController menuController = new MenuController(menuInteractor,
                 roundView.getRoundController());
@@ -269,4 +316,6 @@ public class AppBuilder {
 
         return application;
     }
+
+
 }

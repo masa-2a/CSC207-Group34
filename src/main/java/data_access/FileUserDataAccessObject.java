@@ -99,6 +99,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
     }
 
     @Override
+    public void setCurrentUser(User user) {
+
+    }
+
+    @Override
     public String getCurrentUsername() {
         return this.currentUsername;
     }
@@ -113,5 +118,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
         // Replace the User object in the map
         accounts.put(user.getName(), user);
         save();
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return null;
     }
 }

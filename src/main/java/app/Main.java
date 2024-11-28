@@ -18,18 +18,21 @@ public class Main {
 
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
-                .addLoginView()
-                .addSignupView()
-                .addLoggedInView()
-                .addMenuView()
-                .addRoundView()
-                .addSignupUseCase()
-                .addLoginUseCase()
-                .addLogoutUseCase()
-                .addChangePasswordUseCase()
-                .addRoundUseCase()
-                .addMenuUseCase()
-                .build();
+                                            .addLoginView()
+                                            .addSignupView()
+                                            .addLoggedInView()
+                                            .addMenuView()
+                                            .addLeaderboardView()
+                                            .addRoundView()
+                                            .addSignupUseCase()
+                                            .addLoginUseCase()
+                                            .addLogoutUseCase()
+                                            .addChangePasswordUseCase()
+                                            .addMenuUseCase()
+                                            .addLeaderboardUseCase()
+                                            .addRoundUseCase()
+                                            .addMenuUseCase()
+                                            .build();
 
         application.pack();
         application.setVisible(true);

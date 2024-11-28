@@ -11,10 +11,9 @@ import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.pointsCalculator.PointsCalculatorDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
+import entity.CommonUserFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 
@@ -22,6 +21,7 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
 
     private final Firestore firestore;
     private String currentUsername;
+    private User currentUser;
     private static final String PASSWORD = "password";
     private static final String NAME = "name";
     private static final String POINTS = "points";
@@ -82,6 +82,9 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
     }
 
     @Override
+    public void setCurrentUser(User currentUser) { this.currentUser = currentUser; }
+
+    @Override
     public boolean existsByName(String username) {
         try {
             DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(username);
@@ -97,12 +100,19 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
     public void changePassword(User user) {
         try {
             DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
-            userRef.update(PASSWORD, user.getPassword());
+            ApiFuture<WriteResult> future = userRef.update(PASSWORD, user.getPassword());
+            setCurrentUser(user);
             System.out.println("Password updated for user: " + user.getName());
         } catch (Exception e) {
             System.err.println("Error changing password in Firestore: " + e.getMessage());
         }
     }
+
+    @Override
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
 
     @Override
     public void addEarnedPoints(int pointsEarned, User user) {
@@ -125,6 +135,42 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
 
     @Override
     public List<CommonUser> returnAllUsers() {
-    return null;
+        return null;
+
+    }
+    /**
+     * Retrieves the top 3 users based on points.
+     *
+     * @return a list of the top 3 CommonUser objects.
+     */
+    public ArrayList<CommonUser> topUsers() {
+        ArrayList<CommonUser> topUsersList = new ArrayList<>();
+
+        // Query Firestore to fetch top 3 users ordered by points in descending order
+        ApiFuture<QuerySnapshot> query = firestore.collection(USERSCOLLECTION)
+                .orderBy(POINTS, Query.Direction.DESCENDING)
+                .limit(3)
+                .get();
+
+        try {
+            QuerySnapshot querySnapshot = query.get();
+            for (QueryDocumentSnapshot document : querySnapshot.getDocuments()) {
+                // Extract fields from the document
+                String name = document.getString("name");
+                String password = document.getString("password");
+                Long points = document.getLong("points");
+                Long numberOfGames = document.getLong("numberOfGames");
+
+                // Ensure fields are not null and convert to CommonUser
+                if (name != null && password != null && points != null && numberOfGames != null) {
+                    CommonUser user = new  CommonUser(name, password, points.intValue(), numberOfGames.intValue());
+                    topUsersList.add(user);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println("Error retrieving top users: " + e.getMessage());
+        }
+
+        return topUsersList;
     }
 }

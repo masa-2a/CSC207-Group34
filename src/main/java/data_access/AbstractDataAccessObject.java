@@ -21,4 +21,6 @@ public abstract class AbstractDataAccessObject {
     // Get the current logged-in username
     public String getCurrentUsername(){return null;}
 
+    public void setCurrentUser(){}
+
 }

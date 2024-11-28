@@ -43,4 +43,8 @@ public class CommonUser implements User {
     public String getPassword() {
         return password;
     }
+
+    public int getAveragePoints() {
+        return numberOfGames == 0 ? 0 : (int) Math.floor((double) points / numberOfGames);
+    }
 }

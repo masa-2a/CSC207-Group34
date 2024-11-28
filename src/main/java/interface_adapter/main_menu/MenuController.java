@@ -37,9 +37,7 @@ public class MenuController {
     /**
      * Executes the "switch to Leaderboard" Use Case.
      */
-    public void switchToLeaderboardView() {
-    }
-
+    public void switchToLeaderboardView() { menuUseCaseInteractor.switchToLeaderboardView(); }
 
     /**
      * Chooses a random location and creates a new StreetViewMap
