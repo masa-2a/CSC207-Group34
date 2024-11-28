@@ -90,25 +90,10 @@
 
   function initialize() {
     const defaultLocation = {lat: 43.661775712671215, lng: -79.3951077927884};
-    const rand = Math.floor(Math.random() * 10);
-    const randomLocations = [
-      {lat: 42, lng: -71},
-      {lat: 34.0361343941081, lng: 108.92676837088668},
-      {lat: 52.03238908452306, lng: 5.3389802540091695},
-      {lat: 20.993765372145273, lng: 72.81394739228956},
-      {lat: 54.11652744386116, lng: 61.57774339280659},
-      {lat: 65.61559922810795, lng: -37.63672282227504},
-      {lat: -20.065367990935233, lng: 57.55697525742677},
-      {lat: -3.044898738488582, lng: -59.99374885308898},
-      {lat: 35.12033659399063, lng: 129.08105506884803},
-      {lat: -1.0476618968428848, lng: 36.88403391295389}
-    ];
 
-    const initialLocation = randomLocations[rand];
-    let initLng = window.java.sendGoalLng();
-    let initLat = window.java.sendGoalLat();
-
-    window.java.getGoalCoordinates(initLat, initLng);
+    // let initLng = window.java.sendGoalLng();
+    // let initLat = window.java.sendGoalLat();
+    // const initialLocation = {lat: initLat, lng: initLng};
 
     // Create the map with Street View control disabled
     const map = new google.maps.Map(document.getElementById("map"), {
@@ -135,7 +120,7 @@
     const panorama = new google.maps.StreetViewPanorama(
             document.getElementById("pano"),
             {
-              position: initialLocation,
+              position: defaultLocation,
               pov: {
                 heading: 34,
                 pitch: 10,
@@ -160,7 +145,8 @@
           correctMarker.setMap(null);
         }
 
-        window.java.getUserCoordinates(userLat, userLng);
+        window.java.setUserLatitude(userLng);
+        window.java.setUserLongitude(userLat)
 
       } else {
         console.log("No marker placed yet!");
