@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import data_access.FirestoreDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
+import entity.Map;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
@@ -31,6 +31,8 @@ import interface_adapter.round.RoundViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.streetview_map.StreetViewMapController;
+import interface_adapter.streetview_map.StreetViewMapPresenter;
 import interface_adapter.streetview_map.StreetViewMapViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
@@ -53,6 +55,9 @@ import use_case.round.RoundOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.streetview_map.StreetViewMapInputBoundary;
+import use_case.streetview_map.StreetViewMapInteractor;
+import use_case.streetview_map.StreetViewMapOutputBoundary;
 import view.*;
 
 /**
@@ -87,12 +92,12 @@ public class AppBuilder {
     private MenuViewModel menuViewModel;
 
     private StreetViewMapViewModel streetViewMapViewModel;
-    private MapView mapView;
   
     private Map2DView map2DView;
     private Map2DViewModel map2DViewModel;
     private RoundView roundView;
     private RoundViewModel roundViewModel;
+    private MapView mapView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -280,6 +285,20 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the Street View Map Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addMapUseCase() {
+        final StreetViewMapOutputBoundary mapOutputBoundary = new StreetViewMapPresenter();
+        final Map map = new Map();
+
+        final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor(mapOutputBoundary, map);
+        final StreetViewMapController mapController = new StreetViewMapController(mapInteractor);
+
+        mapView.setStreetViewMapController(mapController);
+        return this;
+    }
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
