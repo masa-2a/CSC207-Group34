@@ -6,7 +6,6 @@ import com.teamdev.jxbrowser.engine.Engine;
 import com.teamdev.jxbrowser.engine.EngineOptions;
 import com.teamdev.jxbrowser.engine.RenderingMode;
 import com.teamdev.jxbrowser.js.JsAccessible;
-import com.teamdev.jxbrowser.js.JsFunctionCallback;
 import com.teamdev.jxbrowser.js.JsObject;
 import com.teamdev.jxbrowser.view.javafx.BrowserView;
 import javafx.application.Application;
@@ -68,8 +67,8 @@ public class StreetViewMapApp extends Application {
                         "window.java = {" +
                                 "  getGoalCoordinates: function(goalLat, goalLng) { java.getGoalCoordinates(goalLat, goalLng); }," +
                                 "  getUserCoordinates: function(userLat, userLng) { java.getUserCoordinates(userLat, userLng); }," +
-                                "  sendGoalLat: function() { java.sendGoalLat(); }," +
-                                "  sendGoalLng: function() { java.sendGoalLng(); }" +
+                                "  sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
+                                "  sendGoalLongitude: function() { java.sendGoalLongitude(); }" +
                                 "};"
                 )
         );
@@ -91,12 +90,12 @@ public class StreetViewMapApp extends Application {
     }
 
     @JsAccessible
-    public double sendGoalLat() {
+    public double sendGoalLatitude() {
         return lat;
     }
 
     @JsAccessible
-    public double sendGoalLng() {
+    public double sendGoalLongitude() {
         return lng;
     }
 

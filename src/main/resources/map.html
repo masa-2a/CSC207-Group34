@@ -91,8 +91,8 @@
   function initialize() {
     const defaultLocation = {lat: 43.661775712671215, lng: -79.3951077927884};
 
-    let initLng = window.java.sendGoalLng();
-    let initLat = window.java.sendGoalLat();
+    let initLng = window.java.sendGoalLongitude();
+    let initLat = window.java.sendGoalLatitude();
     const initialLocation = {lat: initLat, lng: initLng};
 
     // Create the map with Street View control disabled
@@ -144,7 +144,7 @@
         }
 
         window.java.setUserLatitude(userLng);
-        window.java.setUserLongitude(userLat)
+        window.java.setUserLongitude(userLat);
 
       } else {
         console.log("No marker placed yet!");
