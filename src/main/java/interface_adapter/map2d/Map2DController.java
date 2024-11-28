@@ -10,12 +10,7 @@ public class Map2DController {
         this.map2DUseCaseInteractor = map2DUseCaseInteractor;
     }
 
-    public void execute(int width, int height, double latitude, double longitude,
-                        int zoom, double guessLat, double guessLong, double answerLat,
-                        double answerLong, boolean guessed, boolean answered) {
-
-        final Map2DInputData map2DInputData = new Map2DInputData(width, height, latitude, longitude,
-        zoom, guessLat, guessLong, answerLat, answerLong, guessed, answered);
+    public void execute(Map2DInputData map2DInputData) {
 
         map2DUseCaseInteractor.execute(map2DInputData);
     }

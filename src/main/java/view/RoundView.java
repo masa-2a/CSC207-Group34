@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.round.RoundController;
+import interface_adapter.round.RoundState;
 import interface_adapter.round.RoundViewModel;
 
 import javax.swing.*;
@@ -12,24 +13,36 @@ import java.beans.PropertyChangeListener;
 
 public class RoundView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "Round View";
-
     private final RoundViewModel roundViewModel;
     private RoundController roundController;
+    private final JButton mapButton;
+    private JLabel imageLabel;
 
     public RoundView (RoundViewModel roundViewModel){
         this.roundViewModel = roundViewModel;
         this.roundViewModel.addPropertyChangeListener(this);
 
+        final JPanel buttons = new JPanel();
+        mapButton = new JButton("Update Map");
+        mapButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttons.add(mapButton);
+        // ActionListener for the mapButton and will execute the code below.
+        mapButton.addActionListener(this);
+
+
+        // Initial image setup
+        this.imageLabel = new JLabel();
+        updateImage(roundViewModel.getMapImagePath());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         final JLabel title = new JLabel(RoundViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.add(title);
+        this.add(buttons);
+        this.add(imageLabel); // Add the image label to the view
 
     }
-
 
     /**
      * Invoked when an action occurs.
@@ -38,7 +51,13 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("Click " + e.getActionCommand());
+        if (e.getSource().equals(mapButton)) {
+            // Simulate updating the map image path
 
+            roundController.execute();
+
+        }
     }
 
     /**
@@ -54,7 +73,24 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
             System.out.println(evt.getPropertyName());
             // Update any labels or fields with the current state
         }
+        if ("mapImagePath".equals(evt.getPropertyName())) {
+            updateImage(((RoundState) evt.getNewValue()).getMapImagePath());
+        }
+    }
 
+    private void updateImage(String imagePath) {
+        if (imagePath != null && !imagePath.isEmpty()) {
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(imagePath).getImage().
+                    getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+            imageLabel.setIcon(imageIcon);
+        } else {
+            String origImagePath = "src/main/resources/static_map_original.png";
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(origImagePath).getImage().
+                    getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+            imageLabel.setIcon(imageIcon);
+        }
+        this.revalidate();
+        this.repaint();
     }
 
     public String getViewName() {
@@ -63,5 +99,9 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
 
     public void setRoundController(RoundController roundController) {
         this.roundController = roundController;
+    }
+
+    public RoundController getRoundController() {
+        return roundController;
     }
 }

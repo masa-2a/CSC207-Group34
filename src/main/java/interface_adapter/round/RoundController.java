@@ -3,6 +3,8 @@ package interface_adapter.round;
 import use_case.round.RoundInputBoundary;
 import use_case.round.RoundInputData;
 
+import java.util.Map;
+
 public class RoundController {
 
     private final RoundInputBoundary roundUseCaseInteractor;
@@ -12,27 +14,21 @@ public class RoundController {
     }
 
     /**
-     * Executes the Menu Use Case.
+     * Executes the Round Use Case.
      */
     public void execute() {
-        final RoundInputData roundInputData = new RoundInputData();
+        Map<String, Object> randLocation =
+                roundUseCaseInteractor.getRandLocation("src/main/resources/rand_locations.json");
+
+        double latitude = (double) randLocation.get("latitude");
+        double longitude = (double) randLocation.get("longitude");
+        String country = (String) randLocation.get("country");
+
+        final RoundInputData roundInputData = new RoundInputData(latitude,longitude, country);
 
         roundUseCaseInteractor.execute(roundInputData);
+
     }
-    /**
-     * Executes the "switch to LogoutView" Use Case.
-     */
-    public void switchToLogoutView() {
-    }
-    /**
-     * Executes the "switch to Leaderboard" Use Case.
-     */
-    public void switchToLeaderboardView() {
-    }
-    /**
-     * Executes the "switch to New Round" Use Case.
-     */
-    public void switchToNewRoundView() {
-    }
+
 
 }

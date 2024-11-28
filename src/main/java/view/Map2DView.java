@@ -1,7 +1,6 @@
 package view;
 
 import interface_adapter.map2d.Map2DController;
-import interface_adapter.map2d.Map2DPresenter;
 import interface_adapter.map2d.Map2DViewModel;
 
 import javax.swing.*;
@@ -20,8 +19,6 @@ public class Map2DView extends JPanel implements ActionListener, PropertyChangeL
         this.viewName = "Map2D View";
         this.map2DViewModel = map2DViewModel;
         this.map2DViewModel.addPropertyChangeListener(this);
-
-
     }
     @Override
     public void actionPerformed(ActionEvent e) {

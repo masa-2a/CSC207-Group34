@@ -11,6 +11,6 @@ public interface Map2DInputBoundary {
      * Executes the view 2d map use case.
      * @param map2DInputData the input data
      */
-    void execute(Map2DInputData map2DInputData);
+    Map2DOutputData execute(Map2DInputData map2DInputData);
 
 }

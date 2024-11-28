@@ -1,7 +1,5 @@
-package use_case.points_calculator;
+package use_case.pointsCalculator;
 
-
-import entity.PointsCalculator;
 
 public interface PointsCalculatorOutputBoundary {
     /**
