@@ -93,7 +93,7 @@
 
     let initLng = window.java.sendGoalLongitude();
     let initLat = window.java.sendGoalLatitude();
-    const initialLocation = {lat: initLat, lng: initLng};
+    let initialLocation = {lat: initLat, lng: initLng};
 
     // Create the map with Street View control disabled
     const map = new google.maps.Map(document.getElementById("map"), {

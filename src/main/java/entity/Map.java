@@ -49,19 +49,16 @@ public class Map extends Application {
         String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
         browser.navigation().loadUrl(htmlPath);
 
-        // Add a listener to execute JavaScript after the page has loaded.
-        browser.navigation().on(LoadFinished.class, event -> {
-            browser.mainFrame().ifPresent(frame ->
-                    frame.executeJavaScript(
-                            "window.java = {" +
-                                    "  setUserLatitude: function(userLatitude) { java.setUserLatitude(userLatitude); }," +
-                                    "  setUserLongitude: function(userLongitude) { java.setUserLongitude(userLongitude); }," +
-                                    "  sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
-                                    "  sendGoalLongitude: function() { java.sendGoalLongitude(); }" +
-                                    "};"
-                    )
-            );
-        });
+        browser.navigation().on(LoadFinished.class, event -> browser.mainFrame().ifPresent(frame ->
+                frame.executeJavaScript(
+                        "window.java = {" +
+                                "  setUserLatitude: function(userLatitude) { java.setUserLatitude(userLatitude); }," +
+                                "  setUserLongitude: function(userLongitude) { java.setUserLongitude(userLongitude); }," +
+                                "  sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
+                                "  sendGoalLongitude: function() { java.sendGoalLongitude(); }" +
+                                "};"
+                )
+        ));
 
         StackPane root = new StackPane();
         root.getChildren().add(browserView);
@@ -77,9 +74,7 @@ public class Map extends Application {
     }
 
     @JsAccessible
-    public void setUserLatitude(double userLatitude) {
-        this.userLatitude = userLatitude;
-    }
+    public void setUserLatitude(double userLatitude) { this.userLatitude = userLatitude; }
 
     @JsAccessible
     public void setUserLongitude(double userLongitude) {
