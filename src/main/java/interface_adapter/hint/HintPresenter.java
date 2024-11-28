@@ -2,9 +2,10 @@ package interface_adapter.hint;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.hint.HintViewModel;
+import use_case.hint.HintOutputBoundary;
 import use_case.hint.HintOutputData;
 
-public class HintPresenter {
+public class HintPresenter implements HintOutputBoundary {
     private final HintViewModel hintViewModel;
     private final ViewManagerModel viewManagerModel;
 
@@ -22,7 +23,10 @@ public class HintPresenter {
     public void prepareSuccessView(HintOutputData outputData) {
 
 
+    }
 
+    @Override
+    public void prepareFailView(String errorMessage) {
 
     }
 }

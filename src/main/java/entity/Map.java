@@ -7,24 +7,32 @@ import com.teamdev.jxbrowser.engine.EngineOptions;
 import com.teamdev.jxbrowser.engine.RenderingMode;
 import com.teamdev.jxbrowser.js.JsAccessible;
 import com.teamdev.jxbrowser.js.JsObject;
+import com.teamdev.jxbrowser.navigation.event.LoadFinished;
 import com.teamdev.jxbrowser.view.javafx.BrowserView;
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.nio.file.Paths;
 
-public class Map {
+public class Map extends Application {
     private double userLatitude;
     private double userLongitude;
     private double goalLongitude;
     private double goalLatitude;
 
-    public void loadMap(double goalLat, double goalLng) {
+    @Override
+    public void start(Stage primaryStage) {
+        loadMap();
+    }
 
+    public void giveCoords(double goalLat, double goalLng) {
         setGoalLatitude(goalLat);
         setGoalLongitude(goalLng);
+    }
 
+    public void loadMap() {
         Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
                 .licenseKey("OK6AEKNYF2KFR6YGPA0GCYPPB72XLN3MY23BQUDMBVBH16NZHXTGMGGFTQW5FLHQKINRCZEOMFN8HA7VMJ62H2QPSQRIS1NUW21Y2V2H7Q05GH9I5U6APVLUPVHA1C4RMED8O7H7U9Q1BJMFK").build());
 
@@ -41,16 +49,19 @@ public class Map {
         String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
         browser.navigation().loadUrl(htmlPath);
 
-        browser.mainFrame().ifPresent(frame ->
-                frame.executeJavaScript(
-                        "window.java = {" +
-                                "  setUserLatitude: function(userLatitude) { java.setUserLatitude(userLatitude); }," +
-                                "  setUserLongitude: function(userLongitude) { java.setUserLongitude(userLongitude); }," +
-                                "  sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
-                                "  sendGoalLongitude: function() { java.sendGoalLongitude(); }" +
-                                "};"
-                )
-        );
+        // Add a listener to execute JavaScript after the page has loaded.
+        browser.navigation().on(LoadFinished.class, event -> {
+            browser.mainFrame().ifPresent(frame ->
+                    frame.executeJavaScript(
+                            "window.java = {" +
+                                    "  setUserLatitude: function(userLatitude) { java.setUserLatitude(userLatitude); }," +
+                                    "  setUserLongitude: function(userLongitude) { java.setUserLongitude(userLongitude); }," +
+                                    "  sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
+                                    "  sendGoalLongitude: function() { java.sendGoalLongitude(); }" +
+                                    "};"
+                    )
+            );
+        });
 
         StackPane root = new StackPane();
         root.getChildren().add(browserView);

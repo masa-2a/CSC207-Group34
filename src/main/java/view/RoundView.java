@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.round.RoundController;
+import interface_adapter.round.RoundState;
 import interface_adapter.round.RoundViewModel;
 
 import javax.swing.*;
@@ -12,35 +13,28 @@ import java.beans.PropertyChangeListener;
 
 public class RoundView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "Round View";
-
     private final RoundViewModel roundViewModel;
     private RoundController roundController;
-
     private final JButton mapButton;
+    private JLabel imageLabel;
 
     public RoundView (RoundViewModel roundViewModel){
         this.roundViewModel = roundViewModel;
         this.roundViewModel.addPropertyChangeListener(this);
 
         final JPanel buttons = new JPanel();
-
-        mapButton = new JButton("Show Map");
-
+        mapButton = new JButton("Update Map");
         mapButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttons.add(mapButton);
-
         // ActionListener for the mapButton and will execute the code below.
         mapButton.addActionListener(this);
 
-        // Adding the Static Map image to this View
-        String imagePath = "src/main/resources/static_map.png"; // Replace with your image path
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-        JLabel imageLabel = new JLabel(imageIcon);
 
-
+        // Initial image setup
+        this.imageLabel = new JLabel();
+        updateImage(roundViewModel.getMapImagePath());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         final JLabel title = new JLabel(RoundViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -57,20 +51,13 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Map Button Clicked");
-        int width = 600;
-        int height = 400;
-        double latitude = 0;
-        double longitude = 0;
-        int zoom = 2;
-        double guessLat = 0;
-        double guessLong = 0;
-        double answerLat = 0;
-        double answerLong = 0;
-        boolean guessed = false;
-        boolean answered = false;
-        roundController.execute(width, height, latitude, longitude,
-                zoom, guessLat, guessLong, answerLat, answerLong, guessed, answered);
+        System.out.println("Click " + e.getActionCommand());
+        if (e.getSource().equals(mapButton)) {
+            // Simulate updating the map image path
+
+            roundController.execute();
+
+        }
     }
 
     /**
@@ -86,15 +73,24 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
             System.out.println(evt.getPropertyName());
             // Update any labels or fields with the current state
         }
-        else if (evt.getPropertyName().equals("imagePath")) {
-            String newImagePath = (String) evt.getNewValue();
-            ImageIcon newImageIcon = new ImageIcon(new ImageIcon(newImagePath).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-            JLabel imageLabel = new JLabel(newImageIcon);
-            this.removeAll();
-            this.add(imageLabel);
-            this.revalidate();
-            this.repaint();
+        if ("mapImagePath".equals(evt.getPropertyName())) {
+            updateImage(((RoundState) evt.getNewValue()).getMapImagePath());
         }
+    }
+
+    private void updateImage(String imagePath) {
+        if (imagePath != null && !imagePath.isEmpty()) {
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(imagePath).getImage().
+                    getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+            imageLabel.setIcon(imageIcon);
+        } else {
+            String origImagePath = "src/main/resources/static_map_original.png";
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(origImagePath).getImage().
+                    getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+            imageLabel.setIcon(imageIcon);
+        }
+        this.revalidate();
+        this.repaint();
     }
 
     public String getViewName() {
@@ -105,4 +101,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         this.roundController = roundController;
     }
 
+    public RoundController getRoundController() {
+        return roundController;
+    }
 }
