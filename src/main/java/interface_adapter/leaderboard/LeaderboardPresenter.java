@@ -32,6 +32,7 @@ public class LeaderboardPresenter implements LeaderboardOutputBoundary {
         for(Integer rank : topUsers.keySet()) {
             CommonUser currentUser = topUsers.get(rank);
             if(currentUser.getName().equals(outputData.getCurrentUsername())){
+                System.out.println("Were looking at you rn (current logged in)");
                 LeaderboardViewModel.setCurrentUserStats(rank, outputData.getCurrentUsername(), currentUser.getAveragePoints() );
             }
             switch(rank) {
@@ -53,13 +54,13 @@ public class LeaderboardPresenter implements LeaderboardOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-
+        System.out.println("failed");
     }
 
     @Override
     public void switchToMenuView() {
         //might have to add something here?
         viewManagerModel.setState(menuViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        viewManagerModel.firePropertyChanged("leaderboard");
     }
 }

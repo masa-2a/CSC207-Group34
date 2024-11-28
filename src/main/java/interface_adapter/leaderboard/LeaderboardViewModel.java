@@ -19,7 +19,7 @@ public class LeaderboardViewModel extends ViewModel<LeaderboardState> {
     private static String thirdPlacePoints;
 
     public LeaderboardViewModel() {
-        super(TITLE_LABEL);
+        super("leaderboard");
         setState(new LeaderboardState());
     }
 
@@ -61,22 +61,26 @@ public class LeaderboardViewModel extends ViewModel<LeaderboardState> {
 
 
     public static void setCurrentUserStats(Integer currentUserRank, String currentUsername, Integer averagePoints) {
+        System.out.println("just set current user stats"+currentUsername+"with"+currentUserRank);
         LeaderboardViewModel.currentUsername = currentUsername;
         currentUserPlace = String.valueOf(currentUserRank);
         currentUserPoints = String.valueOf(averagePoints);
     }
 
     public static void setFirstPlaceStats(String name, int averagePoints) {
+        System.out.println("just set first place stats with "+firstPlaceName +" at "+firstPlacePoints);
         firstPlaceName = name;
         setFirstPlacePoints(String.valueOf(averagePoints));
     }
 
     public static void setSecondPlaceStats(String name, int averagePoints) {
+        System.out.println("just set second place stats with "+secondPlaceName +" at "+secondPlacePoints);
         secondPlaceName = name;
         secondPlacePoints = String.valueOf(averagePoints);
     }
 
     public static void setThirdPlaceStats(String name, int averagePoints) {
+        System.out.println("just set third place stats with "+thirdPlaceName +" at "+thirdPlacePoints);
         thirdPlaceName = name;
         thirdPlacePoints = String.valueOf(averagePoints);
     }
@@ -84,4 +88,5 @@ public class LeaderboardViewModel extends ViewModel<LeaderboardState> {
     public static String getCurrentUsername() {
         return currentUsername;
     }
+
 }

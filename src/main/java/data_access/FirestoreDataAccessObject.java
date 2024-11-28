@@ -10,16 +10,16 @@ import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.menu.MenuUserDataAccessInterface;
 import use_case.points_calculator.PointsCalculatorDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
+import entity.CommonUserFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 
-public class FirestoreDataAccessObject extends AbstractDataAccessObject implements LoginUserDataAccessInterface, SignupUserDataAccessInterface, ChangePasswordUserDataAccessInterface, LogoutUserDataAccessInterface, LeaderboardUserDataAccessInterface, PointsCalculatorDataAccessInterface {
+public class FirestoreDataAccessObject extends AbstractDataAccessObject implements LoginUserDataAccessInterface, SignupUserDataAccessInterface, ChangePasswordUserDataAccessInterface, LogoutUserDataAccessInterface, LeaderboardUserDataAccessInterface, PointsCalculatorDataAccessInterface, MenuUserDataAccessInterface {
 
     private final Firestore firestore;
     private String currentUsername;
@@ -124,6 +124,42 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
 
     @Override
     public List<CommonUser> returnAllUsers() {
-    return null;
+        return null;
+
+    }
+    /**
+     * Retrieves the top 3 users based on points.
+     *
+     * @return a list of the top 3 CommonUser objects.
+     */
+    public ArrayList<CommonUser> topUsers() {
+        ArrayList<CommonUser> topUsersList = new ArrayList<>();
+
+        // Query Firestore to fetch top 3 users ordered by points in descending order
+        ApiFuture<QuerySnapshot> query = firestore.collection(USERSCOLLECTION)
+                .orderBy(POINTS, Query.Direction.DESCENDING)
+                .limit(3)
+                .get();
+
+        try {
+            QuerySnapshot querySnapshot = query.get();
+            for (QueryDocumentSnapshot document : querySnapshot.getDocuments()) {
+                // Extract fields from the document
+                String name = document.getString("name");
+                String password = document.getString("password");
+                Long points = document.getLong("points");
+                Long numberOfGames = document.getLong("numberOfGames");
+
+                // Ensure fields are not null and convert to CommonUser
+                if (name != null && password != null && points != null && numberOfGames != null) {
+                    CommonUser user = new  CommonUser(name, password, points.intValue(), numberOfGames.intValue());
+                    topUsersList.add(user);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println("Error retrieving top users: " + e.getMessage());
+        }
+
+        return topUsersList;
     }
 }

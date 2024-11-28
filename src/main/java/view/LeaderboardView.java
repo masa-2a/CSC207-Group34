@@ -21,6 +21,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         this.leaderboardViewModel = new LeaderboardViewModel();
         leaderboardViewModel.addPropertyChangeListener(this);
 
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
@@ -54,11 +55,6 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         }
 
         mainPanel.add(leaderboardPanel);
-
-//        JScrollPane scrollPane = new JScrollPane(leaderboardPanel);
-//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//        this.add(scrollPane, BorderLayout.CENTER);
 
         menu = new JButton(LeaderboardViewModel.BACK_TO_MENU_BUTTON);
         menu.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -115,6 +111,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
 
     /**
      * React to a button click that results in evt.
+     *
      * @param evt the ActionEvent to react to
      */
     @Override
@@ -122,9 +119,14 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         System.out.println("Click " + evt.getActionCommand());
     }
 
-    public String getViewName() {return viewName;}
+    public String getViewName() {
+        return viewName;
+    }
 
-    public void setLeaderboardController(LeaderboardController leaderboardController) { this.leaderboardController = leaderboardController;}
+    public void setLeaderboardController(LeaderboardController leaderboardController) {
+        this.leaderboardController = leaderboardController;
+        leaderboardController.execute(LeaderboardViewModel.getCurrentUsername());
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

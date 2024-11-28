@@ -6,9 +6,9 @@ package use_case.leaderboard;
 public interface LeaderboardInputBoundary {
     /**
      * Executes leaderboard usecase.
-     * @param inputData the input data
+     *
      */
-    void execute(LeaderboardInputData inputData);
+    void execute();
 
     /**
      * Executes the switch to the main menu
