@@ -1,13 +1,17 @@
-package use_case.hint;
+package use_case.round;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HintCountryDataLoader {
+public class RoundDataAccess implements RoundDataAccessInterface{
+    private final String filePath;
+    public RoundDataAccess(String filePath) {
+        this.filePath = filePath;
+    }
 
-    public static Map<String, Map<String, String>> loadCountryData(String filePath) {
+    public Map<String, Map<String, String>> loadCountryData() {
         Map<String, Map<String, String>> countryData = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -28,21 +32,26 @@ public class HintCountryDataLoader {
     }
 
     private static void parseJsonToMap(String json, Map<String, Map<String, String>> countryData) {
-        json = json.trim().replaceAll("[{}\"]", ""); // Remove braces and quotes
+        json = json.trim();
+        json = json.substring(1, json.length() - 1); // Remove outer braces
         String[] countries = json.split("},"); // Split by individual country entries
 
         for (String countryEntry : countries) {
+            if (!countryEntry.endsWith("}")) {
+                countryEntry += "}"; // Add closing brace if missing
+            }
             String[] parts = countryEntry.split(":", 2);
             if (parts.length == 2) {
-                String country = parts[0].trim(); // Country name
-                String details = parts[1].trim().replaceAll("[{}]", ""); // Inner details
+                String country = parts[0].trim().replaceAll("[{}\"]", ""); // Country name
+                String details = parts[1].trim();
 
                 Map<String, String> countryDetails = new HashMap<>();
+                details = details.substring(1, details.length() - 1); // Remove inner braces
                 String[] attributes = details.split(",");
                 for (String attribute : attributes) {
                     String[] keyValue = attribute.split(":");
                     if (keyValue.length == 2) {
-                        countryDetails.put(keyValue[0].trim(), keyValue[1].trim());
+                        countryDetails.put(keyValue[0].trim().replaceAll("[{}\"]", ""), keyValue[1].trim().replaceAll("[{}\"]", ""));
                     }
                 }
 

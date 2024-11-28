@@ -23,10 +23,10 @@ public class PointsCalculatorViewModel extends ViewModel<PointsCalculatorState> 
 
     }
 
-    public void updateMessage(String message){
-        this.getState().updateMessage(message);
-        firePropertyChanged();
-    }
+//    public void updateMessage(String message){
+//        this.getState().updateMessage(message);
+//        firePropertyChanged();
+//    }
 
     public void updateImagePath(String imagepath){
         this.getState().updateImagePath(imagepath);

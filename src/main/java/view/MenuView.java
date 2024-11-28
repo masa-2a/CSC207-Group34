@@ -46,6 +46,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         menuController.switchToNewRoundView();
+                        menuController.createStreetViewMap();
                     }
                 }
         );

@@ -10,6 +10,7 @@ import com.google.maps.model.LatLng;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -115,9 +116,10 @@ public class Map2D {
     public String saveMap(){
         try {
             byte[] imageBytes = getMap().await().imageData;
-            Files.write(Paths.get("src/main/resources/static_map.png"), imageBytes);
+            Path imgPath = Paths.get("src/main/resources/static_map.png");
+            Files.write(imgPath, imageBytes);
             System.out.println("Static map image saved as src/main/resources/static_map.png");
-            return Paths.get("src/main/resources/static_map.png").toString();
+            return imgPath.toString();
         } catch (ApiException e) {
             System.err.println("API Exception: " + e.getMessage());
         } catch (InterruptedException e) {

@@ -4,19 +4,14 @@ package use_case.hint;
  * This class contains the input data required for the hint generation.
  */
 public class HintInputData {
-    private final double latitude;
-    private final double longitude;
+    private final String country;
 
-    public HintInputData(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public HintInputData(String country) {
+        this.country = country;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public String getCountry() {
+        return country;
     }
 
-    public double getLongitude() {
-        return longitude;
-    }
 }

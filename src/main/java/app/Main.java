@@ -25,6 +25,7 @@ public class Main {
                                             .addChangePasswordUseCase()
                                             .addMenuUseCase()
                                             .addRoundUseCase()
+                                            .addMapUseCase()
                                             .build();
 
         application.pack();

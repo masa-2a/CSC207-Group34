@@ -3,6 +3,11 @@ package use_case.round;
 import use_case.map2d.Map2DInputBoundary;
 import use_case.map2d.Map2DOutputData;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 public class RoundInteractor implements RoundInputBoundary {
     private final RoundOutputBoundary roundPresenter;
 
@@ -20,6 +25,17 @@ public class RoundInteractor implements RoundInputBoundary {
         roundPresenter.presentMapData(roundOutputData);
     }
 
+    @Override
+    public Map.Entry<String, Map<String, String>> getRandLocation() {
+        RoundDataAccess roundDataAccess = new RoundDataAccess (
+                "src/main/resources/rand_locations.json");
+        roundDataAccess.loadCountryData();
+        Map<String, Map<String, String>> countryData = roundDataAccess.loadCountryData();
 
+        // Get a random entry from the map
+        List<Map.Entry<String, Map<String, String>>> entries = new ArrayList<>(countryData.entrySet());
+        Random random = new Random();
+        return entries.get(random.nextInt(entries.size()));
+    }
 
 }

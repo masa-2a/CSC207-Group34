@@ -3,14 +3,13 @@ package data_access;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import entity.CommonUser;
-import entity.PointsCalculator;
 import entity.User;
 import firebase.FirebaseInitializer;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.points_calculator.PointsCalculatorDataAccessInterface;
+import use_case.pointsCalculator.PointsCalculatorDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
@@ -38,7 +37,7 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
     @Override
     public void save(User user) {
         try {
-            //creates new doucment in User collection with id being username
+            //creates new document in User collection with id being username
             DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
             // create map with user data
             Map<String, Object> userData = new HashMap<>();
@@ -103,6 +102,19 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
         } catch (Exception e) {
             System.err.println("Error changing password in Firestore: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void addEarnedPoints(int pointsEarned, User user) {
+        try {
+            DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
+            userRef.update(POINTS, FieldValue.increment(pointsEarned));
+            System.out.println("Earned points added for user: " + user.getName());
+        }
+        catch (Exception e) {
+            System.err.println("Error adding earned points to Firestore: " + e.getMessage());
+        }
+
     }
 
     @Override
