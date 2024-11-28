@@ -84,16 +84,16 @@
 
 <script>
 
-  let currentMarker = null; // To store the current marker's location
+  let currentMarker = null;
   let correctMarker = null;
   let line = null;
 
   function initialize() {
     const defaultLocation = {lat: 43.661775712671215, lng: -79.3951077927884};
 
-    // let initLng = window.java.sendGoalLng();
-    // let initLat = window.java.sendGoalLat();
-    // const initialLocation = {lat: initLat, lng: initLng};
+    let initLng = window.java.sendGoalLng();
+    let initLat = window.java.sendGoalLat();
+    const initialLocation = {lat: initLat, lng: initLng};
 
     // Create the map with Street View control disabled
     const map = new google.maps.Map(document.getElementById("map"), {
@@ -120,7 +120,7 @@
     const panorama = new google.maps.StreetViewPanorama(
             document.getElementById("pano"),
             {
-              position: defaultLocation,
+              position: initialLocation,
               pov: {
                 heading: 34,
                 pitch: 10,
@@ -134,13 +134,11 @@
 
     map.setStreetView(panorama);
 
-    // Add a click event listener for the submit button
     document.getElementById("submitButton").addEventListener("click", () => {
       if (currentMarker) {
         let userLat = currentMarker.lat();
         let userLng = currentMarker.lng();
 
-        // If a correct marker already exists, remove it
         if (correctMarker) {
           correctMarker.setMap(null);
         }

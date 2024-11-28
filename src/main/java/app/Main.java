@@ -27,6 +27,7 @@ public class Main {
                                             .addMenuUseCase()
                                             .addMap2DUseCase()
                                             .addRoundUseCase()
+                                            .addMapUseCase()
                                             .build();
 
         application.pack();

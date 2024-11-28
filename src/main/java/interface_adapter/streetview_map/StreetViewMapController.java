@@ -2,19 +2,17 @@ package interface_adapter.streetview_map;
 
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInputData;
-import use_case.streetview_map.StreetViewMapOutputBoundary;
-import use_case.streetview_map.StreetViewMapOutputData;
 
 public class StreetViewMapController {
-    private final StreetViewMapInputBoundary interactor;
+    private final StreetViewMapInputBoundary streetViewMapInteractor;
 
-    public StreetViewMapController(StreetViewMapInputBoundary interactor, StreetViewMapOutputBoundary presenter) {
-        this.interactor = interactor;
+    public StreetViewMapController(StreetViewMapInputBoundary streetViewMapInteractor) {
+        this.streetViewMapInteractor = streetViewMapInteractor;
     }
 
-    public void execute(double[] userCoordinates, double[] goalCoordinates) {
-        final StreetViewMapInputData inputData = new StreetViewMapInputData(userCoordinates, goalCoordinates);
-        interactor.execute(inputData);
+    public void execute(double goalLatitude, double goalLongitude) {
+        final StreetViewMapInputData inputData = new StreetViewMapInputData(goalLatitude, goalLongitude);
+        streetViewMapInteractor.execute(inputData);
     }
 
 }
