@@ -28,8 +28,8 @@ public class Main {
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
-                                            .addMenuUseCase()
                                             .addLeaderboardUseCase()
+                                            .addMenuUseCase()
                                             .addRoundUseCase()
                                             .addMenuUseCase()
                                             .build();

@@ -233,11 +233,11 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLeaderboardUseCase() {
-        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewModel,
+        final LeaderboardOutputBoundary leaderboardPresenter = new LeaderboardPresenter(leaderboardViewModel,
                 viewManagerModel, menuViewModel);
 
         final LeaderboardInputBoundary leaderboardInteractor =
-                new LeaderboardInteractor(leaderboardOutputBoundary, userDataAccessObject);
+                new LeaderboardInteractor(leaderboardPresenter, userDataAccessObject);
 
         final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
 
@@ -261,6 +261,10 @@ public class AppBuilder {
         final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
 
         leaderboardView.setLeaderboardController(leaderboardController);
+
+
+
+
         //menu presenter
         final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel,
                 viewManagerModel, roundViewModel, leaderboardViewModel);

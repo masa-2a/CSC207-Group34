@@ -61,6 +61,6 @@ public class LeaderboardPresenter implements LeaderboardOutputBoundary {
     public void switchToMenuView() {
         //might have to add something here?
         viewManagerModel.setState(menuViewModel.getViewName());
-        viewManagerModel.firePropertyChanged("leaderboard");
+        viewManagerModel.firePropertyChanged();
     }
 }

@@ -19,7 +19,7 @@ public class LeaderboardViewModel extends ViewModel<LeaderboardState> {
     private static String thirdPlacePoints;
 
     public LeaderboardViewModel() {
-        super("leaderboard");
+        super("Leaderboard");
         setState(new LeaderboardState());
     }
 
