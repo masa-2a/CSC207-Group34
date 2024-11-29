@@ -132,12 +132,40 @@ public class FirestoreDataAccessObject extends AbstractDataAccessObject implemen
         return currentUsername;
     }
 
-
+    /**
+     *
+     * Returns a list of all the users in the data base.
+     * @return ArrayList<CommonUser> allUsers
+     */
     @Override
-    public List<CommonUser> returnAllUsers() {
-        return null;
+    public ArrayList<CommonUser> returnAllUsers() {
+        ArrayList<CommonUser> allUsers = new ArrayList<>();
+        ApiFuture<QuerySnapshot> query = firestore.collection(USERSCOLLECTION).get();
+
+        try {
+            QuerySnapshot querySnapshot = query.get();
+            for (QueryDocumentSnapshot document : querySnapshot.getDocuments()) {
+                // Extract fields from the document
+                String name = document.getString("name");
+                String password = document.getString("password");
+                Long points = document.getLong("points");
+                Long numberOfGames = document.getLong("numberOfGames");
+
+                // Ensure fields are not null and convert to CommonUser
+                if (name != null && password != null && points != null && numberOfGames != null) {
+                    CommonUser user = new  CommonUser(name, password, points.intValue(), numberOfGames.intValue());
+                    allUsers.add(user);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println("Error retrieving top users: " + e.getMessage());
+        }
+
+        return allUsers;
+
 
     }
+
     /**
      * Retrieves the top 3 users based on points.
      *

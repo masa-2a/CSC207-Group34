@@ -14,13 +14,13 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) {
-        // Initialize JavaFX toolkit
-        JFXPanel jfxPanel = new JFXPanel();
-        // Schedule JavaFX tasks
-        Platform.runLater(() -> {
-            System.out.println("JavaFX initialized");
-            // Launch your JavaFX application here if needed
-        });
+//        // Initialize JavaFX toolkit
+//        JFXPanel jfxPanel = new JFXPanel();
+//        // Schedule JavaFX tasks
+//        Platform.runLater(() -> {
+//            System.out.println("JavaFX initialized");
+//            // Launch your JavaFX application here if needed
+//        });
 
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
