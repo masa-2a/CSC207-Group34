@@ -3,16 +3,14 @@ package view;
 import interface_adapter.main_menu.MenuController;
 import interface_adapter.main_menu.MenuViewModel;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+
 public class MenuView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "Menu View";
 
@@ -30,6 +28,21 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         final JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        ImageIcon logo = new ImageIcon("src/main/resources/MapMasterLogo.png");
+        Image image = logo.getImage(); // transform it
+        Image newimg = image.getScaledInstance(250, 250,  java.awt.Image.SCALE_SMOOTH); // scale it smoothly
+        ImageIcon logoScaled = new ImageIcon(newimg);  // assign to a new ImageIcon instance
+
+        final JLabel imageLabel = new JLabel(logoScaled);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+//        String currentUser = menuViewModel.getCurrentUser();
+//        System.out.println(currentUser);
+//        String message = "Welcome " + currentUser + "!";
+//        final JLabel greeting = new JLabel(message);
+//        greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         final JPanel buttons = new JPanel();
         newRound = new JButton(MenuViewModel.NEW_ROUND_BUTTON_LABEL);
@@ -65,9 +78,12 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         );
 
         this.add(title);
+//        this.add(greeting);
+        this.add(imageLabel);
         this.add(buttons);
 
     }
+
 
     /**
      * Invoked when an action occurs.
