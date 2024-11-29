@@ -2,6 +2,8 @@ package interface_adapter.login;
 
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInputData;
+import use_case.menu.MenuInputBoundary;
+import use_case.menu.MenuInputData;
 
 /**
  * The controller for the Login Use Case.
@@ -9,9 +11,12 @@ import use_case.login.LoginInputData;
 public class LoginController {
 
     private final LoginInputBoundary loginUseCaseInteractor;
+    private final MenuInputBoundary menuInteractor;
 
-    public LoginController(LoginInputBoundary loginUseCaseInteractor) {
+    public LoginController(LoginInputBoundary loginUseCaseInteractor,
+                           MenuInputBoundary menuInteractor) {
         this.loginUseCaseInteractor = loginUseCaseInteractor;
+        this.menuInteractor = menuInteractor;
     }
 
     /**
@@ -22,8 +27,11 @@ public class LoginController {
     public void execute(String username, String password) {
         final LoginInputData loginInputData = new LoginInputData(
                 username, password);
+        final MenuInputData menuInputData = new MenuInputData(username);
 
         loginUseCaseInteractor.execute(loginInputData);
+        menuInteractor.execute(menuInputData);
+
     }
 
     /**
