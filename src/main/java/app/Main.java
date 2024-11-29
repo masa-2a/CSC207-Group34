@@ -1,7 +1,7 @@
 package app;
 
-import firebase.FirebaseInitializer;
 import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 
 import javax.swing.JFrame;
 
@@ -14,7 +14,13 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) {
-        Platform.startup(() -> {});
+        // Initialize JavaFX toolkit
+        JFXPanel jfxPanel = new JFXPanel();
+        // Schedule JavaFX tasks
+        Platform.runLater(() -> {
+            System.out.println("JavaFX initialized");
+            // Launch your JavaFX application here if needed
+        });
 
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
@@ -24,12 +30,12 @@ public class Main {
                                             .addMenuView()
                                             .addLeaderboardView()
                                             .addRoundView()
+                                            .addMenuUseCase()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
                                             .addLeaderboardUseCase()
-                                            .addMenuUseCase()
                                             .addRoundUseCase()
                                             .addMenuUseCase()
                                             .build();

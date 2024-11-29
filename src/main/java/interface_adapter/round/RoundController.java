@@ -17,7 +17,7 @@ public class RoundController {
      */
     public void execute() {
         // Retrieve a random location
-        Map<String, Object> randLocation = roundUseCaseInteractor.getRandLocation("src/main/resources/rand_locations.json");
+        Map<String, Object> randLocation = roundUseCaseInteractor.getRandLocation();
 
         double latitude = (double) randLocation.get("latitude");
         double longitude = (double) randLocation.get("longitude");
