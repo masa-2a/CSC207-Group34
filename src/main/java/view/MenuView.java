@@ -21,15 +21,22 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     private final JButton leaderboard;
     private final JButton logout;
     private MenuController menuController;
+    private JLabel greeting;
 
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         this.menuViewModel.addPropertyChangeListener(this);
+        this.setBackground(new Color(219, 229, 232));
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         final JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
+        title.setFont(new Font("Agency FB",Font.PLAIN, 40));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        greeting = new JLabel("Welcome, Guest!"); // will be updated later
+        greeting.setFont(new Font("Agency FB", Font.PLAIN, 20));
+        greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         ImageIcon logo = new ImageIcon("src/main/resources/MapMasterLogo.png");
         Image image = logo.getImage(); // transform it
@@ -41,6 +48,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
 
         final JPanel buttons = new JPanel();
+        buttons.setBackground(new Color(219, 229, 232));
         newRound = new JButton(MenuViewModel.NEW_ROUND_BUTTON_LABEL);
         newRound.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttons.add(newRound);
@@ -74,7 +82,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         );
 
         this.add(title);
-//        this.add(greeting);
+        this.add(greeting);
         this.add(imageLabel);
         this.add(buttons);
 
@@ -108,17 +116,18 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
     public void updateView(MenuState newState) {
         String currentUser = newState.getCurrentUsername();
-        String message = "Welcome " + currentUser + "!";
-        final JLabel greeting = new JLabel(message);
-        greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        String message = "Welcome " + currentUser + "!";
+//        final JLabel greeting = new JLabel(message);
+//        greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
+        greeting.setText("Welcome " + currentUser + "!");
 
-        // Remove the old greeting label if it exists
-        if (this.getComponentCount() > 3) {
-            this.remove(3);
-        }
+//        // Remove the old greeting label if it exists
+//        if (this.getComponentCount() > 3) {
+//            this.remove(3);
+//        }
 
         // Add the new greeting label
-        this.add(greeting, 3);
+      // this.add(greeting, 3);
         this.revalidate();
         this.repaint();
     }
