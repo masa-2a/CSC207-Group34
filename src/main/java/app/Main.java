@@ -30,6 +30,7 @@ public class Main {
                                             .addMenuView()
                                             .addLeaderboardView()
                                             .addRoundView()
+                                            .addPointsCalculatorView()
                                             .addMenuUseCase()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
@@ -37,6 +38,7 @@ public class Main {
                                             .addChangePasswordUseCase()
                                             .addLeaderboardUseCase()
                                             .addRoundUseCase()
+                                            .addPointsCalculatorUseCase()
                                             .addMenuUseCase()
                                             .build();
 
