@@ -5,6 +5,7 @@ import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.leaderboard.LeaderboardViewModel;
 import interface_adapter.round.RoundViewModel;
 import use_case.menu.MenuOutputBoundary;
+import use_case.menu.MenuOutputData;
 
 public class MenuPresenter implements MenuOutputBoundary {
 
@@ -23,6 +24,16 @@ public class MenuPresenter implements MenuOutputBoundary {
         this.leaderboardViewModel = leaderboardViewModel;
     }
 
+
+    @Override
+    public void prepareSuccessView(MenuOutputData outputData) {
+        MenuState menuState = menuViewModel.getState();
+
+        menuState.setCurrentUsername(outputData.getUsername());
+
+        menuViewModel.setState(menuState);
+        menuViewModel.firePropertyChanged("User updated");
+    }
 
     /**
      * Switches to the NewRound View.

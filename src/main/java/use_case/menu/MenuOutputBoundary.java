@@ -1,6 +1,11 @@
 package use_case.menu;
 
 public interface MenuOutputBoundary {
+    /**
+     * Prepares the success view for the Menu Use Case.
+     * @param outputData the output data
+     */
+    void prepareSuccessView(MenuOutputData outputData);
 
     /**
      * Switches to the NewRound View.

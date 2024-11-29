@@ -1,6 +1,8 @@
 package view;
 
+import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.main_menu.MenuController;
+import interface_adapter.main_menu.MenuState;
 import interface_adapter.main_menu.MenuViewModel;
 
 import java.awt.*;
@@ -31,17 +33,11 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         ImageIcon logo = new ImageIcon("src/main/resources/MapMasterLogo.png");
         Image image = logo.getImage(); // transform it
-        Image newimg = image.getScaledInstance(250, 250,  java.awt.Image.SCALE_SMOOTH); // scale it smoothly
+        Image newimg = image.getScaledInstance(250, 250, java.awt.Image.SCALE_SMOOTH); // scale it smoothly
         ImageIcon logoScaled = new ImageIcon(newimg);  // assign to a new ImageIcon instance
 
         final JLabel imageLabel = new JLabel(logoScaled);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-//        String currentUser = menuViewModel.getCurrentUser();
-//        System.out.println(currentUser);
-//        String message = "Welcome " + currentUser + "!";
-//        final JLabel greeting = new JLabel(message);
-//        greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
         final JPanel buttons = new JPanel();
@@ -103,12 +99,28 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("menuState")) {
-            // Update the view based on the new state, such as setting the user's name
-           System.out.println(evt.getPropertyName());
-            // Update any labels or fields with the current state
+        if ("User updated".equals(evt.getPropertyName())) {
+            MenuState newState = (MenuState) evt.getNewValue();
+            updateView(newState);
         }
 
+    }
+
+    public void updateView(MenuState newState) {
+        String currentUser = newState.getCurrentUsername();
+        String message = "Welcome " + currentUser + "!";
+        final JLabel greeting = new JLabel(message);
+        greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Remove the old greeting label if it exists
+        if (this.getComponentCount() > 3) {
+            this.remove(3);
+        }
+
+        // Add the new greeting label
+        this.add(greeting, 3);
+        this.revalidate();
+        this.repaint();
     }
 
     public String getViewName() {

@@ -98,6 +98,7 @@ public class AppBuilder {
     private RoundViewModel roundViewModel;
     private RoundInputBoundary roundUseCaseInteractor;
     private LeaderboardInputBoundary leaderboardInteractor;
+    private MenuInputBoundary menuInteractor;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -189,7 +190,7 @@ public class AppBuilder {
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
-        final LoginController loginController = new LoginController(loginInteractor);
+        final LoginController loginController = new LoginController(loginInteractor, menuInteractor);
         loginView.setLoginController(loginController);
         return this;
     }
@@ -254,7 +255,7 @@ public class AppBuilder {
         final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel,
                 viewManagerModel, roundViewModel, leaderboardViewModel);
         //menu interactor
-        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
+        menuInteractor = new MenuInteractor(menuOutputBoundary);
 
 
 

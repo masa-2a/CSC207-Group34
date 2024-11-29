@@ -17,7 +17,8 @@ public class MenuInteractor implements MenuInputBoundary {
      */
     @Override
     public void execute(MenuInputData menuInputData) {
-
+        MenuOutputData menuOutputData = new MenuOutputData(menuInputData.getUsername());
+        menuPresenter.prepareSuccessView(menuOutputData);
     }
 
     /**

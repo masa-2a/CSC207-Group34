@@ -30,12 +30,12 @@ public class Main {
                                             .addMenuView()
                                             .addLeaderboardView()
                                             .addRoundView()
+                                            .addMenuUseCase()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
                                             .addLeaderboardUseCase()
-                                            .addMenuUseCase()
                                             .addRoundUseCase()
                                             .addMenuUseCase()
                                             .build();
