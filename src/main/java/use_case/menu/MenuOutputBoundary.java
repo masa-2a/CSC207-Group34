@@ -10,7 +10,7 @@ public interface MenuOutputBoundary {
     /**
      * Switches to the NewRound View.
      */
-    void switchToNewRoundView();
+    void switchToNewRoundView(MenuOutputData menuOutputData);
     /**
      * Switches to the Leaderboard View.
      */

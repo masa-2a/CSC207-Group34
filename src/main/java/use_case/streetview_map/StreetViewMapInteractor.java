@@ -12,7 +12,7 @@ public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
     }
 
     @Override
-    public StreetViewMapOutputData execute(StreetViewMapInputData streetViewInputData) {
+    public void execute(StreetViewMapInputData streetViewInputData) {
         final double goalLatitude = streetViewInputData.getGoalLatitude();
         final double goalLongitude = streetViewInputData.getGoalLongitude();
 
@@ -21,11 +21,11 @@ public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
             map.giveCoords(goalLatitude, goalLongitude);
             map.start(stage);
         });
+    }
 
-        double userLatitude = 0.0;
-        double userLongitude = 0.0;
-
-        return new StreetViewMapOutputData(userLatitude, userLongitude);
+    @Override
+    public StreetViewMapOutputData guessSubmit() {
+        return new StreetViewMapOutputData(map.getUserLatitude(),map.getUserLongitude());
     }
 
 }

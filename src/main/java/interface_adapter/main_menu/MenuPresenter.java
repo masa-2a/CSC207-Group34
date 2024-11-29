@@ -39,7 +39,10 @@ public class MenuPresenter implements MenuOutputBoundary {
      * Switches to the NewRound View.
      */
     @Override
-    public void switchToNewRoundView() {
+    public void switchToNewRoundView(MenuOutputData menuOutputData) {
+
+        roundViewModel.getState().setUsername(menuViewModel.getState().getCurrentUsername());
+
         viewManagerModel.setState(roundViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

@@ -1,21 +1,40 @@
 package use_case.round;
 
-import use_case.map2d.Map2DOutputData;
+import java.util.Map;
 
 public class RoundOutputData {
-    private final double guessLat;
-    private final double guessLong;
+    private final Map<String, Double> randomLocation;
+    private final Map<String, Double> chosenLocation;
+    private final double timespent;
+    private final int hintsused;
+    private final String imagepath;
 
-    public RoundOutputData (double guessLat,double guessLong) {
-        this.guessLat = guessLat;
-        this.guessLong = guessLong;
+    public RoundOutputData (Map<String, Double> randomLocation, Map<String, Double> chosenLocation,
+                            double timespent, int hintsused, String imagepath) {
+        this.randomLocation = randomLocation;
+        this.chosenLocation = chosenLocation;
+        this.timespent = timespent;
+        this.hintsused = hintsused;
+        this.imagepath = imagepath;
     }
 
-    public double getGuessLat() {
-        return guessLat;
+    public Map<String, Double> getRandomLocation() {
+        return randomLocation;
     }
 
-    public double getGuessLong() {
-        return guessLong;
+    public Map<String, Double> getChosenLocation() {
+        return chosenLocation;
+    }
+
+    public double getTimespent() {
+        return timespent;
+    }
+
+    public int getHintsused() {
+        return hintsused;
+    }
+
+    public String getImagepath() {
+        return imagepath;
     }
 }

@@ -8,7 +8,6 @@ import javax.swing.WindowConstants;
 
 import data_access.FirestoreDataAccessObject;
 import entity.CommonUserFactory;
-import entity.Map;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
@@ -34,12 +33,12 @@ import interface_adapter.round.RoundViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.streetview_map.StreetViewMapController;
-import interface_adapter.streetview_map.StreetViewMapPresenter;
 import interface_adapter.streetview_map.StreetViewMapViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.countdown.CountdownInputBoundary;
+import use_case.countdown.CountdownInteractor;
 import use_case.leaderboard.LeaderboardInputBoundary;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
@@ -49,8 +48,6 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
-import use_case.map2d.Map2DInputBoundary;
-import use_case.map2d.Map2DUseCaseInteractor;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
@@ -63,7 +60,6 @@ import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInteractor;
-import use_case.streetview_map.StreetViewMapOutputBoundary;
 import view.*;
 
 /**
@@ -297,7 +293,11 @@ public class AppBuilder {
         roundUseCaseInteractor = new RoundInteractor(mapInteractor,
                 roundOutputBoundary, roundDataAccess);
 
-        final RoundController roundController = new RoundController(roundUseCaseInteractor);
+        CountdownInputBoundary countdownInteractor = new
+                CountdownInteractor(roundOutputBoundary);
+
+        final RoundController roundController = new RoundController(roundUseCaseInteractor,
+                countdownInteractor);
 
 
         roundView.setRoundController(roundController);
