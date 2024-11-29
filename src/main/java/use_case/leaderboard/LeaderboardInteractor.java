@@ -7,13 +7,14 @@ import java.util.*;
 
 public class LeaderboardInteractor implements LeaderboardInputBoundary{
 
-    private final LeaderboardOutputBoundary leaderboardOutputBoundary;
-    private final LeaderboardUserDataAccessInterface userDataAccessInterface;
+    private final LeaderboardOutputBoundary leaderboardPresenter;
+    private final LeaderboardUserDataAccessInterface userDataAccess;
 
 
-    public LeaderboardInteractor(LeaderboardOutputBoundary leaderboardOutputBoundary, LeaderboardUserDataAccessInterface userDataAccessInterface) {
-        this.leaderboardOutputBoundary = leaderboardOutputBoundary;
-        this.userDataAccessInterface = userDataAccessInterface;
+    public LeaderboardInteractor(LeaderboardOutputBoundary leaderboardPresenter,
+                                 LeaderboardUserDataAccessInterface userDataAccess) {
+        this.leaderboardPresenter = leaderboardPresenter;
+        this.userDataAccess = userDataAccess;
     }
 
     @Override
@@ -41,8 +42,8 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary{
 //        System.out.println(leaderboardInfo);
 //        LeaderboardOutputData leaderboardOutputData = new LeaderboardOutputData(leaderboardInfo, currentUserRank , inputData.getCurrentUsername() );
 //        leaderboardOutputBoundary.prepareSuccessView(leaderboardOutputData);
-        ArrayList<CommonUser> topUsers = userDataAccessInterface.topUsers();
-        CommonUser currentUser = (CommonUser) userDataAccessInterface.getCurrentUser();
+        ArrayList<CommonUser> topUsers = userDataAccess.topUsers();
+        CommonUser currentUser = (CommonUser) userDataAccess.getCurrentUser();
 
         if (currentUser != null) {
             topUsers.add(currentUser); // Add the current user if they exist
@@ -63,31 +64,28 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary{
             int rank = i + 1; // 1-based ranking
 
             // Include the current user and the top 3 in the leaderboard map
-            if (rank <= 3 || user.getName().equals(userDataAccessInterface.getCurrentUsername())) {
+            if (rank <= 3 || user.getName().equals(userDataAccess.getCurrentUsername())) {
                 leaderboardInfo.put(rank, user);
             }
 
             // Update the rank of the current user
-            if (user.getName().equals(userDataAccessInterface.getCurrentUsername())) {
+            if (user.getName().equals(userDataAccess.getCurrentUsername())) {
                 currentUserRank = rank;
             }
         }
-
-        // Debug output for verification
-        System.out.println("Leaderboard Info: " + leaderboardInfo);
 
         // Create output data and pass to output boundary
         LeaderboardOutputData leaderboardOutputData = new LeaderboardOutputData(
                 leaderboardInfo,
                 currentUserRank,
-                userDataAccessInterface.getCurrentUsername()
+                userDataAccess.getCurrentUsername()
         );
-        leaderboardOutputBoundary.prepareSuccessView(leaderboardOutputData);
+        leaderboardPresenter.prepareSuccessView(leaderboardOutputData);
 
     }
 
     @Override
     public void switchToMenuView() {
-        leaderboardOutputBoundary.switchToMenuView();
+        leaderboardPresenter.switchToMenuView();
     }
 }

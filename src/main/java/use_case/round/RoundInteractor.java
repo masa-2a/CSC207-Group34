@@ -9,11 +9,14 @@ import java.util.*;
 public class RoundInteractor implements RoundInputBoundary {
     private final RoundOutputBoundary roundPresenter;
     private final StreetViewMapInputBoundary streetViewMapInteractor;
+    private final RoundDataAccessInterface roundDataAccess;
 
     public RoundInteractor(StreetViewMapInputBoundary streetViewMapInteractor,
-                           RoundOutputBoundary roundPresenter) {
+                           RoundOutputBoundary roundPresenter,
+                           RoundDataAccessInterface roundDataAccess) {
         this.roundPresenter = roundPresenter;
         this.streetViewMapInteractor = streetViewMapInteractor;
+        this.roundDataAccess = roundDataAccess;
     }
 
     @Override
@@ -35,12 +38,11 @@ public class RoundInteractor implements RoundInputBoundary {
     }
 
     @Override
-    public Map<String, Object> getRandLocation(String jsonFilePath) {
-        return RandomDataAccess(jsonFilePath);
+    public Map<String, Object> getRandLocation() {
+        return RandomDataAccess();
     }
 
-    private Map<String, Object> RandomDataAccess(String jsonFilePath) {
-        RoundDataAccess roundDataAccess = new RoundDataAccess(jsonFilePath);
+    private Map<String, Object> RandomDataAccess() {
         Map<String, Map<String, Object>> countryData = roundDataAccess.loadCountryData();
 
         List<Map.Entry<String, Map<String, Object>>> entries = new ArrayList<>(countryData.entrySet());

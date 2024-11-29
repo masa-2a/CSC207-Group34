@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.leaderboard.LeaderboardController;
+import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewModel;
 
 import javax.swing.*;
@@ -18,9 +19,10 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
     private LeaderboardController leaderboardController;
 
     public LeaderboardView(LeaderboardViewModel leaderboardViewModel) {
-        this.leaderboardViewModel = new LeaderboardViewModel();
-        leaderboardViewModel.addPropertyChangeListener(this);
+        this.leaderboardViewModel = leaderboardViewModel;
+        this.leaderboardViewModel.addPropertyChangeListener(this);
 
+        LeaderboardState leaderboardState = leaderboardViewModel.getState();
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -44,14 +46,23 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
 
         //display top users
 
-        leaderboardPanel.add(createUserPanel(1, LeaderboardViewModel.getFirstPlaceName(), LeaderboardViewModel.getFirstPlacePoints()));
-        leaderboardPanel.add(createUserPanel(2, LeaderboardViewModel.getSecondPlaceName(), LeaderboardViewModel.getSecondPlacePoints()));
-        leaderboardPanel.add(createUserPanel(3, LeaderboardViewModel.getThirdPlaceName(), LeaderboardViewModel.getThirdPlacePoints()));
+        leaderboardPanel.add(createUserPanel(1,
+                leaderboardState.getFirstPlaceName(),
+                leaderboardState.getFirstPlacePoints()));
+        leaderboardPanel.add(createUserPanel(2,
+                leaderboardState.getSecondPlaceName(),
+                leaderboardState.getSecondPlacePoints()));
+        leaderboardPanel.add(createUserPanel(3,
+                leaderboardState.getThirdPlaceName(),
+                leaderboardState.getThirdPlacePoints()));
 
 
         leaderboardPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add some spacing
-        if (LeaderboardViewModel.getCurrentUserPlace() != null) {
-            leaderboardPanel.add(createUserPanel(Integer.valueOf(LeaderboardViewModel.getCurrentUserPlace()), LeaderboardViewModel.YOU_LABEL, LeaderboardViewModel.getCurrentUserPoints()));
+        if (leaderboardState.getCurrentUserPlace() != null) {
+            leaderboardPanel.add(createUserPanel(Integer.valueOf(
+                    leaderboardState.getCurrentUserPlace()),
+                    LeaderboardViewModel.YOU_LABEL,
+                    leaderboardState.getCurrentUserPoints()));
         }
 
         mainPanel.add(leaderboardPanel);
@@ -76,7 +87,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
 
     }
 
-    private JPanel createUserPanel(Integer rank, String name, String avgPoints) {
+    private JPanel createUserPanel(Integer rank, String name, int avgPoints) {
         JPanel userPanel = new JPanel();
         userPanel.setLayout(new BorderLayout());
         userPanel.setPreferredSize(new Dimension(350, 80));
@@ -93,7 +104,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         nameLabel.setFont(new Font("Arial", Font.BOLD, 24));
         nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
-        JLabel pointsLabel = new JLabel(avgPoints);
+        JLabel pointsLabel = new JLabel(String.valueOf(avgPoints));
         pointsLabel.setFont(new Font("Arial", Font.BOLD, 24));
         pointsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -108,6 +119,53 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
 
         return userPanel;
     }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("Leaderboard State Update".equals(evt.getPropertyName())) {
+            LeaderboardState newState = (LeaderboardState) evt.getNewValue();
+            updateView(newState);
+        }
+    }
+
+    private void updateView(LeaderboardState state) {
+        // Update the leaderboard panel with new state
+        removeAll();
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel(LeaderboardViewModel.TITLE_LABEL);
+        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        mainPanel.add(title);
+
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        JPanel leaderboardPanel = new JPanel();
+        leaderboardPanel.setLayout(new BoxLayout(leaderboardPanel, BoxLayout.Y_AXIS));
+
+        leaderboardPanel.add(createUserPanel(1, state.getFirstPlaceName(), state.getFirstPlacePoints()));
+        leaderboardPanel.add(createUserPanel(2, state.getSecondPlaceName(), state.getSecondPlacePoints()));
+        leaderboardPanel.add(createUserPanel(3, state.getThirdPlaceName(), state.getThirdPlacePoints()));
+
+        leaderboardPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        if (state.getCurrentUserPlace() != null) {
+            leaderboardPanel.add(createUserPanel(Integer.valueOf(state.getCurrentUserPlace()), LeaderboardViewModel.YOU_LABEL, state.getCurrentUserPoints()));
+        }
+
+        mainPanel.add(leaderboardPanel);
+
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        mainPanel.add(menu);
+
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        add(scrollPane);
+        revalidate();
+        repaint();
+    }
+
 
     /**
      * React to a button click that results in evt.
@@ -125,12 +183,8 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
 
     public void setLeaderboardController(LeaderboardController leaderboardController) {
         this.leaderboardController = leaderboardController;
-        leaderboardController.execute(LeaderboardViewModel.getCurrentUsername());
+        leaderboardController.execute(leaderboardViewModel.getState().getCurrentUsername());
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
-    }
 }
 

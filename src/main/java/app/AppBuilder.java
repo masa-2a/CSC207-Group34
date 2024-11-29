@@ -51,9 +51,7 @@ import use_case.map2d.Map2DUseCaseInteractor;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
-import use_case.round.RoundInputBoundary;
-import use_case.round.RoundInteractor;
-import use_case.round.RoundOutputBoundary;
+import use_case.round.*;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -99,6 +97,7 @@ public class AppBuilder {
     private RoundView roundView;
     private RoundViewModel roundViewModel;
     private RoundInputBoundary roundUseCaseInteractor;
+    private LeaderboardInputBoundary leaderboardInteractor;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -236,7 +235,7 @@ public class AppBuilder {
         final LeaderboardOutputBoundary leaderboardPresenter = new LeaderboardPresenter(leaderboardViewModel,
                 viewManagerModel, menuViewModel);
 
-        final LeaderboardInputBoundary leaderboardInteractor =
+        leaderboardInteractor =
                 new LeaderboardInteractor(leaderboardPresenter, userDataAccessObject);
 
         final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
@@ -251,29 +250,15 @@ public class AppBuilder {
      */
     public AppBuilder addMenuUseCase() {
 
-        //leaderboard presenter
-        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewModel,
-                viewManagerModel, menuViewModel);
-        //leaderboard interactor
-        final LeaderboardInputBoundary leaderboardInteractor =
-                new LeaderboardInteractor(leaderboardOutputBoundary, userDataAccessObject);
-        //leaderboard controll er
-        final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
-
-        leaderboardView.setLeaderboardController(leaderboardController);
-
-
-
-
         //menu presenter
         final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel,
                 viewManagerModel, roundViewModel, leaderboardViewModel);
         //menu interactor
-        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary,leaderboardInteractor );
+        final MenuInputBoundary menuInteractor = new MenuInteractor(menuOutputBoundary);
 
 
 
-        final MenuController menuController = new MenuController(menuInteractor);
+        final MenuController menuController = new MenuController(menuInteractor, leaderboardInteractor);
         menuView.setMenuController(menuController);
         return this;
     }
@@ -287,10 +272,12 @@ public class AppBuilder {
 
         final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
 
-
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
                 viewManagerModel);
-        roundUseCaseInteractor = new RoundInteractor(mapInteractor, roundOutputBoundary);
+        final RoundDataAccessInterface roundDataAccess = new
+                RoundDataAccess("src/main/resources/rand_locations.json");
+        roundUseCaseInteractor = new RoundInteractor(mapInteractor,
+                roundOutputBoundary, roundDataAccess);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor);
 
