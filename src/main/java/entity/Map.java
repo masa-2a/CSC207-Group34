@@ -13,7 +13,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 
 import java.nio.file.Paths;
 
@@ -35,37 +34,44 @@ public class Map extends Application {
 
     public void loadMap() {
         Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
-                .licenseKey("OK6AEKNYF2KFR6YGPA0GCYPPB72XLN3MY23BQUDMBVBH16NZHXTGMGGFTQW5FLHQKINRCZEOMFN8HA7VMJ62H2QPSQRIS1NUW21Y2V2H7Q05GH9I5U6APVLUPVHA1C4RMED8O7H7U9Q1BJMFK").build());
+                .licenseKey("OK6AEKNYF2KFR6YGPA0GCYPPB72XLN3MY23BQUDMBVBH16NZHXTGMGGFTQW5FLHQKINRCZEOMFN8HA7VMJ62H2QPSQRIS1NUW21Y2V2H7Q05GH9I5U6APVLUPVHA1C4RMED8O7H7U9Q1BJMFK")
+                .build());
 
         Browser browser = engine.newBrowser();
 
+        browser.navigation().on(LoadFinished.class, event -> browser.mainFrame().ifPresent(frame ->
+                frame.executeJavaScript(
+                                "document.addEventListener('DOMContentLoaded', function() {" +
+                                "   window.java = {" +
+                                "       setUserLatitude: function(userLatitude) { java.setUserLatitude(userLatitude); }," +
+                                "       setUserLongitude: function(userLongitude) { java.setUserLongitude(userLongitude); }," +
+                                "       sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
+                                "       sendGoalLongitude: function() { java.sendGoalLongitude(); }," +
+                                "       printer: function(num) { java.printer(num); }" +
+                                "   };" +
+                                "    if (window.java) {" +
+                                "        var goalLat = window.java.sendGoalLatitude();" +
+                                "        var goalLng = window.java.sendGoalLongitude();" +
+                                "        updateMapWithGoalCoordinates(goalLat, goalLng);" +
+                                "    } else {" +
+                                "        console.log('window.java is not accessible');" +
+                                "    }" +
+                                "});"
+                )
+        ));
+
         browser.set(InjectJsCallback.class, params -> {
             JsObject window = params.frame().executeJavaScript("window");
-            assert window != null;
-            window.putProperty("java", this);
+            if (window != null) {
+                window.putProperty("java", this);
+                params.frame().executeJavaScript("console.log(window.java);");
+            }
             return InjectJsCallback.Response.proceed();
         });
 
         BrowserView browserView = BrowserView.newInstance(browser);
         String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
         browser.navigation().loadUrl(htmlPath);
-
-        browser.navigation().on(LoadFinished.class, event -> browser.mainFrame().ifPresent(frame ->
-                frame.executeJavaScript(
-                        "window.java = {" +
-                                "  setUserLatitude: function(userLatitude) { java.setUserLatitude(userLatitude); }," +
-                                "  setUserLongitude: function(userLongitude) { java.setUserLongitude(userLongitude); }," +
-                                "  sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
-                                "  sendGoalLongitude: function() { java.sendGoalLongitude(); }" +
-                                "};" +
-                                "document.addEventListener('DOMContentLoaded', function() {" +
-                                "  var goalLat = window.java.sendGoalLatitude();" +
-                                "  var goalLng = window.java.sendGoalLongitude();" +
-                                "  // Update the map with the goal coordinates" +
-                                "  updateMapWithGoalCoordinates(goalLat, goalLng);" +
-                                "});"
-                )
-        ));
 
         StackPane root = new StackPane();
         root.getChildren().add(browserView);
@@ -80,8 +86,11 @@ public class Map extends Application {
         stage.setOnCloseRequest(event -> engine.close());
     }
 
+
     @JsAccessible
-    public void setUserLatitude(double userLatitude) { this.userLatitude = userLatitude; }
+    public void setUserLatitude(double userLatitude) {
+        this.userLatitude = userLatitude;
+    }
 
     @JsAccessible
     public void setUserLongitude(double userLongitude) {
@@ -113,5 +122,4 @@ public class Map extends Application {
     public void setGoalLatitude(double goalLatitude) {
         this.goalLatitude = goalLatitude;
     }
-
 }

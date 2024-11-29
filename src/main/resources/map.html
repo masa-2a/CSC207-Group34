@@ -109,14 +109,12 @@
       icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Red pin icon
     });
 
-    // Add an event listener to move the marker to the clicked location
     map.addListener("click", (event) => {
       const clickedLocation = event.latLng;
       marker.setPosition(clickedLocation);
-      currentMarker = clickedLocation; // Update the current marker's location
+      currentMarker = clickedLocation;
     });
 
-    // Create the panorama with address and info UI disabled
     const panorama = new google.maps.StreetViewPanorama(
             document.getElementById("pano"),
             {
@@ -133,24 +131,26 @@
     );
 
     map.setStreetView(panorama);
-
-    document.getElementById("submitButton").addEventListener("click", () => {
-      if (currentMarker) {
-        let userLat = currentMarker.lat();
-        let userLng = currentMarker.lng();
-
-        if (correctMarker) {
-          correctMarker.setMap(null);
-        }
-
-        window.java.setUserLatitude(userLng);
-        window.java.setUserLongitude(userLat);
-
-      } else {
-        console.log("No marker placed yet!");
-      }
-    });
   }
+
+  document.getElementById("submitButton").addEventListener("click", () => {
+    if (currentMarker) {
+
+      let userLat = currentMarker.lat();
+      let userLng = currentMarker.lng();
+
+      if (correctMarker) {
+        correctMarker.setMap(null);
+      }
+
+      window.java.setUserLatitude(userLat);
+      window.java.setUserLongitude(userLng);
+
+    } else {
+      console.log("No marker placed yet!");
+    }
+
+  });
 
   window.initialize = initialize;
 </script>
