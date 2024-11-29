@@ -109,12 +109,14 @@
       icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Red pin icon
     });
 
+    // Add an event listener to move the marker to the clicked location
     map.addListener("click", (event) => {
       const clickedLocation = event.latLng;
       marker.setPosition(clickedLocation);
-      currentMarker = clickedLocation;
+      currentMarker = clickedLocation; // Update the current marker's location
     });
 
+    // Create the panorama with address and info UI disabled
     const panorama = new google.maps.StreetViewPanorama(
             document.getElementById("pano"),
             {
@@ -131,26 +133,25 @@
     );
 
     map.setStreetView(panorama);
-  }
 
-  document.getElementById("submitButton").addEventListener("click", () => {
-    if (currentMarker) {
+    document.getElementById("submitButton").addEventListener("click", () => {
+      if (currentMarker) {
+        let userLat = currentMarker.lat();
+        let userLng = currentMarker.lng();
 
-      let userLat = currentMarker.lat();
-      let userLng = currentMarker.lng();
-
-      if (correctMarker) {
-        correctMarker.setMap(null);
+        if (window.java) { // Check if 'window.java' is available
+          window.java.setUserLatitude(userLat);
+          window.java.setUserLongitude(userLng);
+          window.java.logMessage(`Coordinates sent to Java: Latitude = ${userLat}, Longitude = ${userLng}`);
+          window.java.closeWindow(); // Close the JavaFX window
+        } else {
+          alert("Java object not available!");
+        }
+      } else {
+        window.java.logMessage("No marker placed yet!");
       }
-
-      window.java.setUserLatitude(userLat);
-      window.java.setUserLongitude(userLng);
-
-    } else {
-      console.log("No marker placed yet!");
-    }
-
-  });
+    });
+  }
 
   window.initialize = initialize;
 </script>

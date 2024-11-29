@@ -17,6 +17,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     private RoundController roundController;
     private final JButton startRound;
     private JLabel imageLabel;
+//    private final JButton submitGuess;
 
     public RoundView (RoundViewModel roundViewModel){
         this.roundViewModel = roundViewModel;

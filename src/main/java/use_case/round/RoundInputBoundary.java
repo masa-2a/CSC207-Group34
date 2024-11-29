@@ -15,6 +15,8 @@ public interface RoundInputBoundary {
      */
     void execute(RoundInputData roundInputData);
 
+    void guessSubmit(RoundInputData roundInputData);
+
     /**
      * Gets the random location for use in round.
      * @return An Entry of the Hashmap of the random location's long, lat and country

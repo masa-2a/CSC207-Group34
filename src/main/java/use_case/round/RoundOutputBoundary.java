@@ -6,4 +6,5 @@ public interface RoundOutputBoundary {
      */
     void presentMapData(RoundOutputData roundOutputData);
 
+    void switchToPointsCalculator(RoundOutputData roundOutputData);
 }

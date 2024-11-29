@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.points_calculator.PointsCalculatorController;
+import interface_adapter.points_calculator.PointsCalculatorState;
 import interface_adapter.points_calculator.PointsCalculatorViewModel;
 
 import javax.swing.*;
@@ -11,22 +12,15 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class PointsCalculatorView  extends JPanel implements ActionListener, PropertyChangeListener {
-    /**
-     * Invoked when an action occurs.
-     *
-     * @param e the event to be processed
-     */
-
     private final String viewName = "PointsCalculatorView";
 
     private final PointsCalculatorViewModel pointsCalculatorViewModel;
     private PointsCalculatorController pointsCalculatorController;
-
     private final JButton toMenu;
 
     public PointsCalculatorView(PointsCalculatorViewModel pointsCalculatorViewModel) {
         this.pointsCalculatorViewModel = pointsCalculatorViewModel;
-        pointsCalculatorViewModel.addPropertyChangeListener(this);
+        this.pointsCalculatorViewModel.addPropertyChangeListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -34,7 +28,7 @@ public class PointsCalculatorView  extends JPanel implements ActionListener, Pro
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
-        ImageIcon image = new ImageIcon(getClass().getResource(pointsCalculatorViewModel.getState().getImagePath()));
+        ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
         final JLabel imageLabel = new JLabel(image);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -50,16 +44,11 @@ public class PointsCalculatorView  extends JPanel implements ActionListener, Pro
         this.add(title);
         this.add(imageLabel);
         this.add(buttons);
-
-
-
-
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     /**
@@ -70,6 +59,38 @@ public class PointsCalculatorView  extends JPanel implements ActionListener, Pro
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if ("Points Calculator State Update".equals(evt.getPropertyName())) {
+            PointsCalculatorState newState = (PointsCalculatorState) evt.getNewValue();
+            updateView(newState);
+        }
+
 
     }
+
+    private void updateView(PointsCalculatorState state) {
+        removeAll();
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        final JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+        ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
+        final JLabel imageLabel = new JLabel(image);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        final JPanel buttons = new JPanel();
+        buttons.add(toMenu);
+        revalidate();
+        repaint();
+
+    }
+    public void setPointsCalculatorController(PointsCalculatorController pointsCalculatorController) {
+        this.pointsCalculatorController = pointsCalculatorController;
+    }
+
+    public String getViewName() {
+        return viewName;
+    }
+
 }

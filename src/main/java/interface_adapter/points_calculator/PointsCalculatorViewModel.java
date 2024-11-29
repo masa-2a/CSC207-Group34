@@ -6,10 +6,9 @@ public class PointsCalculatorViewModel extends ViewModel<PointsCalculatorState> 
     public static final String TITLE_LABEL = "Points Display";
     public static final String TO_MENU_BUTTON_LABEL = "To Menu";
 
-    public PointsCalculatorViewModel(String viewName) {
-        super(viewName);
+    public PointsCalculatorViewModel() {
+        super("PointsCalculatorView");
         setState(new PointsCalculatorState());
-
 
     }
 

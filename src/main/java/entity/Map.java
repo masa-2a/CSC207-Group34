@@ -10,6 +10,7 @@ import com.teamdev.jxbrowser.js.JsObject;
 import com.teamdev.jxbrowser.navigation.event.LoadFinished;
 import com.teamdev.jxbrowser.view.javafx.BrowserView;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -21,10 +22,11 @@ public class Map extends Application {
     private double userLongitude;
     private double goalLongitude;
     private double goalLatitude;
+    private Stage stage;
 
     @Override
     public void start(Stage primaryStage) {
-        loadMap();
+        loadMap(primaryStage);
     }
 
     public void giveCoords(double goalLat, double goalLng) {
@@ -32,39 +34,25 @@ public class Map extends Application {
         setGoalLongitude(goalLng);
     }
 
-    public void loadMap() {
+    public void logMessage(String message) {
+        System.out.println("JS Log: " + message);
+    }
+
+    public void closeWindow() {
+        Platform.runLater(() -> stage.close());
+    }
+
+    public void loadMap(Stage primaryStage) {
+        stage = primaryStage;
         Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
-                .licenseKey("OK6AEKNYF2KFR6YGPA0GCYPPB72XLN3MY23BQUDMBVBH16NZHXTGMGGFTQW5FLHQKINRCZEOMFN8HA7VMJ62H2QPSQRIS1NUW21Y2V2H7Q05GH9I5U6APVLUPVHA1C4RMED8O7H7U9Q1BJMFK")
-                .build());
+                .licenseKey("OK6AEKNYF2KFR6YGPA0GCYPPB72XLN3MY23BQUDMBVBH16NZHXTGMGGFTQW5FLHQKINRCZEOMFN8HA7VMJ62H2QPSQRIS1NUW21Y2V2H7Q05GH9I5U6APVLUPVHA1C4RMED8O7H7U9Q1BJMFK").build());
 
         Browser browser = engine.newBrowser();
-
-        browser.navigation().on(LoadFinished.class, event -> browser.mainFrame().ifPresent(frame ->
-                frame.executeJavaScript(
-                                "document.addEventListener('DOMContentLoaded', function() {" +
-                                "   window.java = {" +
-                                "       setUserLatitude: function(userLatitude) { java.setUserLatitude(userLatitude); }," +
-                                "       setUserLongitude: function(userLongitude) { java.setUserLongitude(userLongitude); }," +
-                                "       sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
-                                "       sendGoalLongitude: function() { java.sendGoalLongitude(); }," +
-                                "       printer: function(num) { java.printer(num); }" +
-                                "   };" +
-                                "    if (window.java) {" +
-                                "        var goalLat = window.java.sendGoalLatitude();" +
-                                "        var goalLng = window.java.sendGoalLongitude();" +
-                                "        updateMapWithGoalCoordinates(goalLat, goalLng);" +
-                                "    } else {" +
-                                "        console.log('window.java is not accessible');" +
-                                "    }" +
-                                "});"
-                )
-        ));
 
         browser.set(InjectJsCallback.class, params -> {
             JsObject window = params.frame().executeJavaScript("window");
             if (window != null) {
-                window.putProperty("java", this);
-                params.frame().executeJavaScript("console.log(window.java);");
+                window.putProperty("java", this); // Expose the 'java' object
             }
             return InjectJsCallback.Response.proceed();
         });
@@ -73,28 +61,38 @@ public class Map extends Application {
         String htmlPath = Paths.get("src/main/resources/map.html").toUri().toString();
         browser.navigation().loadUrl(htmlPath);
 
+        browser.navigation().on(LoadFinished.class, event -> browser.mainFrame().ifPresent(frame ->
+                frame.executeJavaScript(
+                        "if (window.java) {" +
+                                "    window.java.logMessage('Java object is available in JavaScript.');" +
+                                "} else {" +
+                                "    alert('Java object is NOT available in JavaScript.');" +
+                                "}"
+                )
+        ));
+
         StackPane root = new StackPane();
         root.getChildren().add(browserView);
 
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setTitle("Street View Map with JxBrowser");
-        stage.setFullScreen(true);
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Street View Map with JxBrowser");
+        primaryStage.setFullScreen(true);
+        primaryStage.show();
 
-        stage.setOnCloseRequest(event -> engine.close());
+        primaryStage.setOnCloseRequest(event -> engine.close());
     }
-
 
     @JsAccessible
     public void setUserLatitude(double userLatitude) {
         this.userLatitude = userLatitude;
+        System.out.println("User Latitude set to: " + userLatitude);
     }
 
     @JsAccessible
     public void setUserLongitude(double userLongitude) {
         this.userLongitude = userLongitude;
+        System.out.println("User Longitude set to: " + userLongitude);
     }
 
     @JsAccessible
@@ -122,4 +120,5 @@ public class Map extends Application {
     public void setGoalLatitude(double goalLatitude) {
         this.goalLatitude = goalLatitude;
     }
+
 }
