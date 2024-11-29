@@ -56,7 +56,13 @@ public class Map extends Application {
                                 "  setUserLongitude: function(userLongitude) { java.setUserLongitude(userLongitude); }," +
                                 "  sendGoalLatitude: function() { java.sendGoalLatitude(); }," +
                                 "  sendGoalLongitude: function() { java.sendGoalLongitude(); }" +
-                                "};"
+                                "};" +
+                                "document.addEventListener('DOMContentLoaded', function() {" +
+                                "  var goalLat = window.java.sendGoalLatitude();" +
+                                "  var goalLng = window.java.sendGoalLongitude();" +
+                                "  // Update the map with the goal coordinates" +
+                                "  updateMapWithGoalCoordinates(goalLat, goalLng);" +
+                                "});"
                 )
         ));
 

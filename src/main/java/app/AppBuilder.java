@@ -233,11 +233,11 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLeaderboardUseCase() {
-        final LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewModel,
+        final LeaderboardOutputBoundary leaderboardPresenter = new LeaderboardPresenter(leaderboardViewModel,
                 viewManagerModel, menuViewModel);
 
         final LeaderboardInputBoundary leaderboardInteractor =
-                new LeaderboardInteractor(leaderboardOutputBoundary, userDataAccessObject);
+                new LeaderboardInteractor(leaderboardPresenter, userDataAccessObject);
 
         final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
 
@@ -261,6 +261,10 @@ public class AppBuilder {
         final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
 
         leaderboardView.setLeaderboardController(leaderboardController);
+
+
+
+
         //menu presenter
         final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel,
                 viewManagerModel, roundViewModel, leaderboardViewModel);
@@ -269,8 +273,7 @@ public class AppBuilder {
 
 
 
-        final MenuController menuController = new MenuController(menuInteractor,
-                roundView.getRoundController());
+        final MenuController menuController = new MenuController(menuInteractor);
         menuView.setMenuController(menuController);
         return this;
     }
@@ -280,9 +283,6 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addRoundUseCase() {
-        // Map2D Stuff
-        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor();
-
         // Streetview Stuff
 
         final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
@@ -290,8 +290,7 @@ public class AppBuilder {
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
                 viewManagerModel);
-        roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor,
-                mapInteractor, roundOutputBoundary);
+        roundUseCaseInteractor = new RoundInteractor(mapInteractor, roundOutputBoundary);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor);
 

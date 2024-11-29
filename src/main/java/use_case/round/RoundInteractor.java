@@ -1,6 +1,5 @@
 package use_case.round;
 
-import use_case.map2d.Map2DInputBoundary;
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInputData;
 import use_case.streetview_map.StreetViewMapOutputData;
@@ -10,12 +9,9 @@ import java.util.*;
 public class RoundInteractor implements RoundInputBoundary {
     private final RoundOutputBoundary roundPresenter;
     private final StreetViewMapInputBoundary streetViewMapInteractor;
-    private final Map2DInputBoundary map2DInteractor;
 
-    public RoundInteractor(Map2DInputBoundary map2DInteractor,
-                           StreetViewMapInputBoundary streetViewMapInteractor,
+    public RoundInteractor(StreetViewMapInputBoundary streetViewMapInteractor,
                            RoundOutputBoundary roundPresenter) {
-        this.map2DInteractor = map2DInteractor;
         this.roundPresenter = roundPresenter;
         this.streetViewMapInteractor = streetViewMapInteractor;
     }
@@ -33,7 +29,8 @@ public class RoundInteractor implements RoundInputBoundary {
                 streetViewMapOutputData.getUserLatitude(),
                 streetViewMapOutputData.getUserLongitude());
 
-
+        System.out.println("These are the guessed coords:" + roundOutputData.getGuessLat() +
+                roundOutputData.getGuessLong());
         roundPresenter.presentMapData(roundOutputData);
     }
 

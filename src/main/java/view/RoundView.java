@@ -15,7 +15,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     private final String viewName = "Round View";
     private final RoundViewModel roundViewModel;
     private RoundController roundController;
-    private final JButton mapButton;
+    private final JButton startRound;
     private JLabel imageLabel;
 
     public RoundView (RoundViewModel roundViewModel){
@@ -23,11 +23,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         this.roundViewModel.addPropertyChangeListener(this);
 
         final JPanel buttons = new JPanel();
-        mapButton = new JButton("Update Map");
-        mapButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttons.add(mapButton);
+        startRound = new JButton("Start Round");
+        startRound.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttons.add(startRound);
         // ActionListener for the mapButton and will execute the code below.
-        mapButton.addActionListener(this);
+        startRound.addActionListener(this);
 
 
         // Initial image setup
@@ -52,7 +52,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Click " + e.getActionCommand());
-        if (e.getSource().equals(mapButton)) {
+        if (e.getSource().equals(startRound)) {
             // Simulate updating the map image path
 
             roundController.execute();

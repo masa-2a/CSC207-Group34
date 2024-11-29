@@ -23,6 +23,8 @@ public class RoundController {
         double longitude = (double) randLocation.get("longitude");
         String country = (String) randLocation.get("country");
 
+        System.out.println("The latitude is " + latitude + " the longitude is " + longitude);
+
         // Create input data
         final RoundInputData roundInputData = new RoundInputData(latitude, longitude, country);
 
