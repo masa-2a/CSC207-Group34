@@ -7,7 +7,7 @@ public class RoundInputData {
     private final String country;
 
     public RoundInputData(double lat, double longitude, String country) {
-        this.streetViewMapInputData = new StreetViewMapInputData(lat, longitude);
+        this.streetViewMapInputData = new StreetViewMapInputData(longitude, lat);
         this.country = country;
     }
 

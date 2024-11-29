@@ -269,8 +269,7 @@ public class AppBuilder {
 
 
 
-        final MenuController menuController = new MenuController(menuInteractor,
-                roundView.getRoundController());
+        final MenuController menuController = new MenuController(menuInteractor);
         menuView.setMenuController(menuController);
         return this;
     }
@@ -280,9 +279,6 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addRoundUseCase() {
-        // Map2D Stuff
-        final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor();
-
         // Streetview Stuff
 
         final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
@@ -290,8 +286,7 @@ public class AppBuilder {
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
                 viewManagerModel);
-        roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor,
-                mapInteractor, roundOutputBoundary);
+        roundUseCaseInteractor = new RoundInteractor(mapInteractor, roundOutputBoundary);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor);
 
