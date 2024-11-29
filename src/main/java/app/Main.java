@@ -22,6 +22,8 @@ public class Main {
             // Launch your JavaFX application here if needed
         });
 
+//        Platform.startup(() -> {});
+
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                                             .addLoginView()

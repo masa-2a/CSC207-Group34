@@ -139,15 +139,16 @@
         let userLat = currentMarker.lat();
         let userLng = currentMarker.lng();
 
-        if (correctMarker) {
-          correctMarker.setMap(null);
+        if (window.java) { // Check if 'window.java' is available
+          window.java.setUserLatitude(userLat);
+          window.java.setUserLongitude(userLng);
+          window.java.logMessage(`Coordinates sent to Java: Latitude = ${userLat}, Longitude = ${userLng}`);
+          window.java.closeWindow(); // Close the JavaFX window
+        } else {
+          alert("Java object not available!");
         }
-
-        window.java.setUserLatitude(userLng);
-        window.java.setUserLongitude(userLat);
-
       } else {
-        console.log("No marker placed yet!");
+        window.java.logMessage("No marker placed yet!");
       }
     });
   }

@@ -20,9 +20,25 @@ public class RoundPresenter implements RoundOutputBoundary {
      */
     @Override
     public void presentMapData(RoundOutputData roundOutputData) {
+        RoundState roundState = roundViewModel.getState();
+        roundState.setViewName("Map Changed");
+        roundState.setGoalLatitude(roundOutputData.getRandomLocation().get("latitude"));
+        roundState.setGoalLongitude(roundOutputData.getRandomLocation().get("longitude"));
 
-        roundViewModel.setState(new RoundState("Map Changed"));
+        roundViewModel.setState(roundState);
         viewManagerModel.setState(roundViewModel.getState().getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void switchToPointsCalculator(RoundOutputData roundOutputData) {
+        RoundState roundState = roundViewModel.getState();
+        roundState.setViewName("Map Changed");
+        roundState.setGoalLatitude(roundOutputData.getRandomLocation().get("latitude"));
+        roundState.setGoalLongitude(roundOutputData.getRandomLocation().get("longitude"));
+
+        roundState.setViewName("Map Changed");
+    }
+
+
 }

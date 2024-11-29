@@ -83,8 +83,8 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         this.add(title);
         this.add(greeting);
-        this.add(imageLabel);
         this.add(buttons);
+        this.add(imageLabel);
 
     }
 
