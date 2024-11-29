@@ -4,14 +4,12 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import entity.CommonUser;
 import entity.User;
-import firebase.FirebaseInitializer;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.pointsCalculator.PointsCalculatorDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
-import entity.CommonUserFactory;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
