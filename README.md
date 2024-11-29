@@ -30,7 +30,7 @@ This project was made for the course CSC207 - Software Design at University of T
          c. Now go back to your IDE and check src/main/java/firebase/FirebaseInitialiser. Notice the line that has the following code. 
       ```FileInputStream serviceAccount = new FileInputStream("/ADD/YOUR/FILE/PATH");```  
             add the path of the json file from step c between the qoutes instead of our filler code.  
-         e. Any of your friends that want to play the game must have the service key json file shared with them and they should repeat this same process. Keep in                 mind this key should only be shared with people you trust. You cna play around with the sercuity feature of you project to delegate who can delete                    documents and such.
+         e. Any of your friends that want to play the game must have the service key json file shared with them and they should repeat this same process. Keep in                 mind this key should only be shared with people you trust. You can play around with the sercuity feature of you project to delegate who can delete                    documents and such.
 4. Javafx SDK   
          a. Download from https://gluonhq.com/products/javafx/  
          b. Then unzip it and move the folder to this project's main directory.
