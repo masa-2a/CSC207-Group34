@@ -25,6 +25,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.main_menu.MenuController;
 import interface_adapter.main_menu.MenuPresenter;
 import interface_adapter.main_menu.MenuViewModel;
+import interface_adapter.points_calculator.PointsCalculatorController;
+import interface_adapter.points_calculator.PointsCalculatorPresenter;
+import interface_adapter.points_calculator.PointsCalculatorViewModel;
 import interface_adapter.round.RoundController;
 import interface_adapter.round.RoundPresenter;
 import interface_adapter.round.RoundViewModel;
@@ -51,6 +54,9 @@ import use_case.map2d.Map2DUseCaseInteractor;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
+import use_case.pointsCalculator.PointsCalculatorInputBoundary;
+import use_case.pointsCalculator.PointsCalculatorInteractor;
+import use_case.pointsCalculator.PointsCalculatorOutputBoundary;
 import use_case.round.*;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
@@ -90,6 +96,8 @@ public class AppBuilder {
     private LoginView loginView;
     private MenuView menuView;
     private MenuViewModel menuViewModel;
+    private PointsCalculatorViewModel pointsCalculatorViewModel;
+    private PointsCalculatorView pointsView;
     private LeaderboardViewModel leaderboardViewModel;
     private LeaderboardView leaderboardView;
 
@@ -99,6 +107,7 @@ public class AppBuilder {
     private RoundInputBoundary roundUseCaseInteractor;
     private LeaderboardInputBoundary leaderboardInteractor;
     private MenuInputBoundary menuInteractor;
+    private PointsCalculatorInputBoundary pointsInteractor;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -154,6 +163,14 @@ public class AppBuilder {
         cardPanel.add(leaderboardView, leaderboardView.getViewName());
         return this;
     }
+
+    public AppBuilder addPointsCalculatorView() {
+        this.pointsCalculatorViewModel = new PointsCalculatorViewModel();
+        this.pointsView = new PointsCalculatorView(pointsCalculatorViewModel);
+        cardPanel.add(pointsView, pointsView.getViewName());
+        return this;
+    }
+
 
     /**
      * Adds the LoggedIn View to the application.
@@ -286,6 +303,19 @@ public class AppBuilder {
         roundView.setRoundController(roundController);
         return this;
     }
+
+    public AppBuilder addPointsCalculatorUseCase() {
+        //points calc presenter
+        final PointsCalculatorOutputBoundary pointsOutputBoundary = new PointsCalculatorPresenter(pointsCalculatorViewModel,
+                viewManagerModel,menuViewModel);
+        //POINTS interactor
+        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsOutputBoundary);
+
+        final PointsCalculatorController pointsController = new PointsCalculatorController(pointsInteractor);
+        pointsView.setPointsCalculatorController(pointsController);
+        return this;
+    }
+
 
 
     /**
