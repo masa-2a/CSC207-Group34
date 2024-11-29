@@ -26,7 +26,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         this.menuViewModel.addPropertyChangeListener(this);
-        this.setBackground(new Color(219, 229, 232));  // A soft blue background
+        this.setBackground(new Color(219, 229, 232));
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
