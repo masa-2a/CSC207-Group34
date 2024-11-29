@@ -1,10 +1,13 @@
 package data_access;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.CommonUser;
 import entity.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
@@ -16,7 +19,7 @@ import use_case.signup.SignupUserDataAccessInterface;
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
-        LogoutUserDataAccessInterface {
+        LogoutUserDataAccessInterface, LeaderboardUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -55,7 +58,16 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public void setCurrentUser(User user) {
+        this.currentUsername = user.getName();
+    }
 
+    @Override
+    public ArrayList<CommonUser> returnAllUsers() {
+        ArrayList<CommonUser> allUsers = new ArrayList<>();
+        for (User user : users.values()) {
+            allUsers.add(new CommonUser(user.getName(), user.getPassword(), user.getPoints(), user.getNumberOfGames()));
+        }
+        return allUsers;
     }
 
     @Override
