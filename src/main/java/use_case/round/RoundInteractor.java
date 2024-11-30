@@ -38,6 +38,9 @@ public class RoundInteractor implements RoundInputBoundary {
 
         RoundOutputData roundOutputData = getRoundOutputData(roundInputData, streetViewMapOutputData);
 
+        System.out.println("These are the random coords: " +
+                roundInputData.getStreetViewMapInputData().getGoalLatitude() +
+                "," + roundInputData.getStreetViewMapInputData().getGoalLongitude());
         System.out.println("These are the guessed coords:" + streetViewMapOutputData.getUserLatitude() + "," +
                 streetViewMapOutputData.getUserLongitude());
 

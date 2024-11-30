@@ -69,13 +69,10 @@ public class RoundPresenter implements RoundOutputBoundary {
 
     @Override
     public void updateCountdownTimer(CountdownOutputData countdownOutputData) {
-        System.out.println("we got here to updateCountdownTimer");
         RoundState roundState = roundViewModel.getState();
         roundState.setTimeLeft(countdownOutputData.getTimeLeft());
 
-        roundViewModel.setCountdownTimer(roundState.getTimeLeft());
         roundViewModel.setState(roundState);
-        viewManagerModel.setState(roundViewModel.getState().getViewName());
-        viewManagerModel.firePropertyChanged("Countdown Timer Updated");
+        roundViewModel.setCountdownTimer(roundState.getTimeLeft());
     }
 }

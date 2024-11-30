@@ -52,13 +52,10 @@ public class RoundController {
 
     }
 
-    public void submitGuess(Double guessedLat, Double guessedLong) {
-        Map<String, Object> randLocation = roundUseCaseInteractor.getRandLocation();
+    public void submitGuess(Double goalLat, Double goalLong,
+                            Double guessedLat, Double guessedLong, String country) {
 
-        double latitude = (double) randLocation.get("latitude");
-        double longitude = (double) randLocation.get("longitude");
-        String country = (String) randLocation.get("country");
-        final RoundInputData roundInputData = new RoundInputData(latitude, longitude, country);
+        final RoundInputData roundInputData = new RoundInputData(goalLat, goalLong, country);
 
         CountdownOutputData countdownOutputData =
                 countdownInteractor.stopCountdown();
@@ -66,8 +63,8 @@ public class RoundController {
         roundInputData.setElapsedTime(countdownOutputData.getTimeElapsed());
 
         Map<String, Double> randomLocation = new HashMap<>();
-        randomLocation.put("latitude", latitude);
-        randomLocation.put("longitude", longitude);
+        randomLocation.put("latitude", goalLat);
+        randomLocation.put("longitude", goalLong);
 
         Map<String, Double> chosenLocation = new HashMap<>();
         chosenLocation.put("latitude", guessedLat);
