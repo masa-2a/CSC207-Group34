@@ -42,18 +42,26 @@ public class PointsCalculatorInteractor implements
         System.out.println("timespent" + timespent);
         int hintsused = pointsCalculatorInputData.getHintsused();
         System.out.println("hintsused" + hintsused);
+
+        int[] hintsCosts = {PointsCalculator.HINTS_COST1, PointsCalculator.HINTS_COST2,PointsCalculator.HINTS_COST3};
+        int hintsPenalty = 0;
+        for (int i = 0; i <hintsused; i++) {
+            hintsPenalty += hintsCosts[i];
+        }
+
         int pointsEarned = (int) Math.floor(
                 PointsCalculator.MAX_SCORE
                         - distance / PointsCalculator.DISTANCE_DIVIDER
                         - timespent
-                        - PointsCalculator.HINTS_COST * hintsused);
+                        - hintsPenalty);
         System.out.println(pointsEarned);
 
         String username = pointsDataAccessObject.getCurrentUsername();
         User user = pointsDataAccessObject.get(username);
+        System.out.println("current points in interactor: " + user.getPoints());
         pointsDataAccessObject.setCurrentPoints(user.getPoints());
         //updates the current user
-        //user.addEarnedPoints(pointsEarned);
+        user.addEarnedPoints(pointsEarned);
         //updating the firebase storage
         pointsDataAccessObject.addEarnedPoints(pointsEarned, user);
 

@@ -59,17 +59,18 @@ public class RoundPresenter implements RoundOutputBoundary {
                 roundOutputData.getImagepath());
         pointsCalculatorInteractor.execute(inputData);
 
-        roundViewModel.setState(roundState);
-
-        pointsCalculatorViewModel.getState().updateChosenLocation(roundOutputData.getRandomLocation());
-        pointsCalculatorViewModel.getState().updateTimespent(roundOutputData.getTimespent());
-        pointsCalculatorViewModel.getState().updateHintsused(roundOutputData.getHintsused());
-        pointsCalculatorViewModel.getState().updateImagePath(roundOutputData.getImagepath());
-        pointsCalculatorViewModel.getState().updateRandomLocation(roundOutputData.getRandomLocation());
+//        roundViewModel.setState(roundState);
+//
+//        pointsCalculatorViewModel.getState().updateChosenLocation(roundOutputData.getRandomLocation());
+//        pointsCalculatorViewModel.getState().updateTimespent(roundOutputData.getTimespent());
+//        pointsCalculatorViewModel.getState().updateHintsused(roundOutputData.getHintsused());
+//        pointsCalculatorViewModel.getState().updateImagePath(roundOutputData.getImagepath());
+//        pointsCalculatorViewModel.getState().updateRandomLocation(roundOutputData.getRandomLocation());
 
         viewManagerModel.setState(pointsCalculatorViewModel.getViewName());
         viewManagerModel.firePropertyChanged("Points Calculator State Update");
         viewManagerModel.firePropertyChanged();
+        System.out.println("triggering once");
     }
 
     @Override
