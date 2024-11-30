@@ -28,7 +28,7 @@ public class MenuController {
      */
     public void switchToLeaderboardView() {
         menuUseCaseInteractor.switchToLeaderboardView();
-        leaderboardInteractor.execute();
+        //leaderboardInteractor.execute();
     }
 
     /**

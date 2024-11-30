@@ -8,7 +8,7 @@ public interface LeaderboardInputBoundary {
      * Executes leaderboard usecase.
      *
      */
-    void execute();
+    void execute(LeaderboardInputData leaderboardInputData);
 
     /**
      * Executes the switch to the main menu

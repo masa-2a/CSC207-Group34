@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.main_menu.MenuController;
 import interface_adapter.main_menu.MenuState;
@@ -21,6 +22,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     private final JButton leaderboard;
     private final JButton logout;
     private MenuController menuController;
+    private LeaderboardController leaderboardController;
     private JLabel greeting;
 
     public MenuView(MenuViewModel menuViewModel) {
@@ -69,7 +71,9 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         leaderboard.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        MenuState menuState = new MenuState();
                         menuController.switchToLeaderboardView();
+                        leaderboardController.execute(menuState.getCurrentUsername());
                     }
                 }
         );
@@ -135,6 +139,10 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
     public String getViewName() {
         return viewName;
+    }
+
+    public void setLeaderboardController(LeaderboardController leaderboardController) {
+        this.leaderboardController = leaderboardController;
     }
 
     public void setMenuController(MenuController menuController) {

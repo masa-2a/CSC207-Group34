@@ -255,6 +255,7 @@ public class AppBuilder {
         final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
 
         leaderboardView.setLeaderboardController(leaderboardController);
+        menuView.setLeaderboardController(leaderboardController);
         return this;
     }
 
