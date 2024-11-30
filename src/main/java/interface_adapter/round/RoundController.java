@@ -39,7 +39,7 @@ public class RoundController {
 
         // CountdownTimer Stuff
         CountdownInputData countdownInputData = new
-                CountdownInputData(Duration.ofMinutes(0).plusSeconds(15));
+                CountdownInputData(Duration.ofMinutes(0).plusSeconds(5));
         countdownInteractor.startCountdown(countdownInputData);
 
     }

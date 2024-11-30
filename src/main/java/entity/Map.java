@@ -38,8 +38,15 @@ public class Map extends Application {
         System.out.println("JS Log: " + message);
     }
 
-    public void closeWindow() {
-        Platform.runLater(() -> stage.close());
+    @JsAccessible
+    public void closeApplication() {
+        System.out.println("Close application");
+        Platform.runLater(() -> {
+            if (stage != null) {
+                stage.close(); // Close the primary stage
+            }
+            Platform.exit();
+        });
     }
 
     public void loadMap(Stage primaryStage) {

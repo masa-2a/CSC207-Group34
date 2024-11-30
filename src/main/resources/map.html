@@ -142,13 +142,12 @@
         if (window.java) { // Check if 'window.java' is available
           window.java.setUserLatitude(userLat);
           window.java.setUserLongitude(userLng);
-          window.java.logMessage(`Coordinates sent to Java: Latitude = ${userLat}, Longitude = ${userLng}`);
-          window.java.closeWindow(); // Close the JavaFX window
+          window.java.closeApplication();
         } else {
           alert("Java object not available!");
         }
       } else {
-        window.java.logMessage("No marker placed yet!");
+        window.java.logMessage("Please place a marker before submitting!");
       }
     });
   }

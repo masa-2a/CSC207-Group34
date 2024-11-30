@@ -39,8 +39,8 @@ public class Main {
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
                                             .addLeaderboardUseCase()
-                                            .addRoundUseCase()
                                             .addPointsCalculatorUseCase()
+                                            .addRoundUseCase()
                                             .addMenuUseCase()
                                             .build();
 
