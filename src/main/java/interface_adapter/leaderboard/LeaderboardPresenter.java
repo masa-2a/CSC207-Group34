@@ -36,16 +36,13 @@ public class LeaderboardPresenter implements LeaderboardOutputBoundary {
         leaderboardState.setCurrentUserName(outputData.getCurrentUsername()); //setting current username
         leaderboardState.setCurrentUserPoints(outputData.getCurrentUserPoints()); //set current points
         leaderboardState.setCurrentUserPlace(String.valueOf(outputData.getCurrentUserRank())); //set current rank
-        System.out.println("current username in state =" + leaderboardState.getCurrentUsername());
 
-
-        for(Integer rank : topUsers.keySet()) {
+        for (Integer rank : topUsers.keySet()) {
             CommonUser currentUser = topUsers.get(rank);
-            switch(rank) {
+            switch (rank) {
                 case 1:
                     leaderboardState.setFirstPlaceName(currentUser.getName());
                     leaderboardState.setFirstPlacePoints(currentUser.getPoints());
-                    System.out.println(leaderboardState.getFirstPlaceName()+":"+leaderboardState.getFirstPlacePoints());
                     break;
                 case 2:
                     leaderboardState.setSecondPlaceName(currentUser.getName());
