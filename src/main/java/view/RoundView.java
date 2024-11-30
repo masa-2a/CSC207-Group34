@@ -17,7 +17,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     private RoundController roundController;
     private final JButton startRound;
     private JLabel imageLabel;
-//    private final JButton submitGuess;
+    private final JButton submitGuess;
 
     public RoundView (RoundViewModel roundViewModel){
         this.roundViewModel = roundViewModel;
@@ -29,6 +29,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         buttons.add(startRound);
         // ActionListener for the mapButton and will execute the code below.
         startRound.addActionListener(this);
+
+        submitGuess = new JButton("Submit Guess");
+        submitGuess.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttons.add(submitGuess);
+        submitGuess.addActionListener(this);
 
 
         // Initial image setup
@@ -58,6 +63,10 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
 
             roundController.execute();
 
+        }
+        if (e.getSource().equals(submitGuess)) {
+            // Buttons to submit the guess
+            roundController.submitGuess();
         }
     }
 
