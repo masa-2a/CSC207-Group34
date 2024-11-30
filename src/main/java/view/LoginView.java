@@ -43,6 +43,15 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setFont(new Font("Agency FB",Font.PLAIN, 40));
 
+        ImageIcon logo = new ImageIcon("src/main/resources/MapMasterName.png");
+        Image image = logo.getImage(); // transform it
+        Image newimg = image.getScaledInstance(200, 100, java.awt.Image.SCALE_SMOOTH); // scale it smoothly
+        ImageIcon logoScaled = new ImageIcon(newimg);  // assign to a new ImageIcon instance
+
+        final JLabel imageLabel = new JLabel(logoScaled);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
 
         final LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Username"), usernameInputField);
@@ -134,9 +143,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 documentListenerHelper();
             }
         });
-
+        this.add(imageLabel);
         this.add(title);
-        this.add(Box.createHorizontalStrut(5));
+        this.add(Box.createHorizontalStrut(1));
         this.add(usernameInfo);
         this.add(usernameErrorField);
         this.add(passwordInfo);
