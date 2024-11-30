@@ -34,6 +34,21 @@ public class Map extends Application {
         setGoalLongitude(goalLng);
     }
 
+    public void logMessage(String message) {
+        System.out.println("JS Log: " + message);
+    }
+
+    @JsAccessible
+    public void closeApplication() {
+        System.out.println("Close application");
+        Platform.runLater(() -> {
+            if (stage != null) {
+                stage.close(); // Close the primary stage
+            }
+            Platform.exit();
+        });
+    }
+
     public void loadMap(Stage primaryStage) {
         stage = primaryStage;
         Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
@@ -95,14 +110,6 @@ public class Map extends Application {
     @JsAccessible
     public double sendGoalLongitude() {
         return goalLongitude;
-    }
-
-    public void logMessage(String message) {
-        System.out.println("JS Log: " + message);
-    }
-
-    public void closeWindow() {
-        Platform.runLater(() -> stage.close());
     }
 
     public double getUserLongitude() {

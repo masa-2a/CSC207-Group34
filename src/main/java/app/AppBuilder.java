@@ -287,7 +287,7 @@ public class AppBuilder {
         final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
-                viewManagerModel);
+                viewManagerModel, pointsCalculatorViewModel, pointsInteractor );
         final RoundDataAccessInterface roundDataAccess = new
                 RoundDataAccess("src/main/resources/rand_locations.json");
         roundUseCaseInteractor = new RoundInteractor(mapInteractor,
@@ -297,7 +297,7 @@ public class AppBuilder {
                 CountdownInteractor(roundOutputBoundary);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor,
-                countdownInteractor);
+                countdownInteractor, pointsInteractor);
 
 
         roundView.setRoundController(roundController);
@@ -306,10 +306,10 @@ public class AppBuilder {
 
     public AppBuilder addPointsCalculatorUseCase() {
         //points calc presenter
-        final PointsCalculatorOutputBoundary pointsOutputBoundary = new PointsCalculatorPresenter(pointsCalculatorViewModel,
-                viewManagerModel,menuViewModel);
+        final PointsCalculatorOutputBoundary pointsPresenter = new PointsCalculatorPresenter(pointsCalculatorViewModel,
+                viewManagerModel, menuViewModel);
         //POINTS interactor
-        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsOutputBoundary);
+        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsPresenter);
 
         final PointsCalculatorController pointsController = new PointsCalculatorController(pointsInteractor);
         pointsView.setPointsCalculatorController(pointsController);

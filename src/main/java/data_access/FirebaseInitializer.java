@@ -1,4 +1,4 @@
-package firebase;
+package data_access;
 
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
