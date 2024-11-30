@@ -12,24 +12,4 @@ public class PointsCalculatorViewModel extends ViewModel<PointsCalculatorState> 
 
     }
 
-    /**
-     * Updates the points in the state and notifies observers of the change.
-     * @param points the new points value to set
-     */
-    public void updatePoints(int points){
-        this.getState().updatePoints(points);
-        firePropertyChanged();
-
-    }
-
-//    public void updateMessage(String message){
-//        this.getState().updateMessage(message);
-//        firePropertyChanged();
-//    }
-
-    public void updateImagePath(String imagepath){
-        this.getState().updateImagePath(imagepath);
-        firePropertyChanged();
-    }
-
 }
