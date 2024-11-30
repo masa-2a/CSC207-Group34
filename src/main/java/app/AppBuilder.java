@@ -39,6 +39,8 @@ import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.countdown.CountdownInputBoundary;
 import use_case.countdown.CountdownInteractor;
+import use_case.hint.HintInputBoundary;
+import use_case.hint.HintInteractor;
 import use_case.leaderboard.LeaderboardInputBoundary;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
@@ -100,7 +102,6 @@ public class AppBuilder {
     private StreetViewMapViewModel streetViewMapViewModel;
     private RoundView roundView;
     private RoundViewModel roundViewModel;
-    private RoundInputBoundary roundUseCaseInteractor;
     private LeaderboardInputBoundary leaderboardInteractor;
     private MenuInputBoundary menuInteractor;
     private PointsCalculatorInputBoundary pointsInteractor;
@@ -286,18 +287,23 @@ public class AppBuilder {
 
         final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
 
+        // Hint Stuff
+
+        final HintInputBoundary hintInteractor = new HintInteractor();
+
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
-                viewManagerModel, pointsCalculatorViewModel, pointsInteractor );
+                viewManagerModel, pointsCalculatorViewModel);
         final RoundDataAccessInterface roundDataAccess = new
                 RoundDataAccess("src/main/resources/rand_locations.json");
-        roundUseCaseInteractor = new RoundInteractor(mapInteractor,
+
+        RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(mapInteractor,
                 roundOutputBoundary, roundDataAccess);
 
         CountdownInputBoundary countdownInteractor = new
                 CountdownInteractor(roundOutputBoundary);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor,
-                countdownInteractor, pointsInteractor);
+                countdownInteractor, pointsInteractor, hintInteractor);
 
 
         roundView.setRoundController(roundController);

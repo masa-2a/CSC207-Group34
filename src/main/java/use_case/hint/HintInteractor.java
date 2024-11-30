@@ -9,62 +9,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HintInteractor {
+public class HintInteractor implements HintInputBoundary{
+    private int hintCount;
+    private Map<String, Map<String, String>> countryData;
+    private List<String> hints;
 
-    private static Map<String, Map<String, String>> countryData = new HashMap<>();
-
-    static {
-        try {
-            loadCountryData("country_data.json");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public HintInteractor() {
+        this.hintCount = 0;
+        this.countryData = new HashMap<>();
     }
 
-    private int hintCount = 0;
-    private final List<String> hints;
-    private final String country;
+    @Override
+    public HintOutputData execute(HintInputData hintinputData) {
+        String country = hintinputData.getCountry();
 
-    public HintInteractor(HintInputData inputData) {
-        this.country = inputData.getCountry();
-
-        // Generate hints based on the input country
-        HintOutputData outputData = generateHint(country);
-        this.hints = List.of(
-                outputData.getYearOfEstablishment(),
-                outputData.getOfficialLanguages(),
-                outputData.getFlag()
-        );
-    }
-
-    // Method to get the next hint
-    public String getNextHint() {
-        if (hintCount < hints.size()) {
-            String hint = hints.get(hintCount++);
-            return "Hint " + hintCount + ": " + hint;
-        } else {
-            return "No more hints available.";
+        if (countryData.isEmpty()) {
+            try {
+                loadCountryData(hintinputData.getFilePath());
+                // Generate hints based on the input country
+                generateHint(country);
+                return getNextHint();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    // Generates the hint data
-    private HintOutputData generateHint(String country) {
-        if (country == null || country.isEmpty()) {
-            return new HintOutputData("Unknown", "Unknown", "Unknown");
-        }
-
-        // Retrieve data for the given country
-        Map<String, String> countryDetails = countryData.getOrDefault(country, new HashMap<>());
-
-        String yearOfEstablishment = countryDetails.getOrDefault("year_of_establishment", "Unknown");
-        String officialLanguages = countryDetails.getOrDefault("official_languages", "Unknown");
-        String flag = countryDetails.getOrDefault("flag", "Unknown");
-
-        return new HintOutputData(yearOfEstablishment, officialLanguages, flag);
+        return getNextHint();
     }
 
     // Loads the country data from the JSON file
-    private static void loadCountryData(String filePath) throws IOException {
+    private void loadCountryData(String filePath) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(filePath);
         JSONTokener tokener = new JSONTokener(fileInputStream);
         JSONObject jsonObject = new JSONObject(tokener);
@@ -79,4 +52,30 @@ public class HintInteractor {
             countryData.put(country, countryMap);
         }
     }
+
+    // Generates the hint data
+    private void generateHint(String country) {
+        // Retrieve data for the given country
+        Map<String, String> countryDetails = countryData.getOrDefault(country, new HashMap<>());
+
+        String yearOfEstablishment = countryDetails.getOrDefault("year_of_establishment", "Unknown");
+        String officialLanguages = countryDetails.getOrDefault("official_languages", "Unknown");
+        String flag = countryDetails.getOrDefault("flag", "Unknown");
+
+        this.hints = List.of(yearOfEstablishment, officialLanguages, flag);
+    }
+
+    // Method to get the next hint
+    private HintOutputData getNextHint() {
+        if (hintCount < hints.size()) {
+            String hint = hints.get(hintCount);
+            hintCount++;
+            String hintFinal = "Hint " + (hintCount) + ": " + hint;
+            return new HintOutputData(hintFinal, hintCount);
+        } else {
+            String hint = "No more hints available.";
+            return new HintOutputData(hint,hintCount);
+        }
+    }
+
 }
