@@ -38,7 +38,7 @@ public class RoundInteractor implements RoundInputBoundary {
 
         RoundOutputData roundOutputData = getRoundOutputData(roundInputData, streetViewMapOutputData);
 
-        System.out.println("These are the guessed coords:" + streetViewMapOutputData.getUserLatitude() +
+        System.out.println("These are the guessed coords:" + streetViewMapOutputData.getUserLatitude() + "," +
                 streetViewMapOutputData.getUserLongitude());
 
         roundPresenter.switchToPointsCalculator(roundOutputData);
@@ -82,6 +82,8 @@ public class RoundInteractor implements RoundInputBoundary {
         return RandomDataAccess();
     }
 
+
+
     private Map<String, Object> RandomDataAccess() {
         Map<String, Map<String, Object>> countryData = roundDataAccess.loadCountryData();
 
@@ -98,3 +100,4 @@ public class RoundInteractor implements RoundInputBoundary {
         return randLocation;
     }
 }
+

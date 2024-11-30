@@ -15,6 +15,7 @@ import java.util.Map;
 public class RoundController {
     private final RoundInputBoundary roundUseCaseInteractor;
     private final CountdownInputBoundary countdownInteractor;
+
     private final PointsCalculatorInputBoundary pointsCalculatorInteractor;
 
     public RoundController(RoundInputBoundary roundUseCaseInteractor,
@@ -81,4 +82,5 @@ public class RoundController {
 
         roundUseCaseInteractor.guessSubmit(roundInputData);
     }
+
 }
