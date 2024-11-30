@@ -1,8 +1,12 @@
 package use_case.countdown;
 
+import java.time.Duration;
+
 public interface CountdownInputBoundary {
 
     void startCountdown(CountdownInputData countdownInputData);
 
-    float calculateRemainingTimeOnSubmit();
+    CountdownOutputData stopCountdown();
+
+    double calculateRemainingTimeOnSubmit();
 }

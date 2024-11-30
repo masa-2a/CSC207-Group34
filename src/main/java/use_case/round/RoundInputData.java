@@ -5,6 +5,7 @@ import use_case.streetview_map.StreetViewMapInputData;
 public class RoundInputData {
     private final StreetViewMapInputData streetViewMapInputData;
     private final String country;
+    private double elapsedTime;
 
     public RoundInputData(double lat, double longitude, String country) {
         this.streetViewMapInputData = new StreetViewMapInputData(longitude, lat);
@@ -17,5 +18,13 @@ public class RoundInputData {
 
     public String getCountry() {
         return country;
+    }
+
+    public double getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public void setElapsedTime(double elapsedTime) {
+        this.elapsedTime = elapsedTime;
     }
 }

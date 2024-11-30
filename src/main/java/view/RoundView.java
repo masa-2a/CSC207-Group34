@@ -18,6 +18,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     private final JButton startRound;
     private JLabel imageLabel;
     private final JButton submitGuess;
+    private final JLabel timerLabel;
 
     public RoundView (RoundViewModel roundViewModel){
         this.roundViewModel = roundViewModel;
@@ -27,18 +28,21 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         startRound = new JButton("Start Round");
         startRound.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttons.add(startRound);
-        // ActionListener for the mapButton and will execute the code below.
+// ActionListener for the mapButton and will execute the code below.
         startRound.addActionListener(this);
 
         submitGuess = new JButton("Submit Guess");
         submitGuess.setAlignmentX(Component.CENTER_ALIGNMENT);
+        submitGuess.setVisible(false); // Initially hidden
         buttons.add(submitGuess);
         submitGuess.addActionListener(this);
 
-
-        // Initial image setup
-        this.imageLabel = new JLabel();
-        updateImage(roundViewModel.getMapImagePath());
+// Timer label setup
+        timerLabel = new JLabel("Time Left: 00:00");
+        timerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        timerLabel.setVisible(false);
+        timerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        timerLabel.setFont(new Font("Serif", Font.BOLD, 20));
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         final JLabel title = new JLabel(RoundViewModel.TITLE_LABEL);
@@ -46,7 +50,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
 
         this.add(title);
         this.add(buttons);
-        this.add(imageLabel); // Add the image label to the view
+        this.add(timerLabel); // Add the timer label to the view
 
     }
 
@@ -62,11 +66,15 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
             // Simulate updating the map image path
 
             roundController.execute();
+            submitGuess.setVisible(true);
+            timerLabel.setVisible(true);
 
         }
         if (e.getSource().equals(submitGuess)) {
             // Buttons to submit the guess
-            roundController.submitGuess();
+
+            roundController.submitGuess(roundViewModel.getState().getGuessedLatitude(),
+                    roundViewModel.getState().getGuessedLongitude());
         }
     }
 
@@ -83,9 +91,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
             System.out.println(evt.getPropertyName());
             // Update any labels or fields with the current state
         }
-        if ("mapImagePath".equals(evt.getPropertyName())) {
-            updateImage(((RoundState) evt.getNewValue()).getMapImagePath());
+        if ("Countdown Timer Updated".equals(evt.getPropertyName())) {
+            String timeLeft = (String) evt.getNewValue();
+            timerLabel.setText("Time Left: " + timeLeft);
         }
+
     }
 
     private void updateImage(String imagePath) {
