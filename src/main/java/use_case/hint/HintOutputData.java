@@ -1,28 +1,27 @@
 package use_case.hint;
 
-/**
- * This class contains the output data for the hint generation, which includes the hint details.
- */
 public class HintOutputData {
-    private final String yearOfEstablishment;
-    private final String officialLanguages;
-    private final String flag;
+    private String hint;
+    private int hintsUsed;
 
-    public HintOutputData(String yearOfEstablishment, String officialLanguages, String flag) {
-        this.yearOfEstablishment = yearOfEstablishment;
-        this.officialLanguages = officialLanguages;
-        this.flag = flag;
+    public HintOutputData(String hint, int hintsUsed) {
+        this.setHint(hint);
+        this.setHintsUsed(hintsUsed);
     }
 
-    public String getYearOfEstablishment() {
-        return yearOfEstablishment;
+    public String getHint() {
+        return hint;
     }
 
-    public String getOfficialLanguages() {
-        return officialLanguages;
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 
-    public String getFlag() {
-        return flag;
+    public int getHintsUsed() {
+        return hintsUsed;
+    }
+
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
     }
 }

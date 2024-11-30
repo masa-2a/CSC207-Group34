@@ -1,5 +1,6 @@
 package use_case.round;
 
+import use_case.hint.HintOutputData;
 import use_case.map2d.Map2DInputData;
 
 import java.util.Map;
@@ -17,6 +18,8 @@ public interface RoundInputBoundary {
     void execute(RoundInputData roundInputData);
 
     void guessSubmit(RoundInputData roundInputData);
+
+    void showHint(HintOutputData hint);
 
     /**
      * Gets the random location for use in round.

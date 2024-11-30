@@ -3,6 +3,9 @@ package interface_adapter.round;
 import use_case.countdown.CountdownInputBoundary;
 import use_case.countdown.CountdownInputData;
 import use_case.countdown.CountdownOutputData;
+import use_case.hint.HintInputBoundary;
+import use_case.hint.HintInputData;
+import use_case.hint.HintOutputData;
 import use_case.pointsCalculator.PointsCalculatorInputBoundary;
 import use_case.pointsCalculator.PointsCalculatorInputData;
 import use_case.round.RoundInputBoundary;
@@ -15,15 +18,17 @@ import java.util.Map;
 public class RoundController {
     private final RoundInputBoundary roundUseCaseInteractor;
     private final CountdownInputBoundary countdownInteractor;
-
     private final PointsCalculatorInputBoundary pointsCalculatorInteractor;
+    private final HintInputBoundary hintInteractor;
 
     public RoundController(RoundInputBoundary roundUseCaseInteractor,
                            CountdownInputBoundary countdownInteractor,
-                           PointsCalculatorInputBoundary pointsCalculatorInteractor) {
+                           PointsCalculatorInputBoundary pointsCalculatorInteractor,
+                           HintInputBoundary hintInteractor) {
         this.roundUseCaseInteractor = roundUseCaseInteractor;
         this.countdownInteractor = countdownInteractor;
         this.pointsCalculatorInteractor = pointsCalculatorInteractor;
+        this.hintInteractor = hintInteractor;
     }
 
     /**
@@ -53,7 +58,7 @@ public class RoundController {
     }
 
     public void submitGuess(Double goalLat, Double goalLong,
-                            Double guessedLat, Double guessedLong, String country) {
+                            Double guessedLat, Double guessedLong, String country, int hintsUsed) {
 
         final RoundInputData roundInputData = new RoundInputData(goalLat, goalLong, country);
 
@@ -72,12 +77,21 @@ public class RoundController {
 
         PointsCalculatorInputData pointsCalculatorInputData =
                 new PointsCalculatorInputData(randomLocation, chosenLocation,
-                        roundInputData.getElapsedTime(), 0,
+                        roundInputData.getElapsedTime(), hintsUsed,
                         "src/main/resources/static_map.png");
 
         //pointsCalculatorInteractor.execute(pointsCalculatorInputData);
 
         roundUseCaseInteractor.guessSubmit(roundInputData);
+    }
+
+    public void showHint(String country) {
+        HintInputData hintInputData = new HintInputData(country,
+                "src/main/resources/country_data.json");
+
+        HintOutputData hint = hintInteractor.execute(hintInputData);
+        roundUseCaseInteractor.showHint(hint);
+
     }
 
 }

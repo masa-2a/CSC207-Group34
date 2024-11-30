@@ -37,6 +37,7 @@ public class FirestoreDataAccessObject
     private final Firestore firestore;
     private String currentUsername;
     private User currentUser;
+    private int currentPoints;
 
     /**
      * Initialises firestore DAO.
