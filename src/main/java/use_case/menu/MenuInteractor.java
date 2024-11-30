@@ -1,9 +1,8 @@
 package use_case.menu;
 
-import interface_adapter.main_menu.MenuPresenter;
-
 public class MenuInteractor implements MenuInputBoundary {
     private final MenuOutputBoundary menuPresenter;
+    private MenuOutputData menuOutputData;
 
     public MenuInteractor(MenuOutputBoundary menuOutputBoundary) {
         this.menuPresenter = menuOutputBoundary;
@@ -12,10 +11,13 @@ public class MenuInteractor implements MenuInputBoundary {
     /**
      * Executes the menu use case.
      *
-     * @param menuInputData
      */
     @Override
     public void execute(MenuInputData menuInputData) {
+
+        menuOutputData = new MenuOutputData(menuInputData.getUsername());
+
+        menuPresenter.prepareSuccessView(menuOutputData);
     }
 
     /**
@@ -31,8 +33,7 @@ public class MenuInteractor implements MenuInputBoundary {
      */
     @Override
     public void switchToNewRoundView() {
-        menuPresenter.switchToNewRoundView();
-
+        menuPresenter.switchToNewRoundView(menuOutputData);
     }
 
     /**
@@ -41,6 +42,5 @@ public class MenuInteractor implements MenuInputBoundary {
     @Override
     public void switchToLeaderboardView() {
         menuPresenter.switchToLeaderboardView();
-
     }
 }

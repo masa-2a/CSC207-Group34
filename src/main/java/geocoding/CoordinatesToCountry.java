@@ -7,7 +7,7 @@ import java.net.URL;
 
 public class CoordinatesToCountry {
 
-    private static final String API_KEY = "your-opencage-api-key";
+    private static final String API_KEY = "d5189589571542e790ff0f6ce983faa2";
     private static final String BASE_URL = "https://api.opencagedata.com/geocode/v1/json";
 
     public String getCountryFromCoordinates(double latitude, double longitude) {

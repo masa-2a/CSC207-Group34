@@ -1,17 +1,12 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -41,20 +36,39 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
+        this.setBackground(new Color(219, 229, 232));
 
-        final JLabel title = new JLabel("Login Screen");
+
+        final JLabel title = new JLabel("Login");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(new Font("Agency FB",Font.PLAIN, 40));
+
+        ImageIcon logo = new ImageIcon("src/main/resources/MapMasterName.png");
+        Image image = logo.getImage(); // transform it
+        Image newimg = image.getScaledInstance(200, 100, java.awt.Image.SCALE_SMOOTH); // scale it smoothly
+        ImageIcon logoScaled = new ImageIcon(newimg);  // assign to a new ImageIcon instance
+
+        final JLabel imageLabel = new JLabel(logoScaled);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
 
         final LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Username"), usernameInputField);
+        usernameInfo.setBackground(new Color(219, 229, 232));
+
         final LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel("Password"), passwordInputField);
+        passwordInfo.setBackground(new Color(219, 229, 232));
+
 
         final JPanel buttons = new JPanel();
         logIn = new JButton("Log in");
         buttons.add(logIn);
         signUp = new JButton("Go to Sign Up");
         buttons.add(signUp);
+        buttons.setBackground(new Color(219, 229, 232));
+
 
         logIn.addActionListener(
                 new ActionListener() {
@@ -129,8 +143,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 documentListenerHelper();
             }
         });
-
+        this.add(imageLabel);
         this.add(title);
+        this.add(Box.createHorizontalStrut(1));
         this.add(usernameInfo);
         this.add(usernameErrorField);
         this.add(passwordInfo);

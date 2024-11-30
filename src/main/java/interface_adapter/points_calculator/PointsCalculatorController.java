@@ -1,19 +1,25 @@
 package interface_adapter.points_calculator;
 
-import use_case.points_calculator.PointsCalculatorInputBoundary;
-import use_case.points_calculator.PointsCalculatorInputData;
+import use_case.pointsCalculator.PointsCalculatorInputBoundary;
+import use_case.pointsCalculator.PointsCalculatorInputData;
 
 import java.util.Map;
 
 public class PointsCalculatorController {
     private final PointsCalculatorInputBoundary pointsUseCaseInteractor;
 
+    /**
+     * Controller for Points Use Case
+     *
+     * @param pointsUseCaseInteractor
+     */
     public PointsCalculatorController(PointsCalculatorInputBoundary pointsUseCaseInteractor) {
         this.pointsUseCaseInteractor = pointsUseCaseInteractor;
     }
 
     /**
      * Executes the Points Calculator Use Case.
+     *
      * @param randomLocation the location the user is trying to guess.
      * @param chosenLocation the location of the user's guess.
      */
@@ -21,6 +27,7 @@ public class PointsCalculatorController {
         final PointsCalculatorInputData pointsCalculatorInputData =
                 new PointsCalculatorInputData(randomLocation, chosenLocation, timespent, hintsused, imagepath);
 
+        System.out.println("Points Controller executed");
         pointsUseCaseInteractor.execute(pointsCalculatorInputData);
     }
 
@@ -30,7 +37,6 @@ public class PointsCalculatorController {
     public void switchToMenuView() {
         pointsUseCaseInteractor.switchToMenuView();
     }
-
 
 
 }

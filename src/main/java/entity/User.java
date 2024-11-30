@@ -17,7 +17,7 @@ public interface User {
      */
     int getPoints();
 
-    void addPoints(int newpoints);
+    void addEarnedPoints(int newpoints);
 
     /**
      * Return the number of games played
@@ -32,4 +32,10 @@ public interface User {
      * @return the password of the user.
      */
     String getPassword();
+
+    /**
+     * Gets the evg points of the user
+     * @returns avg points of the user
+     */
+    int getAveragePoints();
 }

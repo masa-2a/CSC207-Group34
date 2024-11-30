@@ -1,6 +1,9 @@
 package data_access;
 
+import entity.CommonUser;
 import entity.User;
+
+import java.util.ArrayList;
 
 public abstract class AbstractDataAccessObject {
     // Save a user object to Firestore
@@ -20,5 +23,9 @@ public abstract class AbstractDataAccessObject {
 
     // Get the current logged-in username
     public String getCurrentUsername(){return null;}
+
+    public void setCurrentUser(){}
+
+    public ArrayList<CommonUser> returnAllUsers(){return null;}
 
 }

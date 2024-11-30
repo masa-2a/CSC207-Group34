@@ -9,4 +9,5 @@ public class CommonUserFactory implements UserFactory {
     public User create(String name, String password) {
         return new CommonUser(name, password);
     }
+    public CommonUser create(String name, String password, int points, int numberOfGames) { return new CommonUser(name, password, points, numberOfGames); }
 }

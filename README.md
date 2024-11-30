@@ -15,6 +15,7 @@ This project was made for the course CSC207 - Software Design at University of T
 
 ## Features
 - **Signup and Login**: Users can create an account and log in to track their progress and compete on the leaderboard.
+
 - **Play a New Round**: Players can start a new round where they are presented with a random street view. Players have a maximum time of 2 minutes and 30 seconds to make a guess, and they can use up to 3 hints, which will affect their points. Once they submit their guess, their earned points for this round will be displayed to them.
 - **Leaderboard**: A leaderboard displays the highest-ranked players, sorted by their average points.
 
@@ -23,11 +24,46 @@ This project was made for the course CSC207 - Software Design at University of T
    ```bash
    git clone https://github.com/masa-2a/CSC207-Group34.git
 2. Open the project in your IDE
-3. APIKEY!!!!!!!!!!!!!!!!!!!!!!!!!! Instructions to be added
+3. Firestore API, which stores the user data of everyone who has played the game using your API key on any device.   
+         a. Head over to [Google FireBase](https://firebase.google.com/) and create a new project with Google Firestore (from the Go To Console button on the top                 right), you can call it Geogussr, MapMaster or whatever else you want.  
+         b. Then create a new collection in the Firestore data base called "Users".
+         c. Next, go to project settings -> Service Accounts click "Generate a new private key" for java and save that .json file somewhere safe on you device.    
+         c. Now go back to your IDE and check src/main/java/firebase/FirebaseInitialiser. Notice the line that has the following code. 
+      ```FileInputStream serviceAccount = new FileInputStream("/ADD/YOUR/FILE/PATH");```  
+            add the path of the json file from step c between the qoutes instead of our filler code.  
+         e. Any of your friends that want to play the game must have the service key json file shared with them and they should repeat this same process. Keep in                 mind this key should only be shared with people you trust. You can play around with the sercuity feature of you project to delegate who can delete                    documents and such.
+4. Javafx SDK   
+         a. Download from https://gluonhq.com/products/javafx/  
+         b. Then unzip it and move the folder to this project's main directory.
+
+5. Google API, //add pls
+
+
 
 ## Usage
 1. In your IDE, navigate to src/main/java/app
-2. Locate the Main.java file and Run it. 
+2. Locate the Main.java file and Run it.
+3. The instruction of the game are as follows.
+
+a. Create an Account by Signing Up!
+
+![SignUpView.png](images%2FSignUpView.png)
+
+b. Log In
+
+![LoginView.png](images%2FLoginView.png)
+
+c. Now you will see the Main Menu and you can decide what you would like to do by clicking the buttons.
+
+![MainMenuView.png](images%2FMainMenuView.png)
+
+- When you click "new round" you will be met with a google street view map and a world view map.  
+    1. You must guess the location of the street view map and place a guess on the world view map.  
+    2. If you would like you can check the hints, you have three possible hints with varying difficulty.  
+    3. After you submit your guess you will be given points depending on how accurate your guess is, how long you took and how many hints you used.  
+- When you click "Leaderboard" you will see the top 3 players of MapMaster and your ranking in comparison!
+- When you click "Logout", you are taken to the logout screen!
+   
 
 ## License
 MIT License
@@ -43,7 +79,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Feedback and contributions
 Created by Maira Masroor, Masa Abu Arja, Cheryl Tong, Purav Gupta and Steven Qiao.
-Please fill out this form: https://forms.gle/okprPAfZ1eHAPpi89
+Please fill out this form if you have any feedback: https://forms.gle/okprPAfZ1eHAPpi89
 
 
 

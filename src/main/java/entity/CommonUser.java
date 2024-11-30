@@ -31,7 +31,7 @@ public class CommonUser implements User {
     public int getPoints() { return points; }
 
     @Override
-    public void addPoints(int newpoints) {this.points += newpoints;}
+    public void addEarnedPoints(int newpoints) {this.points += newpoints;}
 
     @Override
     public int getNumberOfGames() {return numberOfGames; }
@@ -42,5 +42,9 @@ public class CommonUser implements User {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public int getAveragePoints() {
+        return numberOfGames == 0 ? 0 : (int) Math.floor((double) points / numberOfGames);
     }
 }

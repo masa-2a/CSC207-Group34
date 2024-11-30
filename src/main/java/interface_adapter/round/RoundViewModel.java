@@ -7,6 +7,14 @@ public class RoundViewModel extends ViewModel<RoundState> {
 
     public RoundViewModel() {
         super("Round View");
-        setState(new RoundState());
+        setState(new RoundState("Round View"));
     }
+
+    public void setCountdownTimer(String timeLeft) {
+        RoundState currentState = getState();
+        currentState.setTimeLeft(timeLeft);
+        setState(currentState);
+        firePropertyChanged("Countdown Timer Updated");
+    }
+
 }

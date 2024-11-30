@@ -1,22 +1,18 @@
 package interface_adapter.streetview_map;
 
+import use_case.streetview_map.StreetViewMapOutputBoundary;
 import use_case.streetview_map.StreetViewMapOutputData;
 
-public class StreetViewMapPresenter {
+public class StreetViewMapPresenter implements StreetViewMapOutputBoundary {
 
     public void present(StreetViewMapOutputData outputData) {
-        double formattedDistance = formatDistance(outputData.getTotalDistance());
+        double userLatitude = outputData.getUserLatitude();
+        double userLongitude = outputData.getUserLongitude();
 
-        updateView(formattedDistance);
+        transferCoordinates(userLatitude, userLongitude);
     }
 
-    private double formatDistance(double distance) {
-        // Example of rounding the distance to two decimal places for display
-        return Math.round(distance * 100.0) / 100.0;
-    }
-
-    private void updateView(double formattedDistance) {
-        // Here you could update the JavaFX UI (or other UI frameworks) with the processed data
-        System.out.println("Formatted Total Distance: " + formattedDistance + " km");
+    private void transferCoordinates(double userLatitude, double userLongitude) {
+        System.out.println(userLatitude + " " + userLongitude);
     }
 }

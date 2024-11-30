@@ -1,6 +1,8 @@
 package app;
 
-import firebase.FirebaseInitializer;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+
 import javax.swing.JFrame;
 
 /**
@@ -12,21 +14,34 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) {
+        // Initialize JavaFX toolkit
+        JFXPanel jfxPanel = new JFXPanel();
+        // Schedule JavaFX tasks
+        Platform.runLater(() -> {
+            System.out.println("JavaFX initialized");
+            // Launch your JavaFX application here if needed
+        });
+
+//        Platform.startup(() -> {});
+
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                                             .addLoginView()
                                             .addSignupView()
                                             .addLoggedInView()
                                             .addMenuView()
+                                            .addLeaderboardView()
                                             .addRoundView()
-                                            .addMap2DView()
+                                            .addPointsCalculatorView()
+                                            .addMenuUseCase()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
                                             .addChangePasswordUseCase()
-                                            .addMenuUseCase()
-                                            .addMap2DUseCase()
+                                            .addLeaderboardUseCase()
+                                            .addPointsCalculatorUseCase()
                                             .addRoundUseCase()
+                                            .addMenuUseCase()
                                             .build();
 
         application.pack();
