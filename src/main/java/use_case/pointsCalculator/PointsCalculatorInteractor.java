@@ -39,21 +39,26 @@ public class PointsCalculatorInteractor implements
 
         double distance = getDistance(randomLocation, chosenLocation);
         double timespent = pointsCalculatorInputData.getTimespent();
+        System.out.println("timespent" + timespent);
         int hintsused = pointsCalculatorInputData.getHintsused();
+        System.out.println("hintsused" + hintsused);
         int pointsEarned = (int) Math.floor(
                 PointsCalculator.MAX_SCORE
                         - distance / PointsCalculator.DISTANCE_DIVIDER
                         - timespent
                         - PointsCalculator.HINTS_COST * hintsused);
+        System.out.println(pointsEarned);
 
         String username = pointsDataAccessObject.getCurrentUsername();
         User user = pointsDataAccessObject.get(username);
+        pointsDataAccessObject.setCurrentPoints(user.getPoints());
         //updates the current user
         //user.addEarnedPoints(pointsEarned);
         //updating the firebase storage
         pointsDataAccessObject.addEarnedPoints(pointsEarned, user);
 
         String message = "You scored " + pointsEarned + " points!";
+        System.out.println("You scored " + pointsEarned + " points!");
         final PointsCalculatorOutputData pointsCalculatorOutputData =
                 new PointsCalculatorOutputData(pointsEarned, message, imagepath);
         pointsCalculatorPresenter.prepareSuccessView(pointsCalculatorOutputData);
@@ -91,6 +96,7 @@ public class PointsCalculatorInteractor implements
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         final double radius = 6371;
         double distance = radius * c;
+        System.out.println(distance);
         return distance;
     }
 

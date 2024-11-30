@@ -27,4 +27,8 @@ public interface PointsCalculatorDataAccessInterface {
      */
     void addEarnedPoints(int pointsEarned, User user);
 
+    void setCurrentPoints(int points);
+
+    int getCurrentPoints();
+
 }

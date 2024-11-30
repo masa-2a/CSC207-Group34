@@ -39,8 +39,9 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         mainPanel.add(imageLabel);
 
         // Points message label
-        String message = "You scored " + pointsCalculatorViewModel.getState().getPoints() + " points!";
-        JLabel pointsMessage = new JLabel(message);
+//        String message = "You scored " + pointsCalculatorViewModel.getState().getPointsEarned() + " points!";
+
+        JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
         pointsMessage.setFont(new Font("Arial", Font.PLAIN, 18));
         pointsMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(pointsMessage);
@@ -55,12 +56,12 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
             }
         });
         mainPanel.add(toMenu);
-
-        // Scroll pane to ensure the view is scrollable
-        JScrollPane scrollPane = new JScrollPane(mainPanel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        this.add(scrollPane);
-        this.setVisible(true);
+        this.add(mainPanel);
+//        // Scroll pane to ensure the view is scrollable
+//        JScrollPane scrollPane = new JScrollPane(mainPanel);
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//        this.add(scrollPane);
+//        this.setVisible(true);
     }
 
     @Override
@@ -97,19 +98,14 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         mainPanel.add(imageLabel);
 
         // Points message label
-        String message = "You scored " + state.getPoints() + " points!";
-        JLabel pointsMessage = new JLabel(message);
+        JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
         pointsMessage.setFont(new Font("Arial", Font.PLAIN, 18));
         pointsMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(pointsMessage);
 
         // Add the toMenu button
         mainPanel.add(toMenu);
-
-        // Add the main panel to the view
-        JScrollPane scrollPane = new JScrollPane(mainPanel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        this.add(scrollPane);
+        this.add(mainPanel);
 
         // Revalidate and repaint to update the view
         this.revalidate();

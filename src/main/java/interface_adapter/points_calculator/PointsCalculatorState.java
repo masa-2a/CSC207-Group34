@@ -5,9 +5,11 @@ import java.util.Map;
 
 public class PointsCalculatorState {
     private int points;
+    private String message;
     public String imagePath;
     private Map<String, Double> randomLocation;
     private Map<String, Double> chosenLocation;
+
     private double timespent;
     private int hintsused;
     private String imagepath;
@@ -25,20 +27,17 @@ public class PointsCalculatorState {
         this.hintsused = hintsused;
     }
 
-    public Map<String, Double> getChosenLocation() {
-        return chosenLocation;
-    }
-    public Map<String, Double> getRandomLocation() {
-        return randomLocation;
-    }
-    public double getTimespent() {
-        return timespent;
-    }
-    public int getHintsused() {
-        return hintsused;
-    }
+     public void setMessage(String message) {
+        this.message = message;
+     }
+     public String getMessage() {
+        return message;
+     }
 
 
+     public void setPoints(int points) {
+        this.points = points;
+     }
     /**
      * Getter method
      *
@@ -75,7 +74,4 @@ public class PointsCalculatorState {
         this.imagePath = imagePath;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
 }
