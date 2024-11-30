@@ -21,21 +21,16 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary{
     public void execute(LeaderboardInputData leaderboardInputData) {
         ArrayList<CommonUser> allUsers = userDataAccess.returnAllUsers();
         List<CommonUser> sortedUsers = sortAllUsers(allUsers);
-//        for (int i =0 ; i<sortedUsers.size(); i++){
-//            System.out.println(sortedUsers.get(i).getPoints());
-//        };
 
         String currentUsername = userDataAccess.getCurrentUsername();
-        System.out.println("logged in user = " + currentUsername);
         int currentUserRank =0;
         int currentUserPoints =0;
         Map<Integer, CommonUser> topThreeUsers = new HashMap<>();
-        //find rank of current user AND add top three into map.
+        // find rank of current user AND add top three into map.
         for (int i = 0; i < sortedUsers.size(); i++) {
             if ( i == 0 || i == 1 || i == 2 ) {
                 int rank = i+1;
                 topThreeUsers.put(rank,sortedUsers.get(i));
-                //System.out.println("user in"+rank+"rank with" + sortedUsers.get(i).getPoints());
             }
             if ( sortedUsers.get(i).getName().equals(currentUsername) ) {
                 currentUserRank = i+1;
