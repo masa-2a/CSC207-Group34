@@ -33,7 +33,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         final JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
-        title.setFont(new Font("Agency FB",Font.PLAIN, 40));
+        title.setFont(new Font("Agency FB", Font.PLAIN, 40));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         greeting = new JLabel("Welcome, Guest!"); // will be updated later
@@ -132,7 +132,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 //        }
 
         // Add the new greeting label
-      // this.add(greeting, 3);
+        // this.add(greeting, 3);
         this.revalidate();
         this.repaint();
     }

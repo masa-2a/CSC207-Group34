@@ -102,6 +102,12 @@ public class FirestoreDataAccessObject
     }
 
     @Override
+    public void setCurrentPoints(int points){ this.currentPoints = points; }
+
+    @Override
+    public int getCurrentPoints() {return currentPoints;}
+
+    @Override
     public boolean existsByName(String username) {
         try {
             final DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(username);
@@ -135,12 +141,33 @@ public class FirestoreDataAccessObject
     @Override
     public void addEarnedPoints(int pointsEarned, User user) {
         try {
-            final DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
-            userRef.update(POINTS, FieldValue.increment(pointsEarned));
-            System.out.println("Earned points added for user: " + user.getName());
+            System.out.println("Points earned before adding to Firestore: " + pointsEarned);
+            DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
+
+            DocumentSnapshot documentSnapshot = userRef.get().get();
+            if (documentSnapshot.exists()) {
+                Long currentPoints = documentSnapshot.getLong(POINTS);
+                long updatedPoints = currentPoints + pointsEarned;
+                userRef.update(POINTS, updatedPoints);
+                System.out.println("Points updated successfully. New points: " + updatedPoints);
+                setCurrentPoints((int) updatedPoints);
+                System.out.println("Current points from storage" + getCurrentPoints());
+            }
+//            Map<String, Object> userData = documentSnapshot.getData();
+//            int currentpoints = ((Long) userData.get(POINTS)).intValue();  // Firestore stores numbers as Long
+
+
+//            userRef
+//            userRef.update(POINTS, FieldValue.increment(pointsEarned));
+//            System.out.println("Earned points" + pointsEarned + " added for user: " + user.getName());
+//            DocumentSnapshot documentSnapshot2 = userRef.get().get();
+//            Map<String, Object> userData2 = documentSnapshot2.getData();
+//            int currentPoints2 = ((Long) userData2.get(POINTS)).intValue();  // Firestore stores numbers as Long
+//            System.out.println("Updated points for user " + user.getName() + ": " + currentPoints2);
+
         }
-        catch (Exception ex) {
-            System.err.println("Error adding earned points to Firestore: " + ex.getMessage());
+        catch (Exception e) {
+            System.err.println("Error adding earned points to Firestore: " + e.getMessage());
         }
 
     }
