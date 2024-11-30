@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LeaderboardInteractorTest {
     InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    User paul = new CommonUser("Paul", "2020", 300, 6); //50
-    User mushu = new CommonUser("Mushu", "meow", 247, 3); // 82
-    User maira = new CommonUser("Maira", "masroor", 768, 2); //384
-    User taleen = new CommonUser("Taleen", "slayed", 456, 5); //91
-    User ash = new CommonUser("Ash", "ash", 550, 3); //183
+    User paul = new CommonUser("Paul", "2020", 300, 6);
+    User mushu = new CommonUser("Mushu", "meow", 247, 3);
+    User maira = new CommonUser("Maira", "masroor", 768, 2); // first
+    User taleen = new CommonUser("Taleen", "slayed", 456, 5); //third
+    User ash = new CommonUser("Ash", "ash", 550, 3); // second
 
     @BeforeEach
     void setUp() {
@@ -59,8 +59,9 @@ public class LeaderboardInteractorTest {
             }
 
         };
+        LeaderboardInputData leaderboardInputData = new LeaderboardInputData(userDataAccessObject.getCurrentUsername());
         LeaderboardInputBoundary leaderboardInteractor = new LeaderboardInteractor(successPresenter, userDataAccessObject);
-        leaderboardInteractor.execute();
+        leaderboardInteractor.execute(leaderboardInputData);
         leaderboardInteractor.switchToMenuView();
     }
 
