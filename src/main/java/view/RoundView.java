@@ -73,8 +73,12 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         if (e.getSource().equals(submitGuess)) {
             // Buttons to submit the guess
 
-            roundController.submitGuess(roundViewModel.getState().getGuessedLatitude(),
-                    roundViewModel.getState().getGuessedLongitude());
+            roundController.submitGuess(
+                    roundViewModel.getState().getGoalLatitude(),
+                    roundViewModel.getState().getGoalLongitude(),
+                    roundViewModel.getState().getGuessedLatitude(),
+                    roundViewModel.getState().getGuessedLongitude(),
+                    roundViewModel.getState().getCountry());
         }
     }
 
@@ -92,8 +96,10 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
             // Update any labels or fields with the current state
         }
         if ("Countdown Timer Updated".equals(evt.getPropertyName())) {
-            String timeLeft = (String) evt.getNewValue();
+            String timeLeft = roundViewModel.getState().getTimeLeft();
             timerLabel.setText("Time Left: " + timeLeft);
+            this.revalidate();
+            this.repaint();
         }
 
     }
@@ -109,8 +115,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
                     getScaledInstance(100, 100, Image.SCALE_SMOOTH));
             imageLabel.setIcon(imageIcon);
         }
-        this.revalidate();
-        this.repaint();
+
     }
 
     public String getViewName() {
