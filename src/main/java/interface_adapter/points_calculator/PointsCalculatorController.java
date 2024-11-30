@@ -27,6 +27,7 @@ public class PointsCalculatorController {
         final PointsCalculatorInputData pointsCalculatorInputData =
                 new PointsCalculatorInputData(randomLocation, chosenLocation, timespent, hintsused, imagepath);
 
+        System.out.println("Points Controller executed");
         pointsUseCaseInteractor.execute(pointsCalculatorInputData);
     }
 

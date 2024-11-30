@@ -287,7 +287,7 @@ public class AppBuilder {
         final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
-                viewManagerModel, pointsCalculatorViewModel);
+                viewManagerModel, pointsCalculatorViewModel, pointsInteractor );
         final RoundDataAccessInterface roundDataAccess = new
                 RoundDataAccess("src/main/resources/rand_locations.json");
         roundUseCaseInteractor = new RoundInteractor(mapInteractor,

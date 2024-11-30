@@ -2,6 +2,7 @@ package interface_adapter.round;
 
 import use_case.countdown.CountdownInputBoundary;
 import use_case.countdown.CountdownInputData;
+import use_case.pointsCalculator.PointsCalculatorInputBoundary;
 import use_case.round.RoundInputBoundary;
 import use_case.round.RoundInputData;
 
@@ -11,11 +12,13 @@ import java.util.Map;
 public class RoundController {
     private final RoundInputBoundary roundUseCaseInteractor;
     private final CountdownInputBoundary countdownInteractor;
+//    private final PointsCalculatorInputBoundary pointsCalculatorInteractor;
 
     public RoundController(RoundInputBoundary roundUseCaseInteractor,
                            CountdownInputBoundary countdownInteractor) {
         this.roundUseCaseInteractor = roundUseCaseInteractor;
         this.countdownInteractor = countdownInteractor;
+//        this.pointsCalculatorInteractor = pointsInteractor;
     }
 
     /**
@@ -54,4 +57,5 @@ public class RoundController {
 
         roundUseCaseInteractor.guessSubmit(roundInputData);
     }
+
 }

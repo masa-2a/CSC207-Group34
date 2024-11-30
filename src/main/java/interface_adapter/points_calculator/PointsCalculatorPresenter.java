@@ -30,9 +30,15 @@ public class PointsCalculatorPresenter implements PointsCalculatorOutputBoundary
      */
     @Override
     public void prepareSuccessView(PointsCalculatorOutputData outputData) {
-        pointsCalculatorViewModel.updatePoints(outputData.getPointsEarned());
-//        pointsCalculatorViewModel.updateMessage(outputData.getMessage());
-        pointsCalculatorViewModel.updateImagePath(outputData.getImagePath());
+
+//        pointsCalculatorViewModel.updatePoints(outputData.getPointsEarned());
+////        pointsCalculatorViewModel.updateMessage(outputData.getMessage());
+//        pointsCalculatorViewModel.updateImagePath(outputData.getImagePath());
+        System.out.println("prepare success view is run");
+        PointsCalculatorState pointsCalculatorState = pointsCalculatorViewModel.getState();
+        pointsCalculatorState.setPoints(outputData.getPointsEarned());
+        pointsCalculatorViewModel.setState(pointsCalculatorState);
+        pointsCalculatorViewModel.firePropertyChanged("Points Calculator State Update");
     }
 
     /**
