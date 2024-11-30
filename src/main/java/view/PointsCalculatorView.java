@@ -57,11 +57,6 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         });
         mainPanel.add(toMenu);
         this.add(mainPanel);
-//        // Scroll pane to ensure the view is scrollable
-//        JScrollPane scrollPane = new JScrollPane(mainPanel);
-//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        this.add(scrollPane);
-//        this.setVisible(true);
     }
 
     @Override
