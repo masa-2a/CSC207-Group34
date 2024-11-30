@@ -256,6 +256,7 @@ public class AppBuilder {
         final LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor);
 
         leaderboardView.setLeaderboardController(leaderboardController);
+        menuView.setLeaderboardController(leaderboardController);
         return this;
     }
 
@@ -292,7 +293,7 @@ public class AppBuilder {
         final HintInputBoundary hintInteractor = new HintInteractor();
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
-                viewManagerModel, pointsCalculatorViewModel);
+                viewManagerModel, pointsCalculatorViewModel,pointsInteractor);
         final RoundDataAccessInterface roundDataAccess = new
                 RoundDataAccess("src/main/resources/rand_locations.json");
 

@@ -32,26 +32,25 @@ public class LeaderboardPresenter implements LeaderboardOutputBoundary {
         LeaderboardState leaderboardState = leaderboardViewModel.getState();
 
         Map<Integer, CommonUser> topUsers = outputData.getTopUsers();
-        for(Integer rank : topUsers.keySet()) {
+        //set current user data
+        leaderboardState.setCurrentUserName(outputData.getCurrentUsername()); //setting current username
+        leaderboardState.setCurrentUserPoints(outputData.getCurrentUserPoints()); //set current points
+        leaderboardState.setCurrentUserPlace(String.valueOf(outputData.getCurrentUserRank())); //set current rank
+
+        for (Integer rank : topUsers.keySet()) {
             CommonUser currentUser = topUsers.get(rank);
-            if(currentUser.getName().equals(outputData.getCurrentUsername())){
-
-                leaderboardState.setCurrentUserName(outputData.getCurrentUsername());
-                leaderboardState.setCurrentUserAvgPoints(currentUser.getAveragePoints());
-
-            }
-            switch(rank) {
+            switch (rank) {
                 case 1:
                     leaderboardState.setFirstPlaceName(currentUser.getName());
-                    leaderboardState.setFirstPlacePoints(currentUser.getAveragePoints());
+                    leaderboardState.setFirstPlacePoints(currentUser.getPoints());
                     break;
                 case 2:
                     leaderboardState.setSecondPlaceName(currentUser.getName());
-                    leaderboardState.setSecondPlacePoints(currentUser.getAveragePoints());
+                    leaderboardState.setSecondPlacePoints(currentUser.getPoints());
                     break;
                 case 3:
                     leaderboardState.setThirdPlaceName(currentUser.getName());
-                    leaderboardState.setThirdPlacePoints(currentUser.getAveragePoints());
+                    leaderboardState.setThirdPlacePoints(currentUser.getPoints());
                     break;
             }
         }

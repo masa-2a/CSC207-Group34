@@ -80,7 +80,7 @@ public class RoundController {
                         roundInputData.getElapsedTime(), hintsUsed,
                         "src/main/resources/static_map.png");
 
-        pointsCalculatorInteractor.execute(pointsCalculatorInputData);
+        //pointsCalculatorInteractor.execute(pointsCalculatorInputData);
 
         roundUseCaseInteractor.guessSubmit(roundInputData);
     }

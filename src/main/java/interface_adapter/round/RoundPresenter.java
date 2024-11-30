@@ -3,6 +3,8 @@ package interface_adapter.round;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.points_calculator.PointsCalculatorViewModel;
 
+import use_case.pointsCalculator.PointsCalculatorInputBoundary;
+import use_case.pointsCalculator.PointsCalculatorInputData;
 import use_case.countdown.CountdownOutputData;
 import use_case.hint.HintOutputData;
 import use_case.round.RoundOutputBoundary;
@@ -13,13 +15,15 @@ public class RoundPresenter implements RoundOutputBoundary {
     private final RoundViewModel roundViewModel;
     private final ViewManagerModel viewManagerModel;
     private final PointsCalculatorViewModel pointsCalculatorViewModel;
+    private final PointsCalculatorInputBoundary pointsCalculatorInteractor;
 
     public RoundPresenter(RoundViewModel roundViewModel,
                           ViewManagerModel viewManagerModel,
-                          PointsCalculatorViewModel pointsCalculatorViewModel) {
+                          PointsCalculatorViewModel pointsCalculatorViewModel,PointsCalculatorInputBoundary pointsCalculatorInteractor) {
         this.roundViewModel = roundViewModel;
         this.viewManagerModel = viewManagerModel;
         this.pointsCalculatorViewModel = pointsCalculatorViewModel;
+        this.pointsCalculatorInteractor = pointsCalculatorInteractor;
     }
 
     /**
@@ -52,17 +56,24 @@ public class RoundPresenter implements RoundOutputBoundary {
         System.out.println(roundOutputData.getChosenLocation());
 
 
+        PointsCalculatorInputData inputData = new PointsCalculatorInputData(
+                roundOutputData.getRandomLocation(), roundOutputData.getChosenLocation(),
+                roundOutputData.getTimespent(), roundOutputData.getHintsused(),
+                roundOutputData.getImagepath());
+        pointsCalculatorInteractor.execute(inputData);
+
         roundViewModel.setState(roundState);
 
-        pointsCalculatorViewModel.getState().updateChosenLocation(roundOutputData.getRandomLocation());
-        pointsCalculatorViewModel.getState().updateTimespent(roundOutputData.getTimespent());
-        pointsCalculatorViewModel.getState().updateHintsused(roundOutputData.getHintsused());
-        pointsCalculatorViewModel.getState().updateImagePath(roundOutputData.getImagepath());
-        pointsCalculatorViewModel.getState().updateRandomLocation(roundOutputData.getRandomLocation());
+//        pointsCalculatorViewModel.getState().updateChosenLocation(roundOutputData.getRandomLocation());
+//        pointsCalculatorViewModel.getState().updateTimespent(roundOutputData.getTimespent());
+//        pointsCalculatorViewModel.getState().updateHintsused(roundOutputData.getHintsused());
+//        pointsCalculatorViewModel.getState().updateImagePath(roundOutputData.getImagepath());
+//        pointsCalculatorViewModel.getState().updateRandomLocation(roundOutputData.getRandomLocation());
 
         viewManagerModel.setState(pointsCalculatorViewModel.getViewName());
         viewManagerModel.firePropertyChanged("Points Calculator State Update");
         viewManagerModel.firePropertyChanged();
+        System.out.println("triggering once");
     }
 
     @Override
