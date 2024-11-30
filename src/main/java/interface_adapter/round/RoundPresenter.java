@@ -2,8 +2,10 @@ package interface_adapter.round;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.points_calculator.PointsCalculatorViewModel;
+
 import use_case.pointsCalculator.PointsCalculatorInputBoundary;
 import use_case.pointsCalculator.PointsCalculatorInputData;
+import use_case.countdown.CountdownOutputData;
 import use_case.round.RoundOutputBoundary;
 import use_case.round.RoundOutputData;
 
@@ -65,5 +67,15 @@ public class RoundPresenter implements RoundOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    @Override
+    public void updateCountdownTimer(CountdownOutputData countdownOutputData) {
+        System.out.println("we got here to updateCountdownTimer");
+        RoundState roundState = roundViewModel.getState();
+        roundState.setTimeLeft(countdownOutputData.getTimeLeft());
 
+        roundViewModel.setCountdownTimer(roundState.getTimeLeft());
+        roundViewModel.setState(roundState);
+        viewManagerModel.setState(roundViewModel.getState().getViewName());
+        viewManagerModel.firePropertyChanged("Countdown Timer Updated");
+    }
 }

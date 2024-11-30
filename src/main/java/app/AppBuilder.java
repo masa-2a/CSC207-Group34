@@ -297,7 +297,7 @@ public class AppBuilder {
                 CountdownInteractor(roundOutputBoundary);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor,
-                countdownInteractor);
+                countdownInteractor, pointsInteractor);
 
 
         roundView.setRoundController(roundController);

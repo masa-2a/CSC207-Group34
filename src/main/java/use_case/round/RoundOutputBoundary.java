@@ -1,5 +1,7 @@
 package use_case.round;
 
+import use_case.countdown.CountdownOutputData;
+
 public interface RoundOutputBoundary {
     /**
      * Presents the Map View.
@@ -7,4 +9,6 @@ public interface RoundOutputBoundary {
     void presentMapData(RoundOutputData roundOutputData);
 
     void switchToPointsCalculator(RoundOutputData roundOutputData);
+
+    void updateCountdownTimer(CountdownOutputData countdownOutputData);
 }
