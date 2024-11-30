@@ -23,8 +23,23 @@ public interface PointsCalculatorDataAccessInterface {
     User get(String username);
 
     /**
-     *
+     * Adds the points earned to the user.
+     * @param pointsEarned the number of points earned
+     * @param user the user playing
      */
     void addEarnedPoints(int pointsEarned, User user);
+
+    /**
+     * Sets the current points. This is called twice, once to set the points
+     * before the round is played and then once after you earn your points.
+     * @param points the number of points
+     */
+    void setCurrentPoints(int points);
+
+    /**
+     * Getter method.
+     * @return current points
+     */
+    int getCurrentPoints();
 
 }
