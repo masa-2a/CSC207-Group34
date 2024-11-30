@@ -4,7 +4,6 @@ import use_case.round.RoundOutputBoundary;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,21 +19,6 @@ public class CountdownInteractor implements CountdownInputBoundary{
     }
 
 
-//    CountdownInteractor countdownInteractor = new CountdownInteractor();
-//
-//    // Start timer
-//        countdownInteractor.startCountdown();
-//
-//    // Simulate a "Submit" button with a console input
-//    Scanner scanner = new Scanner(System.in);
-//        System.out.println("Press Enter to 'submit' and calculate remaining time.");
-//        scanner.nextLine();  // NEEDS TO BE CHANGED DEPENDING ON THE LATER BUTTON IMPLEMENTATION
-//
-//    // Calculate remaining time on submit
-//        countdownInteractor.calculateRemainingTimeOnSubmit();
-//        scheduler.shutdown();  // Stop the scheduler when submitted
-
-
     @Override
     public void startCountdown(CountdownInputData countdownInputData) {
         Duration countdownDuration = countdownInputData.getCountdownDuration();
@@ -46,32 +30,47 @@ public class CountdownInteractor implements CountdownInputBoundary{
             Duration elapsedTime = Duration.between(startTime, Instant.now());
             Duration timeRemaining = countdownDuration.minus(elapsedTime);
 
+            CountdownOutputData countdownOutputData = new CountdownOutputData();
+
             if (!timeRemaining.isNegative() && !timeRemaining.isZero()) {
                 long minutes = timeRemaining.toMinutes();
                 long seconds = timeRemaining.minusMinutes(minutes).getSeconds();
-                System.out.printf("Time remaining: %02d:%02d\n", minutes, seconds);
+
+                String formattedTime = String.format("%02d:%02d", minutes, seconds);
+                countdownOutputData.setTimeLeft(formattedTime);
+
+                roundPresenter.updateCountdownTimer(countdownOutputData);
 
             } else {
-                System.out.println("Time's up!");
+
+                countdownOutputData.setTimeLeft("Time's up!");
+                roundPresenter.updateCountdownTimer(countdownOutputData);
+
                 scheduler.shutdown();
             }
         }, 0, 1, TimeUnit.SECONDS);
     }
 
     @Override
-    public float calculateRemainingTimeOnSubmit() {
-//        // Calculate elapsed time since start
-//        Duration elapsedTime = Duration.between(startTime, Instant.now());
-//        // Calculate remaining time
-//        Duration timeRemaining = countdownDuration.minus(elapsedTime);
-//
-//        if (timeRemaining.isNegative() || timeRemaining.isZero()) {
-//            return 0;
-//        } else {
-//            long minutes = timeRemaining.toMinutes();
-//            long seconds = timeRemaining.minusMinutes(minutes).getSeconds();
-//            return minutes*60 + seconds;
-//        }
-        return 0;
+    public CountdownOutputData stopCountdown() {
+
+        // Calculate remaining time on submit
+        Double timeElapsed = calculateRemainingTimeOnSubmit();
+        scheduler.shutdown(); // Stop the scheduler when submitted
+        CountdownOutputData countdownOutputData = new CountdownOutputData();
+        countdownOutputData.setTimeElapsed(timeElapsed);
+
+        return countdownOutputData;
+    }
+
+    @Override
+    public double calculateRemainingTimeOnSubmit() {
+        // Calculate elapsed time since start
+        Duration elapsedTime = Duration.between(startTime, Instant.now());
+        // Calculate remaining time
+
+        long minutes = elapsedTime.toMinutes();
+        long seconds = elapsedTime.minusMinutes(minutes).getSeconds();
+        return minutes*60 + seconds;
     }
 }

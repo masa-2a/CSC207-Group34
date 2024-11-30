@@ -56,9 +56,10 @@ public class RoundInteractor implements RoundInputBoundary {
         guessCoords.put("latitude", streetViewMapOutputData.getUserLatitude());
         guessCoords.put("longitude", streetViewMapOutputData.getUserLongitude());
 
+        double elapsedTime = roundInputData.getElapsedTime();
 
         return new RoundOutputData(randCoords, guessCoords,
-                0,0,"src/main/resources/static_map.png");
+                elapsedTime,0,"src/main/resources/static_map.png");
     }
 
     @NotNull

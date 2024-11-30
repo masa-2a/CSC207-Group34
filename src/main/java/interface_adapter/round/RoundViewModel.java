@@ -10,15 +10,11 @@ public class RoundViewModel extends ViewModel<RoundState> {
         setState(new RoundState("Round View"));
     }
 
-    public void setMapImagePath(String mapImagePath) {
+    public void setCountdownTimer(String timeLeft) {
         RoundState currentState = getState();
-        currentState.setMapImagePath(mapImagePath);
+        currentState.setTimeLeft(timeLeft);
         setState(currentState);
-        firePropertyChanged("mapImagePath");
-    }
-
-    public String getMapImagePath() {
-        return getState().getMapImagePath();
+        firePropertyChanged("Countdown Timer Updated");
     }
 
 }
