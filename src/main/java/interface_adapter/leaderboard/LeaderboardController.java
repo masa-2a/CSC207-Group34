@@ -1,6 +1,7 @@
 package interface_adapter.leaderboard;
 
 import use_case.leaderboard.LeaderboardInputBoundary;
+import use_case.leaderboard.LeaderboardInputData;
 
 
 /**
@@ -19,7 +20,8 @@ public class LeaderboardController {
      */
     public void execute(String currentUserName) {
         System.out.println("Controller executed leaderboard");
-        leaderboardInteractor.execute();
+        LeaderboardInputData inputData = new LeaderboardInputData(currentUserName);
+        leaderboardInteractor.execute(inputData);
     }
 
     public void switchToMenuView() {
