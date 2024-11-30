@@ -1,6 +1,7 @@
 package use_case.round;
 
 import use_case.countdown.CountdownOutputData;
+import use_case.hint.HintOutputData;
 
 public interface RoundOutputBoundary {
     /**
@@ -11,4 +12,6 @@ public interface RoundOutputBoundary {
     void switchToPointsCalculator(RoundOutputData roundOutputData);
 
     void updateCountdownTimer(CountdownOutputData countdownOutputData);
+
+    void updateHints(HintOutputData hint);
 }

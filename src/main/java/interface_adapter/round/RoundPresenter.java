@@ -6,6 +6,7 @@ import interface_adapter.points_calculator.PointsCalculatorViewModel;
 import use_case.pointsCalculator.PointsCalculatorInputBoundary;
 import use_case.pointsCalculator.PointsCalculatorInputData;
 import use_case.countdown.CountdownOutputData;
+import use_case.hint.HintOutputData;
 import use_case.round.RoundOutputBoundary;
 import use_case.round.RoundOutputData;
 
@@ -34,6 +35,7 @@ public class RoundPresenter implements RoundOutputBoundary {
         roundState.setViewName("Map Changed");
         roundState.setGoalLatitude(roundOutputData.getRandomLocation().get("latitude"));
         roundState.setGoalLongitude(roundOutputData.getRandomLocation().get("longitude"));
+        roundState.setCountry(roundOutputData.getCountry());
 
         roundViewModel.setState(roundState);
         viewManagerModel.setState(roundViewModel.getState().getViewName());
@@ -48,6 +50,7 @@ public class RoundPresenter implements RoundOutputBoundary {
         roundState.setGoalLongitude(roundOutputData.getRandomLocation().get("longitude"));
         roundState.setGuessedLongitude(roundOutputData.getChosenLocation().get("longitude"));
         roundState.setGuessedLatitude(roundOutputData.getChosenLocation().get("latitude"));
+        roundState.setCountry(roundOutputData.getCountry());
 
         System.out.println(roundOutputData.getRandomLocation());
         System.out.println(roundOutputData.getChosenLocation());
@@ -59,8 +62,8 @@ public class RoundPresenter implements RoundOutputBoundary {
                 roundOutputData.getImagepath());
         pointsCalculatorInteractor.execute(inputData);
 
-//        roundViewModel.setState(roundState);
-//
+        roundViewModel.setState(roundState);
+
 //        pointsCalculatorViewModel.getState().updateChosenLocation(roundOutputData.getRandomLocation());
 //        pointsCalculatorViewModel.getState().updateTimespent(roundOutputData.getTimespent());
 //        pointsCalculatorViewModel.getState().updateHintsused(roundOutputData.getHintsused());
@@ -79,6 +82,16 @@ public class RoundPresenter implements RoundOutputBoundary {
         roundState.setTimeLeft(countdownOutputData.getTimeLeft());
 
         roundViewModel.setState(roundState);
-        roundViewModel.setCountdownTimer(roundState.getTimeLeft());
+        roundViewModel.setCountdownTimer();
+    }
+
+    @Override
+    public void updateHints(HintOutputData hint) {
+        RoundState roundState = roundViewModel.getState();
+        roundState.setHint(hint.getHint());
+        roundState.setHintsUsed(hint.getHintsUsed());
+
+        roundViewModel.setState(roundState);
+        roundViewModel.setHint();
     }
 }

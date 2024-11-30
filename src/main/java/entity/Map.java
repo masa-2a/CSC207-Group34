@@ -59,7 +59,8 @@ public class Map extends Application {
         browser.set(InjectJsCallback.class, params -> {
             JsObject window = params.frame().executeJavaScript("window");
             if (window != null) {
-                window.putProperty("java", this); // Expose the 'java' object
+                window.putProperty("java", this);
+                params.frame().executeJavaScript("console.log(window.java);");
             }
             return InjectJsCallback.Response.proceed();
         });

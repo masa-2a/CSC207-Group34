@@ -1,6 +1,7 @@
 package use_case.round;
 
 import org.jetbrains.annotations.NotNull;
+import use_case.hint.HintOutputData;
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInputData;
 import use_case.streetview_map.StreetViewMapOutputData;
@@ -47,6 +48,11 @@ public class RoundInteractor implements RoundInputBoundary {
         roundPresenter.switchToPointsCalculator(roundOutputData);
     }
 
+    @Override
+    public void showHint(HintOutputData hint) {
+        roundPresenter.updateHints(hint);
+    }
+
     @NotNull
     private static RoundOutputData getRoundOutputData(RoundInputData roundInputData,
                                                       StreetViewMapOutputData
@@ -61,7 +67,7 @@ public class RoundInteractor implements RoundInputBoundary {
 
         double elapsedTime = roundInputData.getElapsedTime();
 
-        return new RoundOutputData(randCoords, guessCoords,
+        return new RoundOutputData(randCoords, guessCoords, roundInputData.getCountry(),
                 elapsedTime,0,"src/main/resources/static_map.png");
     }
 
@@ -76,7 +82,7 @@ public class RoundInteractor implements RoundInputBoundary {
         guessCoords.put("longitude", 0.);
 
 
-        return new RoundOutputData(randCoords, guessCoords,
+        return new RoundOutputData(randCoords, guessCoords, roundInputData.getCountry(),
                 0,0,"src/main/resources/static_map.png");
     }
 

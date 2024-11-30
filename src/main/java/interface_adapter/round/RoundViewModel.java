@@ -10,11 +10,12 @@ public class RoundViewModel extends ViewModel<RoundState> {
         setState(new RoundState("Round View"));
     }
 
-    public void setCountdownTimer(String timeLeft) {
-        RoundState currentState = getState();
-        currentState.setTimeLeft(timeLeft);
-        setState(currentState);
+    public void setCountdownTimer() {
         firePropertyChanged("Countdown Timer Updated");
+    }
+
+    public void setHint() {
+        firePropertyChanged("Hints Updated");
     }
 
 }

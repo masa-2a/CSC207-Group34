@@ -10,6 +10,8 @@ public class RoundState {
     private double guessedLatitude;
     private double guessedLongitude;
     private String country;
+    private String hint;
+    private int hintsUsed;
 
 
     public RoundState(String viewName) {
@@ -86,5 +88,21 @@ public class RoundState {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
+    }
+
+    public int getHintsUsed() {
+        return hintsUsed;
+    }
+
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
     }
 }

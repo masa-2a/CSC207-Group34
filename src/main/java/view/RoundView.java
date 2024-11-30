@@ -19,6 +19,8 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     private JLabel imageLabel;
     private final JButton submitGuess;
     private final JLabel timerLabel;
+    private final JButton showHint;
+    private final JLabel hintLabel;
 
     public RoundView (RoundViewModel roundViewModel){
         this.roundViewModel = roundViewModel;
@@ -44,6 +46,20 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         timerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         timerLabel.setFont(new Font("Serif", Font.BOLD, 20));
 
+// Show hints buttons
+        showHint = new JButton("Show Hint");
+        showHint.setAlignmentX(Component.CENTER_ALIGNMENT);
+        showHint.setVisible(false); // Initially hidden
+        buttons.add(showHint);
+        showHint.addActionListener(this);
+// Hint Text Label
+        hintLabel = new JLabel("Hint: ");
+        hintLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        hintLabel.setVisible(false);
+        hintLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        hintLabel.setFont(new Font("Serif", Font.BOLD, 20));
+
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         final JLabel title = new JLabel(RoundViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -51,6 +67,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         this.add(title);
         this.add(buttons);
         this.add(timerLabel); // Add the timer label to the view
+        this.add(hintLabel);
 
     }
 
@@ -65,9 +82,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         if (e.getSource().equals(startRound)) {
             // Simulate updating the map image path
 
-            roundController.execute();
+            startRound.setVisible(false);
             submitGuess.setVisible(true);
             timerLabel.setVisible(true);
+            showHint.setVisible(true);
+            roundController.execute();
 
         }
         if (e.getSource().equals(submitGuess)) {
@@ -78,7 +97,12 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
                     roundViewModel.getState().getGoalLongitude(),
                     roundViewModel.getState().getGuessedLatitude(),
                     roundViewModel.getState().getGuessedLongitude(),
-                    roundViewModel.getState().getCountry());
+                    roundViewModel.getState().getCountry(),
+                    roundViewModel.getState().getHintsUsed());
+        }
+        if (e.getSource().equals(showHint)) {
+            hintLabel.setVisible(true);
+            roundController.showHint(roundViewModel.getState().getCountry());
         }
     }
 
@@ -98,6 +122,12 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         if ("Countdown Timer Updated".equals(evt.getPropertyName())) {
             String timeLeft = roundViewModel.getState().getTimeLeft();
             timerLabel.setText("Time Left: " + timeLeft);
+            this.revalidate();
+            this.repaint();
+        }
+        if ("Hints Updated".equals(evt.getPropertyName())) {
+            String hint = roundViewModel.getState().getHint();
+            hintLabel.setText(hint);
             this.revalidate();
             this.repaint();
         }

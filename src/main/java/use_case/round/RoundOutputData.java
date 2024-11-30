@@ -5,14 +5,16 @@ import java.util.Map;
 public class RoundOutputData {
     private final Map<String, Double> randomLocation;
     private final Map<String, Double> chosenLocation;
+    private final String country;
     private final double timespent;
     private final int hintsused;
     private final String imagepath;
 
     public RoundOutputData (Map<String, Double> randomLocation, Map<String, Double> chosenLocation,
-                            double timespent, int hintsused, String imagepath) {
+                            String country, double timespent, int hintsused, String imagepath) {
         this.randomLocation = randomLocation;
         this.chosenLocation = chosenLocation;
+        this.country = country;
         this.timespent = timespent;
         this.hintsused = hintsused;
         this.imagepath = imagepath;
@@ -36,5 +38,9 @@ public class RoundOutputData {
 
     public String getImagepath() {
         return imagepath;
+    }
+
+    public String getCountry() {
+        return country;
     }
 }
