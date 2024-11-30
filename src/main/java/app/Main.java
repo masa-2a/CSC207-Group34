@@ -1,7 +1,6 @@
 package app;
 
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 
 import javax.swing.JFrame;
 
@@ -14,13 +13,7 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) {
-        // Initialize JavaFX toolkit
-        JFXPanel jfxPanel = new JFXPanel();
-        // Schedule JavaFX tasks
-        Platform.runLater(() -> {
-            System.out.println("JavaFX initialized");
-            // Launch your JavaFX application here if needed
-        });
+        Platform.startup(() -> {});
 
 //        Platform.startup(() -> {});
 
