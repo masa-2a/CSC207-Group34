@@ -6,19 +6,16 @@ import use_case.hint.HintOutputBoundary;
 import use_case.hint.HintOutputData;
 
 public class HintPresenter implements HintOutputBoundary  {
-    private final HintViewModel hintViewModel;
     private final ViewManagerModel viewManagerModel;
     private final MenuViewModel menuViewModel;
 
     /**
      * Presenter for Points Calculator
      *
-     * @param hintViewModel
      * @param viewManagerModel
      * @param menuViewModel
      */
-    public HintPresenter(HintViewModel hintViewModel, ViewManagerModel viewManagerModel, MenuViewModel menuViewModel) {
-        this.hintViewModel = hintViewModel;
+    public HintPresenter(ViewManagerModel viewManagerModel, MenuViewModel menuViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.menuViewModel = menuViewModel;
     }
