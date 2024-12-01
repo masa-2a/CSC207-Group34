@@ -65,7 +65,9 @@ public class RoundController {
         CountdownOutputData countdownOutputData =
                 countdownInteractor.stopCountdown();
 
+        System.out.println("SUBMIT GUESS HINTS USED" + hintsUsed);
         roundInputData.setElapsedTime(countdownOutputData.getTimeElapsed());
+        roundInputData.setHintsUsed(hintsUsed);
 
         Map<String, Double> randomLocation = new HashMap<>();
         randomLocation.put("latitude", goalLat);

@@ -105,4 +105,6 @@ public class RoundState {
     public void setHintsUsed(int hintsUsed) {
         this.hintsUsed = hintsUsed;
     }
+
+    public void incrementHintsUsed() {this.hintsUsed++;}
 }

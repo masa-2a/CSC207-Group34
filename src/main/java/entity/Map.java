@@ -90,6 +90,7 @@ public class Map extends Application {
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(event -> engine.close());
+
     }
 
     @JsAccessible
