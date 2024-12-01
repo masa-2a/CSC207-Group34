@@ -18,16 +18,13 @@ import java.util.Map;
 public class RoundController {
     private final RoundInputBoundary roundUseCaseInteractor;
     private final CountdownInputBoundary countdownInteractor;
-    private final PointsCalculatorInputBoundary pointsCalculatorInteractor;
     private final HintInputBoundary hintInteractor;
 
     public RoundController(RoundInputBoundary roundUseCaseInteractor,
                            CountdownInputBoundary countdownInteractor,
-                           PointsCalculatorInputBoundary pointsCalculatorInteractor,
                            HintInputBoundary hintInteractor) {
         this.roundUseCaseInteractor = roundUseCaseInteractor;
         this.countdownInteractor = countdownInteractor;
-        this.pointsCalculatorInteractor = pointsCalculatorInteractor;
         this.hintInteractor = hintInteractor;
     }
 

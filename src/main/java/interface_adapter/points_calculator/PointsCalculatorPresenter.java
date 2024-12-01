@@ -38,6 +38,7 @@ public class PointsCalculatorPresenter implements PointsCalculatorOutputBoundary
         PointsCalculatorState pointsCalculatorState = pointsCalculatorViewModel.getState();
        pointsCalculatorState.updatePoints(outputData.getPointsEarned());
         pointsCalculatorState.setMessage(outputData.getMessage());
+        pointsCalculatorState.updateImagePath(outputData.getImagePath());
         pointsCalculatorViewModel.setState(pointsCalculatorState);
         pointsCalculatorViewModel.firePropertyChanged("Points Calculator State Update");
     }

@@ -50,19 +50,32 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.map2d.Map2DInputBoundary;
+import use_case.map2d.Map2DUseCaseInteractor;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
 import use_case.pointsCalculator.PointsCalculatorInputBoundary;
 import use_case.pointsCalculator.PointsCalculatorInteractor;
 import use_case.pointsCalculator.PointsCalculatorOutputBoundary;
-import use_case.round.*;
+import use_case.round.RoundDataAccess;
+import use_case.round.RoundDataAccessInterface;
+import use_case.round.RoundInputBoundary;
+import use_case.round.RoundInteractor;
+import use_case.round.RoundOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInteractor;
-import view.*;
+import view.LeaderboardView;
+import view.LoggedInView;
+import view.LoginView;
+import view.MenuView;
+import view.PointsCalculatorView;
+import view.RoundView;
+import view.SignupView;
+import view.ViewManager;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -144,16 +157,20 @@ public class AppBuilder {
     }
 
     /**
-     * Adds a Round View to the application
+     * Adds a Round View to the application.
      * @return this builder
      */
     public AppBuilder addRoundView() {
         this.roundViewModel = new RoundViewModel();
         this.roundView = new RoundView(roundViewModel);
-        cardPanel.add(roundView,roundView.getViewName());
+        cardPanel.add(roundView, roundView.getViewName());
         return this;
     }
 
+    /**
+     * Adds a Leaderboard View to the application.
+     * @return this builder
+     */
     public AppBuilder addLeaderboardView() {
         this.leaderboardViewModel = new LeaderboardViewModel();
         this.leaderboardView = new LeaderboardView(leaderboardViewModel);
@@ -161,13 +178,16 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds a Points Calculator View to the application.
+     * @return this builder
+     */
     public AppBuilder addPointsCalculatorView() {
         this.pointsCalculatorViewModel = new PointsCalculatorViewModel();
         this.pointsView = new PointsCalculatorView(pointsCalculatorViewModel);
         cardPanel.add(pointsView, pointsView.getViewName());
         return this;
     }
-
 
     /**
      * Adds the LoggedIn View to the application.
@@ -176,7 +196,7 @@ public class AppBuilder {
     public AppBuilder addMenuView() {
         menuViewModel = new MenuViewModel();
         menuView = new MenuView(menuViewModel);
-        cardPanel.add(menuView,menuView.getViewName());
+        cardPanel.add(menuView, menuView.getViewName());
         return this;
     }
 
@@ -200,7 +220,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoginUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loginViewModel, signupViewModel, menuViewModel);
+        final LoginOutputBoundary loginOutputBoundary =
+                new LoginPresenter(viewManagerModel, loginViewModel, signupViewModel, menuViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
@@ -243,7 +264,7 @@ public class AppBuilder {
     }
 
     /**
-     * Adds leaderboard Use Case to the application
+     * Adds leaderboard Use Case to the application.
      * @return this builder
      */
     public AppBuilder addLeaderboardUseCase() {
@@ -260,19 +281,16 @@ public class AppBuilder {
         return this;
     }
 
-     /**
+    /**
      * Adds the Menu Use Case to the application.
      * @return this builder
      */
     public AppBuilder addMenuUseCase() {
 
-        //menu presenter
         final MenuOutputBoundary menuOutputBoundary = new MenuPresenter(menuViewModel, loggedInViewModel,
                 viewManagerModel, roundViewModel, leaderboardViewModel);
-        //menu interactor
+
         menuInteractor = new MenuInteractor(menuOutputBoundary);
-
-
 
         final MenuController menuController = new MenuController(menuInteractor, leaderboardInteractor);
         menuView.setMenuController(menuController);
@@ -285,45 +303,47 @@ public class AppBuilder {
      */
     public AppBuilder addRoundUseCase() {
         // Streetview Stuff
-
         final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
 
         // Hint Stuff
-
         final HintInputBoundary hintInteractor = new HintInteractor();
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
-                viewManagerModel, pointsCalculatorViewModel,pointsInteractor);
+                viewManagerModel, pointsCalculatorViewModel);
+        
         final RoundDataAccessInterface roundDataAccess = new
                 RoundDataAccess("src/main/resources/rand_locations.json");
 
-        RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(mapInteractor,
-                roundOutputBoundary, roundDataAccess);
+        final RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(mapInteractor,
+                roundOutputBoundary, roundDataAccess, pointsInteractor);
 
-        CountdownInputBoundary countdownInteractor = new
+        final CountdownInputBoundary countdownInteractor = new
                 CountdownInteractor(roundOutputBoundary);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor,
-                countdownInteractor, pointsInteractor, hintInteractor);
-
+                countdownInteractor, hintInteractor);
 
         roundView.setRoundController(roundController);
         return this;
     }
 
+    /**
+     * Adds the Points Calculator Use Case to the application.
+     * @return this builder
+     */
     public AppBuilder addPointsCalculatorUseCase() {
-        //points calc presenter
         final PointsCalculatorOutputBoundary pointsPresenter = new PointsCalculatorPresenter(pointsCalculatorViewModel,
                 viewManagerModel, menuViewModel);
-        //POINTS interactor
-        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsPresenter);
+
+        // Map2D Stuff
+        final Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
+
+        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsPresenter,map2DInteractor);
 
         final PointsCalculatorController pointsController = new PointsCalculatorController(pointsInteractor);
         pointsView.setPointsCalculatorController(pointsController);
         return this;
     }
-
-
 
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
@@ -339,7 +359,6 @@ public class AppBuilder {
         viewManagerModel.firePropertyChanged();
 
         return application;
+
     }
-
-
 }
