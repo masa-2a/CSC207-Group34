@@ -1,6 +1,6 @@
 package use_case.map2d;
 
-import entity.Map2D;
+import entity.Map.Map2D;
 
 public class Map2DUseCaseInteractor implements Map2DInputBoundary{
 

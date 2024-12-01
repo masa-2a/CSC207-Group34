@@ -1,4 +1,4 @@
-package entity;
+package entity.Map;
 
 import com.teamdev.jxbrowser.browser.Browser;
 import com.teamdev.jxbrowser.browser.callback.InjectJsCallback;

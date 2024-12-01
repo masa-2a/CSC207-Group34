@@ -1,4 +1,4 @@
-package data_access;
+package data_access.non_persisting;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import entity.User;
-import entity.UserFactory;
+import entity.User.User;
+import entity.User.UserFactory;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;

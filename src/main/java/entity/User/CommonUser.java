@@ -1,4 +1,4 @@
-package entity;
+package entity.User;
 
 /**
  * A simple implementation of the User interface.

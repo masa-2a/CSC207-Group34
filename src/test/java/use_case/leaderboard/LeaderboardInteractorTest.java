@@ -1,11 +1,8 @@
 package use_case.leaderboard;
 
-import data_access.InMemoryUserDataAccessObject;
-import entity.CommonUser;
-import entity.CommonUserFactory;
-import entity.User;
-import entity.UserFactory;
-import interface_adapter.leaderboard.LeaderboardPresenter;
+import data_access.non_persisting.InMemoryUserDataAccessObject;
+import CommonUser;
+import entity.User.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

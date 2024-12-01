@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.FirestoreDataAccessObject;
-import entity.CommonUserFactory;
-import entity.UserFactory;
+import data_access.firebase.FirestoreDataAccessObject;
+import entity.User.CommonUserFactory;
+import entity.User.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
@@ -63,6 +63,8 @@ import use_case.signup.SignupOutputBoundary;
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInteractor;
 import view.*;
+import view.game.PointsCalculatorView;
+import view.game.RoundView;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of

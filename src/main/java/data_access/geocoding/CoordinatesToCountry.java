@@ -1,4 +1,4 @@
-package geocoding;
+package data_access.geocoding;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

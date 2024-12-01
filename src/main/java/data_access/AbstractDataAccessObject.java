@@ -2,8 +2,8 @@ package data_access;
 
 import java.util.ArrayList;
 
-import entity.CommonUser;
-import entity.User;
+import CommonUser;
+import entity.User.User;
 
 /**
  * An abstact DAO. This is used for any future DAO these are

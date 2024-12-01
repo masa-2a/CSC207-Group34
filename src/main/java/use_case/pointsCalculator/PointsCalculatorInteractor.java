@@ -2,8 +2,8 @@ package use_case.pointsCalculator;
 
 import java.util.Map;
 
-import entity.PointsCalculator;
-import entity.User;
+import entity.Points.PointsCalculator;
+import entity.User.User;
 
 import static java.lang.Math.floor;
 

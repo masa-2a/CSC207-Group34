@@ -1,20 +1,21 @@
 package use_case.leaderboard;
 
-import entity.CommonUser;
-import entity.User;
-
 import java.util.ArrayList;
-import java.util.List;
 
+import CommonUser;
+
+/**
+ * Data Access interface for leaderboard Usecase.
+ */
 public interface LeaderboardUserDataAccessInterface {
     /**
-     * Returns a list of all the users in the database
-     * @return List<CommonUser>
+     * Returns a list of all the users in the database.
+     * @return List of common users
      */
     ArrayList<CommonUser> returnAllUsers();
 
     /**
-     * Returns the current username
+     * Returns the current username.
      * @return String currentusername
      */
     String getCurrentUsername();

@@ -1,7 +1,6 @@
-package view;
+package view.game;
 
 import interface_adapter.round.RoundController;
-import interface_adapter.round.RoundState;
 import interface_adapter.round.RoundViewModel;
 
 import javax.swing.*;

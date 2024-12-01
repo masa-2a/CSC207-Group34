@@ -1,4 +1,4 @@
-package data_access;
+package data_access.firebase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +7,9 @@ import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
-import entity.CommonUser;
-import entity.User;
+import CommonUser;
+import data_access.AbstractDataAccessObject;
+import entity.User.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;

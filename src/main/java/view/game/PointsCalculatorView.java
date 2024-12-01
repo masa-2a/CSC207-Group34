@@ -1,4 +1,4 @@
-package view;
+package view.game;
 
 import interface_adapter.points_calculator.PointsCalculatorController;
 import interface_adapter.points_calculator.PointsCalculatorState;

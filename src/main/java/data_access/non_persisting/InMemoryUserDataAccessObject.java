@@ -1,11 +1,11 @@
-package data_access;
+package data_access.non_persisting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import entity.CommonUser;
-import entity.User;
+import CommonUser;
+import entity.User.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;

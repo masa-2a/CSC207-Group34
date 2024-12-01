@@ -1,4 +1,4 @@
-package entity;
+package entity.Points;
 
 public class PointsCalculator {
     public static final int MAX_SCORE = 800;

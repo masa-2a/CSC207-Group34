@@ -1,4 +1,4 @@
-package view;
+package view.game;
 
 import interface_adapter.map2d.Map2DController;
 import interface_adapter.map2d.Map2DViewModel;

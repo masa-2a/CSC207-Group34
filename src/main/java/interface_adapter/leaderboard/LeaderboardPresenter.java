@@ -1,13 +1,10 @@
 package interface_adapter.leaderboard;
 
-import entity.CommonUser;
+import CommonUser;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.main_menu.MenuState;
 import interface_adapter.main_menu.MenuViewModel;
-import interface_adapter.round.RoundState;
 import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.leaderboard.LeaderboardOutputData;
-import view.ViewManager;
 
 import java.util.Map;
 

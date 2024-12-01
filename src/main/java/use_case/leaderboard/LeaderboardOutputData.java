@@ -1,17 +1,24 @@
 package use_case.leaderboard;
 
-import entity.CommonUser;
-
 import java.util.Map;
 
+import CommonUser;
+
+/**
+ * Holds output data for leaderboard use case.
+ */
 public class LeaderboardOutputData {
 
-    private Map<Integer, CommonUser> topUsers;
-    private int currentUserRank;
-    private String currentUsername;
-    private int currentUserPoints;
+    private final Map<Integer, CommonUser> topUsers;
+    private final int currentUserRank;
+    private final String currentUsername;
+    private final int currentUserPoints;
 
-    public LeaderboardOutputData(Map<Integer, CommonUser> topUsers, int currentUserRank, String currentUsername, int currentUserPoints) {
+    public LeaderboardOutputData(Map<Integer,
+            CommonUser> topUsers,
+                                 int currentUserRank,
+                                 String currentUsername,
+                                 int currentUserPoints) {
         this.topUsers = topUsers;
         this.currentUserRank = currentUserRank;
         this.currentUsername = currentUsername;

@@ -1,4 +1,4 @@
-package entity;
+package entity.Map;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.StaticMapsApi;
