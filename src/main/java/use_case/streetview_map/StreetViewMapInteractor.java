@@ -1,9 +1,12 @@
 package use_case.streetview_map;
 
-import entity.Map;
+import entity.map.Map;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
+/**
+ * Interactor for the StreetViewMap Use Case.
+ */
 public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
     private final Map map;
 
@@ -17,7 +20,7 @@ public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
         final double goalLongitude = streetViewInputData.getGoalLongitude();
 
         Platform.runLater(() -> {
-            Stage stage = new Stage();
+            final Stage stage = new Stage();
             map.giveCoords(goalLatitude, goalLongitude);
             map.start(stage);
         });
@@ -25,7 +28,7 @@ public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
 
     @Override
     public StreetViewMapOutputData guessSubmit() {
-        return new StreetViewMapOutputData(map.getUserLatitude(),map.getUserLongitude());
+        return new StreetViewMapOutputData(map.getUserLatitude(), map.getUserLongitude());
     }
 
 }

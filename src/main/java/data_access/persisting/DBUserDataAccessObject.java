@@ -1,12 +1,12 @@
-package data_access;
+package data_access.persisting;
 
 import java.io.IOException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import entity.User;
-import entity.UserFactory;
+import entity.player.User;
+import entity.player.UserFactory;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

@@ -1,9 +1,7 @@
 package use_case.countdown;
 
-import java.util.Scanner;
-
+/**
+ * The main class for the Countdown Use Case.
+ */
 public class CountdownMain {
-    public static void main(String[] args) {
-
-    }
 }

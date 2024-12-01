@@ -1,6 +1,13 @@
 package use_case.round;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import org.jetbrains.annotations.NotNull;
+
 import use_case.hint.HintOutputData;
 import use_case.map2d.Map2DInputBoundary;
 import use_case.pointsCalculator.PointsCalculatorInputBoundary;
@@ -9,9 +16,13 @@ import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInputData;
 import use_case.streetview_map.StreetViewMapOutputData;
 
-import java.util.*;
-
+/**
+ * Interactor for the Round Use Case.
+ */
 public class RoundInteractor implements RoundInputBoundary {
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE = "longitude";
+
     private final RoundOutputBoundary roundPresenter;
     private final StreetViewMapInputBoundary streetViewMapInteractor;
     private final RoundDataAccessInterface roundDataAccess;
@@ -29,10 +40,9 @@ public class RoundInteractor implements RoundInputBoundary {
 
     @Override
     public void execute(RoundInputData roundInputData) {
+        final StreetViewMapInputData streetViewMapInputData = roundInputData.getStreetViewMapInputData();
 
-        StreetViewMapInputData streetViewMapInputData = roundInputData.getStreetViewMapInputData();
-
-        RoundOutputData roundOutputData = getRoundOutputData(roundInputData);
+        final RoundOutputData roundOutputData = getRoundOutputData(roundInputData);
 
         streetViewMapInteractor.execute(streetViewMapInputData);
 
@@ -41,15 +51,18 @@ public class RoundInteractor implements RoundInputBoundary {
 
     @Override
     public void guessSubmit(RoundInputData roundInputData) {
-        StreetViewMapOutputData streetViewMapOutputData = streetViewMapInteractor.guessSubmit();
+        final StreetViewMapOutputData streetViewMapOutputData = streetViewMapInteractor.guessSubmit();
 
-        RoundOutputData roundOutputData = getRoundOutputData(roundInputData, streetViewMapOutputData);
+        final RoundOutputData roundOutputData = getRoundOutputData(roundInputData, streetViewMapOutputData);
+        System.out.println("Round interactor" + roundInputData.getHintsUsed());
+        roundOutputData.setHintsused(roundInputData.getHintsUsed());
+        System.out.println("Round interactor" + roundOutputData.getTimespent());
 
-        System.out.println("These are the random coords: " +
-                roundInputData.getStreetViewMapInputData().getGoalLatitude() +
-                "," + roundInputData.getStreetViewMapInputData().getGoalLongitude());
-        System.out.println("These are the guessed coords:" + streetViewMapOutputData.getUserLatitude() + "," +
-                streetViewMapOutputData.getUserLongitude());
+        System.out.println("These are the random coords: "
+                + roundInputData.getStreetViewMapInputData().getGoalLatitude()
+                + "," + roundInputData.getStreetViewMapInputData().getGoalLongitude());
+        System.out.println("These are the guessed coords:" + streetViewMapOutputData.getUserLatitude() + ","
+                + streetViewMapOutputData.getUserLongitude());
 
         final PointsCalculatorInputData inputData = new PointsCalculatorInputData(
                 roundOutputData.getRandomLocation(), roundOutputData.getChosenLocation(),
@@ -67,58 +80,53 @@ public class RoundInteractor implements RoundInputBoundary {
 
     @NotNull
     private static RoundOutputData getRoundOutputData(RoundInputData roundInputData,
-                                                      StreetViewMapOutputData
-                                                              streetViewMapOutputData) {
-        Map<String, Double> randCoords = new HashMap<>();
-        randCoords.put("latitude", roundInputData.getStreetViewMapInputData().getGoalLatitude());
-        randCoords.put("longitude", roundInputData.getStreetViewMapInputData().getGoalLongitude());
+                                                      StreetViewMapOutputData streetViewMapOutputData) {
+        final Map<String, Double> randCoords = new HashMap<>();
+        randCoords.put(LATITUDE, roundInputData.getStreetViewMapInputData().getGoalLatitude());
+        randCoords.put(LONGITUDE, roundInputData.getStreetViewMapInputData().getGoalLongitude());
 
-        Map<String, Double> guessCoords = new HashMap<>();
-        guessCoords.put("latitude", streetViewMapOutputData.getUserLatitude());
-        guessCoords.put("longitude", streetViewMapOutputData.getUserLongitude());
+        final Map<String, Double> guessCoords = new HashMap<>();
+        guessCoords.put(LATITUDE, streetViewMapOutputData.getUserLatitude());
+        guessCoords.put(LONGITUDE, streetViewMapOutputData.getUserLongitude());
 
-        double elapsedTime = roundInputData.getElapsedTime();
+        final double elapsedTime = roundInputData.getElapsedTime();
 
         return new RoundOutputData(randCoords, guessCoords, roundInputData.getCountry(),
-                elapsedTime,0,"src/main/resources/static_map.png");
+                elapsedTime, 0, "src/main/resources/static_map.png");
     }
 
     @NotNull
     private static RoundOutputData getRoundOutputData(RoundInputData roundInputData) {
-        Map<String, Double> randCoords = new HashMap<>();
-        randCoords.put("latitude", roundInputData.getStreetViewMapInputData().getGoalLatitude());
-        randCoords.put("longitude", roundInputData.getStreetViewMapInputData().getGoalLongitude());
+        final Map<String, Double> randCoords = new HashMap<>();
+        randCoords.put(LATITUDE, roundInputData.getStreetViewMapInputData().getGoalLatitude());
+        randCoords.put(LONGITUDE, roundInputData.getStreetViewMapInputData().getGoalLongitude());
 
-        Map<String, Double> guessCoords = new HashMap<>();
-        guessCoords.put("latitude", 0.);
-        guessCoords.put("longitude", 0.);
-
+        final Map<String, Double> guessCoords = new HashMap<>();
+        guessCoords.put(LATITUDE, 0.);
+        guessCoords.put(LONGITUDE, 0.);
 
         return new RoundOutputData(randCoords, guessCoords, roundInputData.getCountry(),
-                0,0,"src/main/resources/static_map.png");
+                roundInputData.getElapsedTime(), roundInputData.getHintsUsed(), "src/main/resources/static_map.png");
     }
 
     @Override
     public Map<String, Object> getRandLocation() {
-        return RandomDataAccess();
+        return randomDataAccess();
     }
 
+    private Map<String, Object> randomDataAccess() {
+        final Map<String, Map<String, Object>> countryData = roundDataAccess.loadCountryData();
 
+        final List<Map.Entry<String, Map<String, Object>>> entries = new ArrayList<>(countryData.entrySet());
 
-    private Map<String, Object> RandomDataAccess() {
-        Map<String, Map<String, Object>> countryData = roundDataAccess.loadCountryData();
+        final Random random = new Random();
+        final Map.Entry<String, Map<String, Object>> randEntry = entries.get(random.nextInt(entries.size()));
 
-        List<Map.Entry<String, Map<String, Object>>> entries = new ArrayList<>(countryData.entrySet());
-
-        Random random = new Random();
-        Map.Entry<String, Map<String, Object>> randEntry = entries.get(random.nextInt(entries.size()));
-
-        Map<String, Object> randLocation = new HashMap<>();
+        final Map<String, Object> randLocation = new HashMap<>();
         randLocation.put("country", randEntry.getValue().get("country"));
-        randLocation.put("latitude", Double.parseDouble(randEntry.getValue().get("latitude").toString()));
-        randLocation.put("longitude", Double.parseDouble(randEntry.getValue().get("longitude").toString()));
+        randLocation.put(LATITUDE, Double.parseDouble(randEntry.getValue().get(LATITUDE).toString()));
+        randLocation.put(LONGITUDE, Double.parseDouble(randEntry.getValue().get(LONGITUDE).toString()));
 
         return randLocation;
     }
 }
-

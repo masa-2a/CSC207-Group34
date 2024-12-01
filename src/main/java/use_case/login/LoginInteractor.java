@@ -1,9 +1,6 @@
 package use_case.login;
 
-import entity.CommonUser;
-import entity.CommonUserFactory;
-import entity.User;
-import entity.UserFactory;
+import entity.player.User;
 
 /**
  * The Login Interactor.
@@ -41,6 +38,7 @@ public class LoginInteractor implements LoginInputBoundary {
             }
         }
     }
+
     @Override
     public void switchToSignupView() {
         loginPresenter.switchToSignupView();

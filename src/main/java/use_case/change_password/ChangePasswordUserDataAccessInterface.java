@@ -1,6 +1,6 @@
 package use_case.change_password;
 
-import entity.User;
+import entity.player.User;
 
 /**
  * The interface of the DAO for the Change Password Use Case.
@@ -13,5 +13,9 @@ public interface ChangePasswordUserDataAccessInterface {
      */
     void changePassword(User user);
 
+    /**
+     * Gets the current user.
+     * @return the current user
+     */
     User getCurrentUser();
 }

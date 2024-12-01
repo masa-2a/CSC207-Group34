@@ -1,4 +1,4 @@
-package entity;
+package entity.player;
 
 /**
  * The representation of a user in our program.
@@ -12,19 +12,26 @@ public interface User {
     String getName();
 
     /**
-     * Returns the points of the users
-     * @return the points of the user
+     * Returns the points of the users.
+     * @return the points of the user.
      */
     int getPoints();
 
+    /**
+     * Adds points to the user.
+     * @param newpoints the points to be added.
+     */
     void addEarnedPoints(int newpoints);
 
     /**
-     * Return the number of games played
-     * @return the number of games played
+     * Return the number of games played.
+     * @return the number of games played.
      */
     int getNumberOfGames();
 
+    /**
+     * Adds a game to the user.
+     */
     void addGame();
 
     /**
@@ -34,8 +41,8 @@ public interface User {
     String getPassword();
 
     /**
-     * Gets the evg points of the user
-     * @returns avg points of the user
+     * Gets the evg points of the user.
+     * @return avg points of the user.
      */
     int getAveragePoints();
 }

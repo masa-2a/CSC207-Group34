@@ -1,5 +1,8 @@
 package interface_adapter.main_menu;
 
+/**
+ * State for the Menu Use Case.
+ */
 public class MenuState {
     private String currentUsername;
 

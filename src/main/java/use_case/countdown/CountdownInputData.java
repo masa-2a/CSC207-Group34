@@ -2,6 +2,9 @@ package use_case.countdown;
 
 import java.time.Duration;
 
+/**
+ * The input data for the Countdown Use Case.
+ */
 public class CountdownInputData {
     private Duration countdownDuration;
 

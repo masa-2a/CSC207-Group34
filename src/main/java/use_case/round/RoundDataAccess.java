@@ -1,31 +1,39 @@
 package use_case.round;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoundDataAccess implements RoundDataAccessInterface{
+import org.jetbrains.annotations.NotNull;
+
+import com.google.gson.JsonParseException;
+
+/**
+ * Data Access for Round Use Case.
+ */
+public class RoundDataAccess implements RoundDataAccessInterface {
+    private static final String REGEX = "[{}\"]";
     private final String filePath;
+
     public RoundDataAccess(String filePath) {
         this.filePath = filePath;
     }
 
     private static void parseJsonToMap(String json, Map<String, Map<String, Object>> countryData) {
         json = json.trim();
-        json = json.substring(1, json.length() - 1); // Remove outer braces
-        String[] countries = json.split("},"); // Split by individual country entries
+        json = json.substring(1, json.length() - 1);
+        final String[] countries = json.split("},");
 
         for (String countryEntry : countries) {
             if (!countryEntry.endsWith("}")) {
-                countryEntry += "}"; // Add closing brace if missing
+                countryEntry += "}";
             }
-            String[] parts = countryEntry.split(":", 2);
+            final String[] parts = countryEntry.split(":", 2);
             if (parts.length == 2) {
-                String country = parts[0].trim().replaceAll("[{}\"]", ""); // Country name
-                Map<String, Object> countryDetails = getStringObjectMap(parts);
+                final String country = parts[0].trim().replaceAll(REGEX, "");
+                final Map<String, Object> countryDetails = getStringObjectMap(parts);
 
                 countryData.put(country, countryDetails);
             }
@@ -36,23 +44,29 @@ public class RoundDataAccess implements RoundDataAccessInterface{
     private static Map<String, Object> getStringObjectMap(String[] parts) {
         String details = parts[1].trim();
 
-        Map<String, Object> countryDetails = new HashMap<>();
-        details = details.substring(1, details.length() - 1); // Remove inner braces
-        String[] attributes = details.split(",");
+        final Map<String, Object> countryDetails = new HashMap<>();
+        details = details.substring(1, details.length() - 1);
+        final String[] attributes = details.split(",");
         for (String attribute : attributes) {
-            String[] keyValue = attribute.split(":");
+            final String[] keyValue = attribute.split(":");
             if (keyValue.length == 2) {
-                countryDetails.put(keyValue[0].trim().replaceAll("[{}\"]", ""), keyValue[1].trim().replaceAll("[{}\"]", ""));
+                countryDetails.put(keyValue[0].trim().replaceAll(REGEX, ""),
+                        keyValue[1].trim().replaceAll("[{}\"]", ""));
             }
         }
         return countryDetails;
     }
 
+    /**
+     * Loads the country data from the file.
+     *
+     * @return the country data
+     */
     public Map<String, Map<String, Object>> loadCountryData() {
-        Map<String, Map<String, Object>> countryData = new HashMap<>();
+        final Map<String, Map<String, Object>> countryData = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            StringBuilder jsonContent = new StringBuilder();
+            final StringBuilder jsonContent = new StringBuilder();
             String line;
 
             while ((line = br.readLine()) != null) {
@@ -61,8 +75,14 @@ public class RoundDataAccess implements RoundDataAccessInterface{
 
             parseJsonToMap(jsonContent.toString(), countryData);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        catch (IOException ioException) {
+            System.err.println("An error occurred while reading the file: " + ioException.getMessage());
+            ioException.printStackTrace();
+        }
+        catch (JsonParseException jsonParseException) {
+            System.err.println("An error occurred while parsing the JSON: " + jsonParseException.getMessage());
+            jsonParseException.printStackTrace();
         }
 
         return countryData;

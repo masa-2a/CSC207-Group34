@@ -2,10 +2,10 @@ package use_case.pointsCalculator;
 
 import java.util.Map;
 
-import entity.PointsCalculator;
-import entity.User;
 import use_case.map2d.Map2DInputBoundary;
 import use_case.map2d.Map2DInputData;
+import entity.points.PointsCalculator;
+import entity.player.User;
 
 /**
  * Interactor for PointsCalculator.
@@ -49,6 +49,9 @@ public class PointsCalculatorInteractor implements
         final double timespent = pointsCalculatorInputData.getTimespent();
         final int hintsused = pointsCalculatorInputData.getHintsused();
 
+        System.out.println("Distance: " + distance);
+        System.out.println("Timespent: " + timespent);
+        System.out.println("Hintsused: " + hintsused);
         int pixels= 200;
         double k = (double)pixels * 156543.03392 * Math.cos(randomLocation.get("longitude") * Math.PI / 180);
         int zoom = (int)((Math.round(Math.log((70 * k) / (distance * 1000 * 100)) / 0.6931471805599453)) - 1);
@@ -62,20 +65,24 @@ public class PointsCalculatorInteractor implements
 
         map2DInteractor.execute(map2DInputData);
 
-        final int[] hintsCosts = {PointsCalculator.HINTS_COST1,
-                                  PointsCalculator.HINTS_COST2,
-                                  PointsCalculator.HINTS_COST3};
-        int hintsPenalty = 0;
-        for (int i = 0; i < hintsused; i++) {
-            hintsPenalty += hintsCosts[i];
-        }
+        //        final int[] hintsCosts = {PointsCalculator.HINTS_COST1,
+        //                                  PointsCalculator.HINTS_COST2,
+        //                                  PointsCalculator.HINTS_COST3};
+        //        int hintsPenalty = 0;
+        //        for (int i = 0; i < hintsused; i++) {
+        //            hintsPenalty += hintsCosts[i];
+        //        }
 
-        final int pointsEarned = (int) Math.floor(
+        final int pointsEarnedwithoutHints = (int) Math.floor(
                 PointsCalculator.MAX_SCORE
                         - distance / PointsCalculator.DISTANCE_DIVIDER
-                        - timespent
-                        - hintsPenalty);
-        System.out.println(pointsEarned);
+                        - timespent * PointsCalculator.TIME_MULTIPLIER
+                        );
+
+        final int pointsEarned = (int)
+                Math.floor(pointsEarnedwithoutHints / (Math.pow(PointsCalculator.HINTS_COST, hintsused)));
+
+        System.out.println("points earned: " + pointsEarned);
 
         final String username = pointsDataAccessObject.getCurrentUsername();
         final User user = pointsDataAccessObject.get(username);
@@ -133,7 +140,6 @@ public class PointsCalculatorInteractor implements
         final double radius = 6371;
         final double distance = radius * c;
 
-        System.out.println("Distance calculated: " + distance);
         return distance;
     }
 

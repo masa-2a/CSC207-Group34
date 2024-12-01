@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.FirestoreDataAccessObject;
-import entity.CommonUserFactory;
-import entity.UserFactory;
+import data_access.firebase.FirestoreDataAccessObject;
+import entity.player.CommonUserFactory;
+import entity.player.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
@@ -72,8 +72,8 @@ import view.LeaderboardView;
 import view.LoggedInView;
 import view.LoginView;
 import view.MenuView;
-import view.PointsCalculatorView;
-import view.RoundView;
+import view.game.PointsCalculatorView;
+import view.game.RoundView;
 import view.SignupView;
 import view.ViewManager;
 
@@ -310,7 +310,7 @@ public class AppBuilder {
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
                 viewManagerModel, pointsCalculatorViewModel);
-        
+
         final RoundDataAccessInterface roundDataAccess = new
                 RoundDataAccess("src/main/resources/rand_locations.json");
 

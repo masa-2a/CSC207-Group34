@@ -1,5 +1,8 @@
 package interface_adapter.round;
 
+/**
+ * ViewModel for the Round Use Case.
+ */
 public class RoundState {
     private String viewName;
     private String mapImagePath;
@@ -12,7 +15,6 @@ public class RoundState {
     private String country;
     private String hint;
     private int hintsUsed;
-
 
     public RoundState(String viewName) {
         this.setViewName(viewName);
@@ -104,5 +106,12 @@ public class RoundState {
 
     public void setHintsUsed(int hintsUsed) {
         this.hintsUsed = hintsUsed;
+    }
+
+    /**
+     * Increment the number of hints used.
+     */
+    public void incrementHintsUsed() {
+        this.hintsUsed++;
     }
 }

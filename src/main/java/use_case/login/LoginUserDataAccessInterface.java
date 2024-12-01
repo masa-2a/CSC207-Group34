@@ -1,6 +1,6 @@
 package use_case.login;
 
-import entity.User;
+import entity.player.User;
 
 /**
  * DAO for the Login Use Case.
@@ -39,5 +39,9 @@ public interface LoginUserDataAccessInterface {
      */
     void setCurrentUsername(String username);
 
+    /**
+     * Returns the current user of the application.
+     * @param user the type of the user
+     */
     void setCurrentUser(User user);
 }

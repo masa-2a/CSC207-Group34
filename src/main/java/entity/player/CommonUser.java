@@ -1,4 +1,4 @@
-package entity;
+package entity.player;
 
 /**
  * A simple implementation of the User interface.
@@ -28,23 +28,39 @@ public class CommonUser implements User {
     }
 
     @Override
-    public int getPoints() { return points; }
+    public int getPoints() {
+        return points;
+    }
 
     @Override
-    public void addEarnedPoints(int newpoints) {this.points += newpoints;}
+    public void addEarnedPoints(int newpoints) {
+        this.points += newpoints;
+    }
 
     @Override
-    public int getNumberOfGames() {return numberOfGames; }
+    public int getNumberOfGames() {
+        return numberOfGames;
+    }
 
     @Override
-    public void addGame() {this.numberOfGames++;}
+    public void addGame() {
+        this.numberOfGames++;
+    }
 
     @Override
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Returns the average points per game played by the user.
+     * @return the average points per game played by the user
+     */
     public int getAveragePoints() {
-        return numberOfGames == 0 ? 0 : (int) Math.floor((double) points / numberOfGames);
+        int averagePoints = 0;
+        if (numberOfGames != 0) {
+            averagePoints = (int) Math.floor((double) points / numberOfGames);
+        }
+        return averagePoints;
     }
 }

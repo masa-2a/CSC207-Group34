@@ -4,8 +4,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.points_calculator.PointsCalculatorViewModel;
 import use_case.countdown.CountdownOutputData;
 import use_case.hint.HintOutputData;
-import use_case.pointsCalculator.PointsCalculatorInputBoundary;
-import use_case.pointsCalculator.PointsCalculatorInputData;
 import use_case.round.RoundOutputBoundary;
 import use_case.round.RoundOutputData;
 

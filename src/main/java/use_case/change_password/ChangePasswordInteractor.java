@@ -1,7 +1,7 @@
 package use_case.change_password;
 
-import entity.User;
-import entity.UserFactory;
+import entity.player.User;
+import entity.player.UserFactory;
 
 /**
  * The Change Password Interactor.
@@ -21,8 +21,8 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
 
     @Override
     public void execute(ChangePasswordInputData changePasswordInputData) {
-        int userPoints = userDataAccessObject.getCurrentUser().getPoints();
-        int userNumberOfGames = userDataAccessObject.getCurrentUser().getNumberOfGames();
+        final int userPoints = userDataAccessObject.getCurrentUser().getPoints();
+        final int userNumberOfGames = userDataAccessObject.getCurrentUser().getNumberOfGames();
 
         final User user = userFactory.create(changePasswordInputData.getUsername(),
                                              changePasswordInputData.getPassword(),
