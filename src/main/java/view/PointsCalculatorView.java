@@ -1,17 +1,33 @@
 package view;
 
-import interface_adapter.points_calculator.PointsCalculatorController;
-import interface_adapter.points_calculator.PointsCalculatorState;
-import interface_adapter.points_calculator.PointsCalculatorViewModel;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import interface_adapter.points_calculator.PointsCalculatorController;
+import interface_adapter.points_calculator.PointsCalculatorState;
+import interface_adapter.points_calculator.PointsCalculatorViewModel;
+
+/**
+ * The view for the Points Calculator.
+ */
 public class PointsCalculatorView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    // Constants
+    private static final String FONT_NAME = "Arial";
+    private static final int TITLE_FONT_SIZE = 24;
+    private static final int MESSAGE_FONT_SIZE = 18;
+    private static final int BUTTON_FONT_SIZE = 16;
+
     private final String viewName = "PointsCalculatorView";
 
     private final PointsCalculatorViewModel pointsCalculatorViewModel;
@@ -23,35 +39,33 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         this.pointsCalculatorViewModel.addPropertyChangeListener(this);
 
         // Create the main panel for the view
-        JPanel mainPanel = new JPanel();
+        final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         // Title label
-        JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        final JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
+        title.setFont(new Font(FONT_NAME, Font.BOLD, TITLE_FONT_SIZE));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(title);
 
         // Image label
-        ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
-        JLabel imageLabel = new JLabel(image);
+        final ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
+        final JLabel imageLabel = new JLabel(image);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(imageLabel);
 
         // Points message label
-//        String message = "You scored " + pointsCalculatorViewModel.getState().getPointsEarned() + " points!";
-
-        JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
-        pointsMessage.setFont(new Font("Arial", Font.PLAIN, 18));
+        final JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
+        pointsMessage.setFont(new Font(FONT_NAME, Font.PLAIN, MESSAGE_FONT_SIZE));
         pointsMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(pointsMessage);
 
         // Create the toMenu button
         toMenu = new JButton(PointsCalculatorViewModel.TO_MENU_BUTTON_LABEL);
-        toMenu.setFont(new Font("Arial", Font.PLAIN, 16));
+        toMenu.setFont(new Font(FONT_NAME, Font.PLAIN, BUTTON_FONT_SIZE));
         toMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
         toMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
                 pointsCalculatorController.switchToMenuView();
             }
         });
@@ -67,7 +81,7 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("Points Calculator State Update".equals(evt.getPropertyName())) {
-            PointsCalculatorState newState = (PointsCalculatorState) evt.getNewValue();
+            final PointsCalculatorState newState = (PointsCalculatorState) evt.getNewValue();
             updateView(newState);
         }
     }
@@ -77,24 +91,24 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         this.removeAll();
 
         // Create a new main panel to update the view
-        JPanel mainPanel = new JPanel();
+        final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         // Title label
-        JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        final JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
+        title.setFont(new Font(FONT_NAME, Font.BOLD, TITLE_FONT_SIZE));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(title);
 
         // Image label
-        ImageIcon image = new ImageIcon(state.getImagePath());
-        JLabel imageLabel = new JLabel(image);
+        final ImageIcon image = new ImageIcon(state.getImagePath());
+        final JLabel imageLabel = new JLabel(image);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(imageLabel);
 
         // Points message label
-        JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
-        pointsMessage.setFont(new Font("Arial", Font.PLAIN, 18));
+        final JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
+        pointsMessage.setFont(new Font(FONT_NAME, Font.PLAIN, MESSAGE_FONT_SIZE));
         pointsMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(pointsMessage);
 

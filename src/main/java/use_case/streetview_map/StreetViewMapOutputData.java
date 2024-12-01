@@ -1,5 +1,8 @@
 package use_case.streetview_map;
 
+/**
+ * Output Data for the StreetViewMap Use Case.
+ */
 public class StreetViewMapOutputData {
     private final double userLatitude;
     private final double userLongitude;
@@ -9,9 +12,21 @@ public class StreetViewMapOutputData {
         this.userLongitude = userLongitude;
     }
 
+    /**
+     * Gets the user latitude.
+     *
+     * @return the user latitude
+     */
     public double getUserLatitude() {
         return userLatitude;
     }
 
-    public double getUserLongitude() { return userLongitude; }
+    /**
+     * Gets the user longitude.
+     *
+     * @return the user longitude
+     */
+    public double getUserLongitude() {
+        return userLongitude;
+    }
 }

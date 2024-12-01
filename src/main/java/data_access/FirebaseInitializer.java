@@ -1,31 +1,42 @@
 package data_access;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.cloud.FirestoreClient;
 
-import java.io.FileInputStream;
-
+/**
+ * A class that initializes Firebase.
+ */
 public class FirebaseInitializer {
 
+    /**
+     * Initializes Firebase.
+     *
+     * @return the Firestore instance
+     */
     public static Firestore initializeFirebase() {
         try {
-            FileInputStream serviceAccount = new FileInputStream("/Users/stevenqiao/IdeaProjects/geoguesser_firebase_service_account.json");
-            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-            FirebaseOptions options = FirebaseOptions.builder()
+            final FileInputStream serviceAccount =
+                    new FileInputStream("/Users/stevenqiao/IdeaProjects/geoguesser_firebase_service_account.json");
+            final GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+            final FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(credentials)
                     .build();
 
-            FirebaseApp defaultApp = FirebaseApp.initializeApp(options);
-            System.out.println(defaultApp.getName()); //"[DEFAULT]"
+            final FirebaseApp defaultApp = FirebaseApp.initializeApp(options);
+            System.out.println(defaultApp.getName());
             System.out.println("Firebase initialized successfully.");
 
-            Firestore db = FirestoreClient.getFirestore();
+            final Firestore db = FirestoreClient.getFirestore();
             return db;
-        } catch (Exception e) {
-            System.err.println("Error initializing Firebase: " + e.getMessage());
+        }
+        catch (IOException ioException) {
+            System.err.println("Error initializing Firebase: " + ioException.getMessage());
             return null;
         }
 

@@ -1,12 +1,21 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -18,12 +27,19 @@ import interface_adapter.signup.SignupViewModel;
  * The View for the Signup Use Case.
  */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "sign up";
+    private static final String VIEW_NAME = "sign up";
+    private static final int INPUT_FIELD_WIDTH = 15;
+    private static final int HORIZONTAL_STRUT_SIZE = 15;
+    private static final int GREETING_FONT_SIZE = 40;
+    private static final String FONT_NAME = "Agency FB";
+    private static final int BACKGROUND_COLOR_R = 219;
+    private static final int BACKGROUND_COLOR_G = 229;
+    private static final int BACKGROUND_COLOR_B = 232;
 
     private final SignupViewModel signupViewModel;
-    private final JTextField usernameInputField = new JTextField(15);
-    private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    private final JTextField usernameInputField = new JTextField(INPUT_FIELD_WIDTH);
+    private final JPasswordField passwordInputField = new JPasswordField(INPUT_FIELD_WIDTH);
+    private final JPasswordField repeatPasswordInputField = new JPasswordField(INPUT_FIELD_WIDTH);
     private SignupController signupController;
 
     private final JButton signUp;
@@ -32,39 +48,35 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public SignupView(SignupViewModel signupViewModel) {
         this.signupViewModel = signupViewModel;
         signupViewModel.addPropertyChangeListener(this);
-        this.setBackground(new Color(219, 229, 232));
+        this.setBackground(new Color(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B));
 
         final JLabel greeting = new JLabel("Welcome to Map Master!");
         final JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
         greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
-        greeting.setFont(new Font("Agency FB",Font.PLAIN, 40));
+        greeting.setFont(new Font(FONT_NAME, Font.PLAIN, GREETING_FONT_SIZE));
 
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         final LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
-        usernameInfo.setBackground(new Color(219, 229, 232));
+        usernameInfo.setBackground(new Color(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B));
 
         final LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
-        passwordInfo.setBackground(new Color(219, 229, 232));
+        passwordInfo.setBackground(new Color(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B));
 
         final LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
-        repeatPasswordInfo.setBackground(new Color(219, 229, 232));
-
+        repeatPasswordInfo.setBackground(new Color(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B));
 
         final JPanel buttons = new JPanel();
         toLogin = new JButton(SignupViewModel.TO_LOGIN_BUTTON_LABEL);
         buttons.add(toLogin);
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
-        buttons.setBackground(new Color(219, 229, 232));
-
+        buttons.setBackground(new Color(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B));
 
         signUp.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
@@ -88,7 +100,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-
         addUsernameListener();
         addPasswordListener();
         addRepeatPasswordListener();
@@ -97,7 +108,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         this.add(greeting);
         this.add(title);
-        this.add(Box.createHorizontalStrut(15));
+        this.add(Box.createHorizontalStrut(HORIZONTAL_STRUT_SIZE));
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
@@ -196,7 +207,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEW_NAME;
     }
 
     public void setSignupController(SignupController controller) {

@@ -1,5 +1,8 @@
 package use_case.countdown;
 
+/**
+ * The output data for the Countdown Use Case.
+ */
 public class CountdownOutputData {
     private double timeElapsed;
     private String timeLeft;

@@ -2,6 +2,9 @@ package use_case.round;
 
 import use_case.streetview_map.StreetViewMapInputData;
 
+/**
+ * Input data for the Round Use Case.
+ */
 public class RoundInputData {
     private final StreetViewMapInputData streetViewMapInputData;
     private final String country;
@@ -32,6 +35,7 @@ public class RoundInputData {
     public void setHintsUsed(int hintsUsed) {
         this.hintsUsed = hintsUsed;
     }
+
     public int getHintsUsed() {
         return hintsUsed;
     }

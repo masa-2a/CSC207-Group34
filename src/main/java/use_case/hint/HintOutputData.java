@@ -1,5 +1,8 @@
 package use_case.hint;
 
+/**
+ * This class contains the output data for the hint generation.
+ */
 public class HintOutputData {
     private String hint;
     private int hintsUsed;

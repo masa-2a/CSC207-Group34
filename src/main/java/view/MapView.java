@@ -2,6 +2,9 @@ package view;
 
 import interface_adapter.streetview_map.StreetViewMapController;
 
+/**
+ * View for the Map Use Case.
+ */
 public class MapView {
     private StreetViewMapController streetViewMapController;
 

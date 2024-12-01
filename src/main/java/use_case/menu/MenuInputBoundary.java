@@ -1,10 +1,12 @@
 package use_case.menu;
 
-import use_case.login.LoginInputData;
-
+/**
+ * Input Boundary for the Menu Use Case.
+ */
 public interface MenuInputBoundary {
     /**
      * Executes the menu use case.
+     * @param menuInputData the input data
      */
     void execute(MenuInputData menuInputData);
 
@@ -12,6 +14,7 @@ public interface MenuInputBoundary {
      * Executes the switch to Logout view use case.
      */
     void switchToLogoutView();
+
     /**
      * Executes the switch to new round view use case.
      */
