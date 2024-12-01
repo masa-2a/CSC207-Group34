@@ -1,6 +1,6 @@
 package use_case.streetview_map;
 
-import entity.Map;
+import entity.map.Map;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 

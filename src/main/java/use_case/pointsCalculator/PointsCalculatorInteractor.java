@@ -2,8 +2,8 @@ package use_case.pointsCalculator;
 
 import java.util.Map;
 
-import entity.PointsCalculator;
-import entity.User;
+import entity.points.PointsCalculator;
+import entity.player.User;
 
 /**
  * Interactor for PointsCalculator.
@@ -61,10 +61,11 @@ public class PointsCalculatorInteractor implements
                         - distance / PointsCalculator.DISTANCE_DIVIDER
                         - timespent * PointsCalculator.TIME_MULTIPLIER
                         );
-        System.out.println(pointsEarnedwithoutHints);
 
         final int pointsEarned = (int)
                 Math.floor(pointsEarnedwithoutHints / (Math.pow(PointsCalculator.HINTS_COST, hintsused)));
+
+        System.out.println("points earned: " + pointsEarned);
 
         final String username = pointsDataAccessObject.getCurrentUsername();
         final User user = pointsDataAccessObject.get(username);

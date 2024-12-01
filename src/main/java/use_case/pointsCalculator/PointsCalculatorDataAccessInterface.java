@@ -1,6 +1,6 @@
 package use_case.pointsCalculator;
 
-import entity.User;
+import entity.player.User;
 
 /**
  * Data Access Interface for Points Calculator Use Case.

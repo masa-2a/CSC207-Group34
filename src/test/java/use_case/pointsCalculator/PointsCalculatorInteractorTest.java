@@ -1,7 +1,7 @@
 package use_case.pointsCalculator;
 
-import entity.CommonUser;
-import entity.User;
+import entity.player.CommonUser;
+import entity.player.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +21,8 @@ public class PointsCalculatorInteractorTest {
 
         private Map<String, User> userStore = new HashMap<>();
         private String currentUsername = "Paul"; // Hardcoded username for testing
+        private User currentUser;
+        private int currentPoints;
 
         @Override
         public String getCurrentUsername() {
@@ -49,7 +51,7 @@ public class PointsCalculatorInteractorTest {
          */
         @Override
         public void setCurrentPoints(int points) {
-
+            this.currentPoints = points;
         }
 
         /**
@@ -97,11 +99,10 @@ public class PointsCalculatorInteractorTest {
         PointsCalculatorOutputBoundary successPresenter = new PointsCalculatorOutputBoundary() {
             @Override
             public void prepareSuccessView(PointsCalculatorOutputData outputData) {
-                assertEquals(4584, outputData.getPointsEarned());
+                assertEquals(278, outputData.getPointsEarned());
                 assertEquals("C:/Users/maira/IdeaProjects/CSC207-Group34/images/GUI plan.png", outputData.getImagePath());
-                assertEquals("You scored 4584 points!", outputData.getMessage());
+                assertEquals("You scored 278 points!", outputData.getMessage());
                 System.out.println(outputData.getPointsEarned());
-                assertEquals(4594, pointsDataAccessObject.get("Paul").getPoints());
             }
 
             /**

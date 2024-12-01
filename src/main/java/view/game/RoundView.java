@@ -1,4 +1,4 @@
-package view;
+package view.game;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -9,12 +9,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import interface_adapter.round.RoundController;
 import interface_adapter.round.RoundViewModel;
@@ -37,9 +32,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     public RoundView(RoundViewModel roundViewModel) {
         this.roundViewModel = roundViewModel;
         this.roundViewModel.addPropertyChangeListener(this);
+        this.setBackground(new Color(219, 229, 232));
         roundViewModel.getState().setHintsUsed(0);
 
         final JPanel buttons = new JPanel();
+        buttons.setBackground(new Color(219, 229, 232));
         startRound = new JButton("Start Round");
         startRound.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttons.add(startRound);
@@ -79,7 +76,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         this.add(title);
         this.add(buttons);
         this.add(timerLabel);
+        this.add(Box.createVerticalGlue()); // Push content above to center this
         this.add(hintLabel);
+        this.add(Box.createVerticalGlue()); // Push content above to center this
+
+
     }
 
     /**

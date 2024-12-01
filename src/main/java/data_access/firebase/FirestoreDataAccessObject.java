@@ -1,4 +1,4 @@
-package data_access;
+package data_access.firebase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +13,9 @@ import com.google.cloud.firestore.FirestoreException;
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
-import entity.CommonUser;
-import entity.User;
+import data_access.AbstractDataAccessObject;
+import entity.player.CommonUser;
+import entity.player.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.leaderboard.LeaderboardUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;

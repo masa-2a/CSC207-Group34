@@ -1,4 +1,4 @@
-package entity;
+package entity.player;
 
 /**
  * Factory for creating CommonUser objects.
