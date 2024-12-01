@@ -44,6 +44,10 @@ public class PointsCalculatorInteractor implements
         final double timespent = pointsCalculatorInputData.getTimespent();
         final int hintsused = pointsCalculatorInputData.getHintsused();
 
+        System.out.println("Distance: " + distance);
+        System.out.println("Timespent: " + timespent);
+        System.out.println("Hintsused: " + hintsused);
+
         final int[] hintsCosts = {PointsCalculator.HINTS_COST1,
                                   PointsCalculator.HINTS_COST2,
                                   PointsCalculator.HINTS_COST3};
@@ -115,7 +119,6 @@ public class PointsCalculatorInteractor implements
         final double radius = 6371;
         final double distance = radius * c;
 
-        System.out.println("Distance calculated: " + distance);
         return distance;
     }
 

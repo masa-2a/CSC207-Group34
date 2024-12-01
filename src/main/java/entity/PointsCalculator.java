@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.Map;
-
 public class PointsCalculator {
     public static final int MAX_SCORE = 800;
     public static final int HINTS_COST1 = 30;

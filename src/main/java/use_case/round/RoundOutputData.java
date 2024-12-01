@@ -7,7 +7,7 @@ public class RoundOutputData {
     private final Map<String, Double> chosenLocation;
     private final String country;
     private final double timespent;
-    private final int hintsused;
+    private int hintsused;
     private final String imagepath;
 
     public RoundOutputData (Map<String, Double> randomLocation, Map<String, Double> chosenLocation,
@@ -34,6 +34,9 @@ public class RoundOutputData {
 
     public int getHintsused() {
         return hintsused;
+    }
+    public void setHintsused(int hintsused) {
+        this.hintsused = hintsused;
     }
 
     public String getImagepath() {

@@ -6,6 +6,7 @@ public class RoundInputData {
     private final StreetViewMapInputData streetViewMapInputData;
     private final String country;
     private double elapsedTime;
+    private int hintsUsed;
 
     public RoundInputData(double lat, double longitude, String country) {
         this.streetViewMapInputData = new StreetViewMapInputData(longitude, lat);
@@ -26,5 +27,12 @@ public class RoundInputData {
 
     public void setElapsedTime(double elapsedTime) {
         this.elapsedTime = elapsedTime;
+    }
+
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
+    }
+    public int getHintsUsed() {
+        return hintsUsed;
     }
 }
