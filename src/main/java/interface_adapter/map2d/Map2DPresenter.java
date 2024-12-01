@@ -4,13 +4,15 @@ import interface_adapter.ViewManagerModel;
 import use_case.map2d.Map2DOutputBoundary;
 import use_case.map2d.Map2DOutputData;
 
+/**
+ * The presenter for the Map2D Use Case.
+ */
 public class Map2DPresenter implements Map2DOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
     private final Map2DViewModel map2DViewModel;
 
-
-    public Map2DPresenter(ViewManagerModel viewManagerModel, Map2DViewModel map2DViewModel){
+    public Map2DPresenter(ViewManagerModel viewManagerModel, Map2DViewModel map2DViewModel) {
         this.map2DViewModel = map2DViewModel;
         this.viewManagerModel = viewManagerModel;
     }

@@ -2,7 +2,10 @@ package use_case.map2d;
 
 import entity.Map2D;
 
-public class Map2DUseCaseInteractor implements Map2DInputBoundary{
+/**
+ * Use Case Interactor for the Map2D Use Case.
+ */
+public class Map2DUseCaseInteractor implements Map2DInputBoundary {
 
     private final Map2D map2D;
 
@@ -12,28 +15,21 @@ public class Map2DUseCaseInteractor implements Map2DInputBoundary{
 
     @Override
     public Map2DOutputData execute(Map2DInputData map2DInputData) {
-        int width = map2DInputData.getWidth();
-        int height = map2DInputData.getHeight();
-        int zoom = map2DInputData.getZoom();
-        double latitude = map2DInputData.getLatitude();
-        double longitude = map2DInputData.getLongitude();
-        double guessLat = map2DInputData.getGuessLat();
-        double guessLong = map2DInputData.getGuessLong();
-        double answerLat = map2DInputData.getAnswerLat();
-        double answerLong = map2DInputData.getAnswerLong();
-        boolean guessed = map2DInputData.isGuessed();
-        boolean answered = map2DInputData.isAnswered();
-
+        final int width = map2DInputData.getWidth();
+        final int height = map2DInputData.getHeight();
+        final int zoom = map2DInputData.getZoom();
+        final double latitude = map2DInputData.getLatitude();
+        final double longitude = map2DInputData.getLongitude();
+        final double guessLat = map2DInputData.getGuessLat();
+        final double guessLong = map2DInputData.getGuessLong();
+        final double answerLat = map2DInputData.getAnswerLat();
+        final double answerLong = map2DInputData.getAnswerLong();
+        final boolean guessed = map2DInputData.isGuessed();
+        final boolean answered = map2DInputData.isAnswered();
 
         map2D.createMap(width, height, latitude, longitude,
                 zoom, guessLat, guessLong, answerLat, answerLong, guessed, answered);
-        String path = map2D.saveMap();
+        final String path = map2D.saveMap();
         return new Map2DOutputData(path);
     }
-
 }
-
-
-
-
-

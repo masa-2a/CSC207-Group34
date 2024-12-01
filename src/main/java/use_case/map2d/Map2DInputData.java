@@ -1,5 +1,8 @@
 package use_case.map2d;
 
+/**
+ * Input data for the Map2D Use Case.
+ */
 public class Map2DInputData {
     private final int width;
     private final int height;

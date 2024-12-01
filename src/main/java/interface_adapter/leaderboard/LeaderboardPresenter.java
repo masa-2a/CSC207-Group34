@@ -1,44 +1,45 @@
 package interface_adapter.leaderboard;
 
-import entity.CommonUser;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.main_menu.MenuState;
-import interface_adapter.main_menu.MenuViewModel;
-import interface_adapter.round.RoundState;
-import use_case.leaderboard.LeaderboardOutputBoundary;
-import use_case.leaderboard.LeaderboardOutputData;
-import view.ViewManager;
-
 import java.util.Map;
 
+import entity.CommonUser;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.main_menu.MenuViewModel;
+import use_case.leaderboard.LeaderboardOutputBoundary;
+import use_case.leaderboard.LeaderboardOutputData;
+
+/**
+ * Presenter for the leaderboard Use Case.
+ */
 public class LeaderboardPresenter implements LeaderboardOutputBoundary {
     private final LeaderboardViewModel leaderboardViewModel;
     private final ViewManagerModel viewManagerModel;
     private final MenuViewModel menuViewModel;
 
-    public LeaderboardPresenter(LeaderboardViewModel leaderboardViewModel, ViewManagerModel viewManager, MenuViewModel menuViewModel) {
+    public LeaderboardPresenter(LeaderboardViewModel leaderboardViewModel, ViewManagerModel viewManager,
+                                MenuViewModel menuViewModel) {
         this.leaderboardViewModel = leaderboardViewModel;
         this.viewManagerModel = viewManager;
         this.menuViewModel = menuViewModel;
     }
 
     /**
-     * Prepares the success view for the leaderboard Use CAse
+     * Prepares the success view for the leaderboard Use Case.
      *
      * @param outputData a Map of the top users.
      */
     @Override
     public void prepareSuccessView(LeaderboardOutputData outputData) {
-        LeaderboardState leaderboardState = leaderboardViewModel.getState();
+        final LeaderboardState leaderboardState = leaderboardViewModel.getState();
 
-        Map<Integer, CommonUser> topUsers = outputData.getTopUsers();
-        //set current user data
-        leaderboardState.setCurrentUserName(outputData.getCurrentUsername()); //setting current username
-        leaderboardState.setCurrentUserPoints(outputData.getCurrentUserPoints()); //set current points
-        leaderboardState.setCurrentUserPlace(String.valueOf(outputData.getCurrentUserRank())); //set current rank
+        final Map<Integer, CommonUser> topUsers = outputData.getTopUsers();
+
+        leaderboardState.setCurrentUserName(outputData.getCurrentUsername());
+        leaderboardState.setCurrentUserPoints(outputData.getCurrentUserPoints());
+        leaderboardState.setCurrentUserPlace(String.valueOf(outputData.getCurrentUserRank()));
 
         for (Integer rank : topUsers.keySet()) {
-            CommonUser currentUser = topUsers.get(rank);
+            final CommonUser currentUser = topUsers.get(rank);
             switch (rank) {
                 case 1:
                     leaderboardState.setFirstPlaceName(currentUser.getName());
@@ -48,7 +49,7 @@ public class LeaderboardPresenter implements LeaderboardOutputBoundary {
                     leaderboardState.setSecondPlaceName(currentUser.getName());
                     leaderboardState.setSecondPlacePoints(currentUser.getPoints());
                     break;
-                case 3:
+                default:
                     leaderboardState.setThirdPlaceName(currentUser.getName());
                     leaderboardState.setThirdPlacePoints(currentUser.getPoints());
                     break;

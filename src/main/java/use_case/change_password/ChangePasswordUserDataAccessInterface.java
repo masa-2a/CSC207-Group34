@@ -13,5 +13,9 @@ public interface ChangePasswordUserDataAccessInterface {
      */
     void changePassword(User user);
 
+    /**
+     * Gets the current user.
+     * @return the current user
+     */
     User getCurrentUser();
 }

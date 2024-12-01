@@ -63,7 +63,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public ArrayList<CommonUser> returnAllUsers() {
-        ArrayList<CommonUser> allUsers = new ArrayList<>();
+        final ArrayList<CommonUser> allUsers = new ArrayList<>();
         for (User user : users.values()) {
             allUsers.add(new CommonUser(user.getName(), user.getPassword(), user.getPoints(), user.getNumberOfGames()));
         }

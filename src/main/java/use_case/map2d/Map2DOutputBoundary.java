@@ -1,5 +1,8 @@
 package use_case.map2d;
 
+/**
+ * Output Boundary for the Map2D Use Case.
+ */
 public interface Map2DOutputBoundary {
     /**
      * Prepares the success view for the Map2D Use Case.
