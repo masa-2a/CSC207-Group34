@@ -1,5 +1,8 @@
 package use_case.menu;
 
+/**
+ * Interactor for the Menu Use Case.
+ */
 public class MenuInteractor implements MenuInputBoundary {
     private final MenuOutputBoundary menuPresenter;
     private MenuOutputData menuOutputData;

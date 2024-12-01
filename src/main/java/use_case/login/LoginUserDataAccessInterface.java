@@ -39,5 +39,9 @@ public interface LoginUserDataAccessInterface {
      */
     void setCurrentUsername(String username);
 
+    /**
+     * Returns the current user of the application.
+     * @param user the type of the user
+     */
     void setCurrentUser(User user);
 }

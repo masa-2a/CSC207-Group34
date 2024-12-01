@@ -5,8 +5,6 @@ import java.util.Map;
 import entity.PointsCalculator;
 import entity.User;
 
-import static java.lang.Math.floor;
-
 /**
  * Interactor for PointsCalculator.
  */
@@ -50,22 +48,22 @@ public class PointsCalculatorInteractor implements
         System.out.println("Timespent: " + timespent);
         System.out.println("Hintsused: " + hintsused);
 
-//        final int[] hintsCosts = {PointsCalculator.HINTS_COST1,
-//                                  PointsCalculator.HINTS_COST2,
-//                                  PointsCalculator.HINTS_COST3};
-//        int hintsPenalty = 0;
-//        for (int i = 0; i < hintsused; i++) {
-//            hintsPenalty += hintsCosts[i];
-//        }
+        //        final int[] hintsCosts = {PointsCalculator.HINTS_COST1,
+        //                                  PointsCalculator.HINTS_COST2,
+        //                                  PointsCalculator.HINTS_COST3};
+        //        int hintsPenalty = 0;
+        //        for (int i = 0; i < hintsused; i++) {
+        //            hintsPenalty += hintsCosts[i];
+        //        }
 
-        final int pointsEarnedwithoutHints = (int) floor(
+        final int pointsEarnedwithoutHints = (int) Math.floor(
                 PointsCalculator.MAX_SCORE
                         - distance / PointsCalculator.DISTANCE_DIVIDER
                         - timespent * PointsCalculator.TIME_MULTIPLIER
                         );
 
-        int pointsEarned = (int)
-                floor(pointsEarnedwithoutHints/(Math.pow(PointsCalculator.HINTS_COST, hintsused)));
+        final int pointsEarned = (int)
+                Math.floor(pointsEarnedwithoutHints / (Math.pow(PointsCalculator.HINTS_COST, hintsused)));
 
         System.out.println("points earned: " + pointsEarned);
 

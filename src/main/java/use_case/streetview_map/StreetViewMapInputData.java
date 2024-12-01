@@ -1,5 +1,8 @@
 package use_case.streetview_map;
 
+/**
+ * Input Data for the StreetViewMap Use Case.
+ */
 public class StreetViewMapInputData {
 
     private final double goalLongitude;
@@ -10,7 +13,21 @@ public class StreetViewMapInputData {
         this.goalLatitude = goalLatitude;
     }
 
-    public double getGoalLongitude() { return goalLongitude; }
+    /**
+     * Gets the goal longitude.
+     *
+     * @return the goal longitude
+     */
+    public double getGoalLongitude() {
+        return goalLongitude;
+    }
 
-    public double getGoalLatitude() { return goalLatitude; }
+    /**
+     * Gets the goal latitude.
+     *
+     * @return the goal latitude
+     */
+    public double getGoalLatitude() {
+        return goalLatitude;
+    }
 }

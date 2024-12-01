@@ -1,20 +1,37 @@
 package view;
 
-import interface_adapter.leaderboard.LeaderboardController;
-import interface_adapter.leaderboard.LeaderboardState;
-import interface_adapter.main_menu.MenuController;
-import interface_adapter.main_menu.MenuState;
-import interface_adapter.main_menu.MenuViewModel;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+import interface_adapter.leaderboard.LeaderboardController;
+import interface_adapter.main_menu.MenuController;
+import interface_adapter.main_menu.MenuState;
+import interface_adapter.main_menu.MenuViewModel;
+
+/**
+ * The view for the main menu.
+ */
 public class MenuView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    // Constants for magic numbers
+    private static final int TITLE_FONT_SIZE = 40;
+    private static final int GREETING_FONT_SIZE = 20;
+    private static final int LOGO_WIDTH = 250;
+    private static final int LOGO_HEIGHT = 250;
+    private static final Color BACKGROUND_COLOR = new Color(219, 229, 232);
+
     private final String viewName = "Menu View";
 
     private final MenuViewModel menuViewModel;
@@ -28,29 +45,28 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     public MenuView(MenuViewModel menuViewModel) {
         this.menuViewModel = menuViewModel;
         this.menuViewModel.addPropertyChangeListener(this);
-        this.setBackground(new Color(219, 229, 232));
+        this.setBackground(BACKGROUND_COLOR);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         final JLabel title = new JLabel(MenuViewModel.TITLE_LABEL);
-        title.setFont(new Font("Agency FB", Font.PLAIN, 40));
+        title.setFont(new Font("Agency FB", Font.PLAIN, TITLE_FONT_SIZE));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        greeting = new JLabel("Welcome, Guest!"); // will be updated later
-        greeting.setFont(new Font("Agency FB", Font.PLAIN, 20));
+        greeting = new JLabel("Welcome, Guest!");
+        greeting.setFont(new Font("Agency FB", Font.PLAIN, GREETING_FONT_SIZE));
         greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        ImageIcon logo = new ImageIcon("src/main/resources/MapMasterLogo.png");
-        Image image = logo.getImage(); // transform it
-        Image newimg = image.getScaledInstance(250, 250, java.awt.Image.SCALE_SMOOTH); // scale it smoothly
-        ImageIcon logoScaled = new ImageIcon(newimg);  // assign to a new ImageIcon instance
+        final ImageIcon logo = new ImageIcon("src/main/resources/MapMasterLogo.png");
+        final Image image = logo.getImage();
+        final Image newimg = image.getScaledInstance(LOGO_WIDTH, LOGO_HEIGHT, java.awt.Image.SCALE_SMOOTH);
+        final ImageIcon logoScaled = new ImageIcon(newimg);
 
         final JLabel imageLabel = new JLabel(logoScaled);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         final JPanel buttons = new JPanel();
-        buttons.setBackground(new Color(219, 229, 232));
+        buttons.setBackground(BACKGROUND_COLOR);
         newRound = new JButton(MenuViewModel.NEW_ROUND_BUTTON_LABEL);
         newRound.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttons.add(newRound);
@@ -63,15 +79,15 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
 
         newRound.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+                    public void actionPerformed(ActionEvent event) {
                         menuController.switchToNewRoundView();
                     }
                 }
         );
         leaderboard.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        MenuState menuState = new MenuState();
+                    public void actionPerformed(ActionEvent event) {
+                        final MenuState menuState = new MenuState();
                         menuController.switchToLeaderboardView();
                         leaderboardController.execute(menuState.getCurrentUsername());
                     }
@@ -79,7 +95,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         );
         logout.addActionListener(
                 new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+                    public void actionPerformed(ActionEvent event) {
                         menuController.switchToLogoutView();
                     }
                 }
@@ -89,10 +105,7 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(greeting);
         this.add(imageLabel);
         this.add(buttons);
-
-
     }
-
 
     /**
      * Invoked when an action occurs.
@@ -113,26 +126,20 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("User updated".equals(evt.getPropertyName())) {
-            MenuState newState = (MenuState) evt.getNewValue();
+            final MenuState newState = (MenuState) evt.getNewValue();
             updateView(newState);
         }
 
     }
 
+    /**
+     * Updates the view with the new state.
+     *
+     * @param newState the new state
+     */
     public void updateView(MenuState newState) {
-        String currentUser = newState.getCurrentUsername();
-//        String message = "Welcome " + currentUser + "!";
-//        final JLabel greeting = new JLabel(message);
-//        greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final String currentUser = newState.getCurrentUsername();
         greeting.setText("Welcome " + currentUser + "!");
-
-//        // Remove the old greeting label if it exists
-//        if (this.getComponentCount() > 3) {
-//            this.remove(3);
-//        }
-
-        // Add the new greeting label
-        // this.add(greeting, 3);
         this.revalidate();
         this.repaint();
     }
@@ -148,5 +155,4 @@ public class MenuView extends JPanel implements ActionListener, PropertyChangeLi
     public void setMenuController(MenuController menuController) {
         this.menuController = menuController;
     }
-
 }

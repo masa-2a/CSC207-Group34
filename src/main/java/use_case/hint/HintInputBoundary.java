@@ -1,7 +1,5 @@
 package use_case.hint;
 
-import use_case.hint.HintInputData;
-
 /**
  * Input Boundary for actions which are related to logging in.
  */
@@ -14,4 +12,3 @@ public interface HintInputBoundary {
      */
     HintOutputData execute(HintInputData hintinputData);
 }
-

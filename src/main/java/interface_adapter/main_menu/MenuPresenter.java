@@ -7,6 +7,9 @@ import interface_adapter.round.RoundViewModel;
 import use_case.menu.MenuOutputBoundary;
 import use_case.menu.MenuOutputData;
 
+/**
+ * Presenter for the Menu Use Case.
+ */
 public class MenuPresenter implements MenuOutputBoundary {
 
     private final MenuViewModel menuViewModel;
@@ -15,8 +18,11 @@ public class MenuPresenter implements MenuOutputBoundary {
     private final LeaderboardViewModel leaderboardViewModel;
     private final RoundViewModel roundViewModel;
   
-    public MenuPresenter(MenuViewModel menuViewModel, LoggedInViewModel loggedInViewModel,
-                         ViewManagerModel viewManagerModel, RoundViewModel roundViewModel, LeaderboardViewModel leaderboardViewModel) {
+    public MenuPresenter(MenuViewModel menuViewModel,
+                         LoggedInViewModel loggedInViewModel,
+                         ViewManagerModel viewManagerModel,
+                         RoundViewModel roundViewModel,
+                         LeaderboardViewModel leaderboardViewModel) {
         this.menuViewModel = menuViewModel;
         this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -24,10 +30,9 @@ public class MenuPresenter implements MenuOutputBoundary {
         this.leaderboardViewModel = leaderboardViewModel;
     }
 
-
     @Override
     public void prepareSuccessView(MenuOutputData outputData) {
-        MenuState menuState = menuViewModel.getState();
+        final MenuState menuState = menuViewModel.getState();
 
         menuState.setCurrentUsername(outputData.getUsername());
 

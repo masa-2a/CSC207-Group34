@@ -1,7 +1,7 @@
 package interface_adapter.leaderboard;
 
 /**
- * State for Leaderboard Usecase
+ * State for Leaderboard Usecase.
  */
 public class LeaderboardState {
     private String viewName;
@@ -22,10 +22,10 @@ public class LeaderboardState {
 
     /**
      * Sets the current username.
-     * @param currentUsername
+     * @param currUsername the current username
      */
-    public void setCurrentUserName(String currentUsername) {
-        this.setCurrentUsername(currentUsername);
+    public void setCurrentUserName(String currUsername) {
+        this.setCurrentUsername(currUsername);
     }
 
     /**
@@ -38,15 +38,15 @@ public class LeaderboardState {
 
     /**
      * Sets the View name.
-     * @param viewName
+     * @param viewName the view name
      */
     public void setViewName(String viewName) {
         this.viewName = viewName;
     }
 
     /**
-     * Sets the first place Name
-     * @return
+     * Sets the first place Name.
+     * @return firstPlaceName
      */
     public String getFirstPlaceName() {
         return firstPlaceName;

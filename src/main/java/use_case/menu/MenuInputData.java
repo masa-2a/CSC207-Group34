@@ -1,8 +1,11 @@
 package use_case.menu;
 
-
+/**
+ * Input data for the Menu Use Case.
+ */
 public class MenuInputData {
     private String username;
+
     public MenuInputData(String username) {
         this.setUsername(username);
     }

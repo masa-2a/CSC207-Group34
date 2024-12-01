@@ -1,25 +1,29 @@
 package view;
 
-import interface_adapter.map2d.Map2DController;
-import interface_adapter.map2d.Map2DViewModel;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JPanel;
+
+import interface_adapter.map2d.Map2DController;
+import interface_adapter.map2d.Map2DViewModel;
+
+/**
+ * The view for the 2D map.
+ */
 public class Map2DView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName;
     private final Map2DViewModel map2DViewModel;
     private Map2DController map2DController;
 
-
-    public Map2DView (Map2DViewModel map2DViewModel) {
+    public Map2DView(Map2DViewModel map2DViewModel) {
         this.viewName = "Map2D View";
         this.map2DViewModel = map2DViewModel;
         this.map2DViewModel.addPropertyChangeListener(this);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 

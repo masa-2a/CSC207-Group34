@@ -3,7 +3,6 @@ package interface_adapter.leaderboard;
 import use_case.leaderboard.LeaderboardInputBoundary;
 import use_case.leaderboard.LeaderboardInputData;
 
-
 /**
  * Controller for leaderboard Use Case.
  */
@@ -12,7 +11,7 @@ public class LeaderboardController {
 
     /**
      * Creates LeaderboardController instance.
-     * @param leaderboardInputBoundary
+     * @param leaderboardInputBoundary the leaderboard input boundary
      */
     public LeaderboardController(
             LeaderboardInputBoundary leaderboardInputBoundary) {
@@ -24,10 +23,13 @@ public class LeaderboardController {
      * @param currentUserName current loggedin users name
      */
     public void execute(String currentUserName) {
-        LeaderboardInputData inputData = new LeaderboardInputData(currentUserName);
+        final LeaderboardInputData inputData = new LeaderboardInputData(currentUserName);
         leaderboardInteractor.execute(inputData);
     }
 
+    /**
+     * Switches to the menu view.
+     */
     public void switchToMenuView() {
         leaderboardInteractor.switchToMenuView();
     }

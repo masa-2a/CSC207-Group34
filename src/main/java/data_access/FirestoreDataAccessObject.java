@@ -6,7 +6,13 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.FirestoreException;
+import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import entity.CommonUser;
 import entity.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
@@ -62,8 +68,8 @@ public class FirestoreDataAccessObject
             userRef.set(userData);
             System.out.println(user.getName() + " saved to Firestore.");
         }
-        catch (Exception ex) {
-            System.err.println("Error saving user data to Firestore: " + ex.getMessage());
+        catch (FirestoreException firestoreException) {
+            System.err.println("Error saving user data to Firestore: " + firestoreException.getMessage());
         }
     }
 
@@ -86,8 +92,8 @@ public class FirestoreDataAccessObject
                 return null;
             }
         }
-        catch (InterruptedException | ExecutionException ex) {
-            System.err.println("Error retrieving user from Firestore: " + ex.getMessage());
+        catch (FirestoreException | InterruptedException | ExecutionException firestoreException) {
+            System.err.println("Error retrieving user from Firestore: " + firestoreException.getMessage());
             return null;
         }
     }
@@ -103,10 +109,14 @@ public class FirestoreDataAccessObject
     }
 
     @Override
-    public void setCurrentPoints(int points){ this.currentPoints = points; }
+    public void setCurrentPoints(int points) {
+        this.currentPoints = points;
+    }
 
     @Override
-    public int getCurrentPoints() {return currentPoints;}
+    public int getCurrentPoints() {
+        return currentPoints;
+    }
 
     @Override
     public boolean existsByName(String username) {
@@ -129,8 +139,8 @@ public class FirestoreDataAccessObject
             setCurrentUser(user);
             System.out.println("Password updated for user: " + user.getName());
         }
-        catch (Exception ex) {
-            System.err.println("Error changing password in Firestore: " + ex.getMessage());
+        catch (FirestoreException firestoreException) {
+            System.err.println("Error changing password in Firestore: " + firestoreException.getMessage());
         }
     }
 
@@ -143,32 +153,38 @@ public class FirestoreDataAccessObject
     public void addEarnedPoints(int pointsEarned, User user) {
         try {
             System.out.println("Points earned before adding to Firestore: " + pointsEarned);
-            DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
+            final DocumentReference userRef = firestore.collection(USERSCOLLECTION).document(user.getName());
 
-            DocumentSnapshot documentSnapshot = userRef.get().get();
+            final DocumentSnapshot documentSnapshot = userRef.get().get();
             if (documentSnapshot.exists()) {
-                Long currentPoints = documentSnapshot.getLong(POINTS);
-                long updatedPoints = currentPoints + pointsEarned;
+                final Long currPoints = documentSnapshot.getLong(POINTS);
+                final long updatedPoints = currPoints + pointsEarned;
                 userRef.update(POINTS, updatedPoints);
                 System.out.println("Points updated successfully. New points: " + updatedPoints);
                 setCurrentPoints((int) updatedPoints);
                 System.out.println("Current points from storage" + getCurrentPoints());
             }
-//            Map<String, Object> userData = documentSnapshot.getData();
-//            int currentpoints = ((Long) userData.get(POINTS)).intValue();  // Firestore stores numbers as Long
+            //            Map<String, Object> userData = documentSnapshot.getData();
 
+            //            int currentpoints = ((Long) userData.get(POINTS)).intValue();
 
-//            userRef
-//            userRef.update(POINTS, FieldValue.increment(pointsEarned));
-//            System.out.println("Earned points" + pointsEarned + " added for user: " + user.getName());
-//            DocumentSnapshot documentSnapshot2 = userRef.get().get();
-//            Map<String, Object> userData2 = documentSnapshot2.getData();
-//            int currentPoints2 = ((Long) userData2.get(POINTS)).intValue();  // Firestore stores numbers as Long
-//            System.out.println("Updated points for user " + user.getName() + ": " + currentPoints2);
+            //            userRef
+            //            userRef.update(POINTS, FieldValue.increment(pointsEarned));
+            //            System.out.println("Earned points" + pointsEarned + " added for user: " + user.getName());
+            //            DocumentSnapshot documentSnapshot2 = userRef.get().get();
+            //            Map<String, Object> userData2 = documentSnapshot2.getData();
+            //            int currentPoints2 = ((Long) userData2.get(POINTS)).intValue();
+            //            System.out.println("Updated points for user " + user.getName() + ": " + currentPoints2);
 
         }
-        catch (Exception e) {
-            System.err.println("Error adding earned points to Firestore: " + e.getMessage());
+        catch (FirestoreException firestoreException) {
+            System.err.println("Error adding earned points to Firestore: " + firestoreException.getMessage());
+        }
+        catch (ExecutionException executionException) {
+            throw new RuntimeException(executionException);
+        }
+        catch (InterruptedException interruptedException) {
+            throw new RuntimeException(interruptedException);
         }
 
     }
