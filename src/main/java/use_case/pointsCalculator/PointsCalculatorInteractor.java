@@ -52,13 +52,13 @@ public class PointsCalculatorInteractor implements
         System.out.println("Distance: " + distance);
         System.out.println("Timespent: " + timespent);
         System.out.println("Hintsused: " + hintsused);
-        int pixels= 200;
+        int pixels= 300;
         double k = (double)pixels * 156543.03392 * Math.cos(randomLocation.get("longitude") * Math.PI / 180);
         int zoom = (int)((Math.round(Math.log((70 * k) / (distance * 1000 * 100)) / 0.6931471805599453)) - 1);
         System.out.println("Zoom level is "+zoom);
 
         Map2DInputData map2DInputData = new Map2DInputData(
-                300, 200, randomLocation.get("latitude"),
+                300, 300, randomLocation.get("latitude"),
                 randomLocation.get("longitude"), zoom, randomLocation.get("latitude"),
                 randomLocation.get("longitude"), chosenLocation.get("latitude"),
                 chosenLocation.get("longitude"), true, true);
