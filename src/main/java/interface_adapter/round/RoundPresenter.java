@@ -52,8 +52,10 @@ public class RoundPresenter implements RoundOutputBoundary {
         roundState.setGuessedLatitude(roundOutputData.getChosenLocation().get("latitude"));
         roundState.setCountry(roundOutputData.getCountry());
 
-        System.out.println(roundOutputData.getRandomLocation());
-        System.out.println(roundOutputData.getChosenLocation());
+        System.out.println("round presenter" + roundOutputData.getRandomLocation());
+        System.out.println("round presenter" + roundOutputData.getChosenLocation());
+        System.out.println("round presenter" + roundOutputData.getTimespent());
+        System.out.println("round presenter" + roundOutputData.getHintsused());
 
 
         PointsCalculatorInputData inputData = new PointsCalculatorInputData(

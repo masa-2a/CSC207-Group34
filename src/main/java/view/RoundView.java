@@ -25,6 +25,7 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     public RoundView (RoundViewModel roundViewModel){
         this.roundViewModel = roundViewModel;
         this.roundViewModel.addPropertyChangeListener(this);
+        roundViewModel.getState().setHintsUsed(0);
 
         final JPanel buttons = new JPanel();
         startRound = new JButton("Start Round");
@@ -102,6 +103,9 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         }
         if (e.getSource().equals(showHint)) {
             hintLabel.setVisible(true);
+            System.out.println("THIS IS RUN");
+            roundViewModel.getState().incrementHintsUsed();
+            System.out.println(roundViewModel.getState().getHintsUsed());
             roundController.showHint(roundViewModel.getState().getCountry());
         }
     }

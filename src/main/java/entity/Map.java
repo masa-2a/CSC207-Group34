@@ -85,10 +85,12 @@ public class Map extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Street View Map with JxBrowser");
-        primaryStage.setFullScreen(true);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(800);
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(event -> engine.close());
+
     }
 
     @JsAccessible

@@ -5,6 +5,8 @@ import java.util.Map;
 import entity.PointsCalculator;
 import entity.User;
 
+import static java.lang.Math.floor;
+
 /**
  * Interactor for PointsCalculator.
  */
@@ -44,20 +46,27 @@ public class PointsCalculatorInteractor implements
         final double timespent = pointsCalculatorInputData.getTimespent();
         final int hintsused = pointsCalculatorInputData.getHintsused();
 
-        final int[] hintsCosts = {PointsCalculator.HINTS_COST1,
-                                  PointsCalculator.HINTS_COST2,
-                                  PointsCalculator.HINTS_COST3};
-        int hintsPenalty = 0;
-        for (int i = 0; i < hintsused; i++) {
-            hintsPenalty += hintsCosts[i];
-        }
+        System.out.println("Distance: " + distance);
+        System.out.println("Timespent: " + timespent);
+        System.out.println("Hintsused: " + hintsused);
 
-        final int pointsEarned = (int) Math.floor(
+//        final int[] hintsCosts = {PointsCalculator.HINTS_COST1,
+//                                  PointsCalculator.HINTS_COST2,
+//                                  PointsCalculator.HINTS_COST3};
+//        int hintsPenalty = 0;
+//        for (int i = 0; i < hintsused; i++) {
+//            hintsPenalty += hintsCosts[i];
+//        }
+
+        final int pointsEarnedwithoutHints = (int) floor(
                 PointsCalculator.MAX_SCORE
                         - distance / PointsCalculator.DISTANCE_DIVIDER
-                        - timespent
-                        - hintsPenalty);
-        System.out.println(pointsEarned);
+                        - timespent * PointsCalculator.TIME_MULTIPLIER
+                        );
+        System.out.println(pointsEarnedwithoutHints);
+
+        int pointsEarned = (int)
+                floor(pointsEarnedwithoutHints/(Math.pow(PointsCalculator.HINTS_COST, hintsused)));
 
         final String username = pointsDataAccessObject.getCurrentUsername();
         final User user = pointsDataAccessObject.get(username);
@@ -115,7 +124,6 @@ public class PointsCalculatorInteractor implements
         final double radius = 6371;
         final double distance = radius * c;
 
-        System.out.println("Distance calculated: " + distance);
         return distance;
     }
 
