@@ -8,7 +8,7 @@ public interface HintInputBoundary {
     /**
      * Executes the hint use case.
      * @param hintinputData the input data
+     * @return HintOutputData a string with the hint.
      */
-    void execute(HintInputData hintinputData);
+    HintOutputData execute(HintInputData hintinputData);
 }
-

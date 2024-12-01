@@ -1,12 +1,17 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,13 +29,20 @@ import interface_adapter.login.LoginViewModel;
  */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final String viewName = "log in";
+    private static final String VIEW_NAME = "log in";
+    private static final int TITLE_FONT_SIZE = 40;
+    private static final int LOGO_WIDTH = 200;
+    private static final int LOGO_HEIGHT = 100;
+    private static final int TEXT_FIELD_COLUMNS = 15;
+    private static final int BOX_HORIZONTAL_STRUT = 1;
+
+    private static final Color BACKGROUND_COLOR = new Color(219, 229, 232);
+
     private final LoginViewModel loginViewModel;
 
-    private final JTextField usernameInputField = new JTextField(15);
+    private final JTextField usernameInputField = new JTextField(TEXT_FIELD_COLUMNS);
     private final JLabel usernameErrorField = new JLabel();
-
-    private final JPasswordField passwordInputField = new JPasswordField(15);
+    private final JPasswordField passwordInputField = new JPasswordField(TEXT_FIELD_COLUMNS);
     private final JLabel passwordErrorField = new JLabel();
 
     private final JButton logIn;
@@ -41,20 +53,34 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
+        this.setBackground(BACKGROUND_COLOR);
 
-        final JLabel title = new JLabel("Login Screen");
+        final JLabel title = new JLabel("Login");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(new Font("Agency FB", Font.PLAIN, TITLE_FONT_SIZE));
+
+        final ImageIcon logo = new ImageIcon("src/main/resources/MapMasterName.png");
+        final Image image = logo.getImage();
+        final Image newimg = image.getScaledInstance(LOGO_WIDTH, LOGO_HEIGHT, java.awt.Image.SCALE_SMOOTH);
+        final ImageIcon logoScaled = new ImageIcon(newimg);
+
+        final JLabel imageLabel = new JLabel(logoScaled);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Username"), usernameInputField);
+        usernameInfo.setBackground(BACKGROUND_COLOR);
+
         final LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel("Password"), passwordInputField);
+        passwordInfo.setBackground(BACKGROUND_COLOR);
 
         final JPanel buttons = new JPanel();
         logIn = new JButton("Log in");
         buttons.add(logIn);
         signUp = new JButton("Go to Sign Up");
         buttons.add(signUp);
+        buttons.setBackground(BACKGROUND_COLOR);
 
         logIn.addActionListener(
                 new ActionListener() {
@@ -129,8 +155,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 documentListenerHelper();
             }
         });
-
+        this.add(imageLabel);
         this.add(title);
+        this.add(Box.createHorizontalStrut(BOX_HORIZONTAL_STRUT));
         this.add(usernameInfo);
         this.add(usernameErrorField);
         this.add(passwordInfo);
@@ -158,7 +185,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEW_NAME;
     }
 
     public void setLoginController(LoginController loginController) {

@@ -1,0 +1,12 @@
+{
+  "Rand 1":{"latitude": 42.0,"longitude": -71.0, "country":"United States"},
+  "Rand 2":{"latitude": 34.0361343941081,"longitude": 108.92676837088668, "country":"China"},
+  "Rand 3":{"latitude": 52.03238908452306,"longitude": 5.3389802540091695, "country":"Netherlands"},
+  "Rand 4":{"latitude": 20.993765372145273,"longitude": 72.81394739228956, "country":"India"},
+  "Rand 5":{"latitude": 54.11652744386116,"longitude": 61.57774339280659, "country":"Russia"},
+  "Rand 6":{"latitude": 65.61559922810795,"longitude": -37.63672282227504, "country":"Greenland"},
+  "Rand 7":{"latitude": -20.065367990935233,"longitude": 57.55697525742677, "country":"Mauritius"},
+  "Rand 8":{"latitude": -3.044898738488582,"longitude": -59.99374885308898, "country":"Brazil"},
+  "Rand 9":{"latitude": 35.12033659399063,"longitude": 129.08105506884803, "country":"South Korea"},
+  "Rand 10":{"latitude": -1.0476618968428848,"longitude": 36.88403391295389, "country":"Kenya"}
+}

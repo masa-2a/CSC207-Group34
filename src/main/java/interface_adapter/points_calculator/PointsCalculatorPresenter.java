@@ -5,19 +5,24 @@ import interface_adapter.main_menu.MenuViewModel;
 import use_case.pointsCalculator.PointsCalculatorOutputBoundary;
 import use_case.pointsCalculator.PointsCalculatorOutputData;
 
+/**
+ * Presenter for the PointsCalculator Use Case.
+ */
 public class PointsCalculatorPresenter implements PointsCalculatorOutputBoundary {
     private final PointsCalculatorViewModel pointsCalculatorViewModel;
     private final ViewManagerModel viewManagerModel;
     private final MenuViewModel menuViewModel;
 
     /**
-     * Presenter for Points Calculator
+     * Presenter for Points Calculator.
      *
-     * @param pointsCalculatorViewModel
-     * @param viewManagerModel
-     * @param menuViewModel
+     * @param pointsCalculatorViewModel the Points Calculator ViewModel.
+     * @param viewManagerModel the View Manager Model.
+     * @param menuViewModel the Menu ViewModel.
      */
-    public PointsCalculatorPresenter(PointsCalculatorViewModel pointsCalculatorViewModel, ViewManagerModel viewManagerModel, MenuViewModel menuViewModel) {
+    public PointsCalculatorPresenter(PointsCalculatorViewModel pointsCalculatorViewModel,
+                                     ViewManagerModel viewManagerModel,
+                                     MenuViewModel menuViewModel) {
         this.pointsCalculatorViewModel = pointsCalculatorViewModel;
         this.viewManagerModel = viewManagerModel;
         this.menuViewModel = menuViewModel;
@@ -30,9 +35,17 @@ public class PointsCalculatorPresenter implements PointsCalculatorOutputBoundary
      */
     @Override
     public void prepareSuccessView(PointsCalculatorOutputData outputData) {
-        pointsCalculatorViewModel.updatePoints(outputData.getPointsEarned());
-//        pointsCalculatorViewModel.updateMessage(outputData.getMessage());
-        pointsCalculatorViewModel.updateImagePath(outputData.getImagePath());
+
+        //        pointsCalculatorViewModel.updatePoints(outputData.getPointsEarned());
+        //        pointsCalculatorViewModel.updateMessage(outputData.getMessage());
+        //        pointsCalculatorViewModel.updateImagePath(outputData.getImagePath());
+        System.out.println("prepare success view is run");
+        final PointsCalculatorState pointsCalculatorState = pointsCalculatorViewModel.getState();
+        pointsCalculatorState.updatePoints(outputData.getPointsEarned());
+        pointsCalculatorState.setMessage(outputData.getMessage());
+        pointsCalculatorState.updateImagePath(outputData.getImagePath());
+        pointsCalculatorViewModel.setState(pointsCalculatorState);
+        pointsCalculatorViewModel.firePropertyChanged("Points Calculator State Update");
     }
 
     /**

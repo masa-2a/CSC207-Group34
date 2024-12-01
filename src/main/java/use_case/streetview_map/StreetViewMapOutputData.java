@@ -1,17 +1,33 @@
 package use_case.streetview_map;
 
+/**
+ * Output Data for the StreetViewMap Use Case.
+ */
 public class StreetViewMapOutputData {
-    private final double[] userCoordinates;
-    private final double[] goalCoordinates;
+    private final double userLatitude;
+    private final double userLongitude;
 
-    public StreetViewMapOutputData(double[] userCoordinates, double[] goalCoordinates) {
-        this.userCoordinates = userCoordinates;
-        this.goalCoordinates = goalCoordinates;
+    public StreetViewMapOutputData(double userLatitude, double userLongitude) {
+        this.userLatitude = userLatitude;
+        this.userLongitude = userLongitude;
     }
 
-    public double[] getUserCoordinates() {
-        return userCoordinates;
+    /**
+     * Gets the user latitude.
+     *
+     * @return the user latitude
+     */
+    public double getUserLatitude() {
+        return userLatitude;
     }
 
-    public double[] getGoalCoordinates() { return goalCoordinates; }
+    /**
+     * Gets the user longitude.
+     *
+     * @return the user longitude
+     */
+    public double getUserLongitude() {
+        return userLongitude;
+    }
+
 }

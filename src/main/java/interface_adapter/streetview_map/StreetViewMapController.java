@@ -2,24 +2,31 @@ package interface_adapter.streetview_map;
 
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInputData;
-import use_case.streetview_map.StreetViewMapOutputBoundary;
-import use_case.streetview_map.StreetViewMapOutputData;
 
+/**
+ * Controller for the StreetViewMap Use Case.
+ */
 public class StreetViewMapController {
-    private final StreetViewMapInputBoundary interactor;
-    private final StreetViewMapOutputBoundary presenter;
+    private final StreetViewMapInputBoundary streetViewMapInteractor;
 
-    public StreetViewMapController(StreetViewMapInputBoundary interactor, StreetViewMapOutputBoundary presenter) {
-        this.interactor = interactor;
-        this.presenter = presenter;
+    /**
+     * Constructor for the StreetViewMapController.
+     *
+     * @param streetViewMapInteractor the StreetViewMapInteractor
+     */
+    public StreetViewMapController(StreetViewMapInputBoundary streetViewMapInteractor) {
+        this.streetViewMapInteractor = streetViewMapInteractor;
     }
 
-    public void execute(double[] userCoordinates, double[] goalCoordinates) {
-        final StreetViewMapInputData inputData = new StreetViewMapInputData(userCoordinates, goalCoordinates);
-        interactor.execute(inputData);
+    /**
+     * Executes the StreetViewMap Use Case.
+     *
+     * @param goalLatitude  the goal latitude
+     * @param goalLongitude the goal longitude
+     */
+    public void execute(double goalLatitude, double goalLongitude) {
+        final StreetViewMapInputData inputData = new StreetViewMapInputData(goalLatitude, goalLongitude);
+        streetViewMapInteractor.execute(inputData);
     }
 
-    public void presentCoordinates(StreetViewMapOutputData outputData) {
-        presenter.present(outputData);
-    }
 }

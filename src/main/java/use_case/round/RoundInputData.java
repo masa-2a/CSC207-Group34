@@ -1,18 +1,42 @@
 package use_case.round;
 
-import use_case.map2d.Map2DInputData;
+import use_case.streetview_map.StreetViewMapInputData;
 
+/**
+ * Input data for the Round Use Case.
+ */
 public class RoundInputData {
-    private final Map2DInputData map2DInputData;
+    private final StreetViewMapInputData streetViewMapInputData;
+    private final String country;
+    private double elapsedTime;
+    private int hintsUsed;
 
-    public RoundInputData(int width, int height, double latitude, double longitude,
-                          int zoom, double guessLat, double guessLong, double answerLat,
-                          double answerLong, boolean guessed, boolean answered) {
-        this.map2DInputData = new Map2DInputData(width, height, latitude, longitude,
-                zoom, guessLat, guessLong, answerLat, answerLong, guessed, answered);
+    public RoundInputData(double lat, double longitude, String country) {
+        this.streetViewMapInputData = new StreetViewMapInputData(lat, longitude);
+        this.country = country;
     }
 
-    public Map2DInputData getMap2DInputData() {
-        return map2DInputData;
+    public StreetViewMapInputData getStreetViewMapInputData() {
+        return streetViewMapInputData;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public double getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public void setElapsedTime(double elapsedTime) {
+        this.elapsedTime = elapsedTime;
+    }
+
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
+    }
+
+    public int getHintsUsed() {
+        return hintsUsed;
     }
 }

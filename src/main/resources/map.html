@@ -84,12 +84,17 @@
 
 <script>
 
+<<<<<<< HEAD
   let currentMarker = null; // To store the current marker's location
   let correctMarker = null;
+=======
+  let currentMarker = null;
+>>>>>>> 442cf7174d0a79d5a91f9ef52e4781dfb11618ec
   let line = null;
 
   function initialize() {
     const defaultLocation = {lat: 43.661775712671215, lng: -79.3951077927884};
+<<<<<<< HEAD
     const rand = Math.floor(Math.random() * 10);
     const randomLocations = [
       {lat: 42, lng: -71},
@@ -124,6 +129,27 @@
       icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Red pin icon
     });
 
+=======
+
+    let initLng = window.java.sendGoalLongitude();
+    let initLat = window.java.sendGoalLatitude();
+    let initialLocation = {lat: initLat, lng: initLng};
+
+    // Create the map with Street View control disabled
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: defaultLocation,
+      zoom: 3,
+      streetViewControl: false, // Disable Pegman
+      disableDefaultUI: true,  // Disable all default UI
+    });
+
+    // Create a single marker but do not set its position yet
+    const marker = new google.maps.Marker({
+      map: map,
+      icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Red pin icon
+    });
+
+>>>>>>> 442cf7174d0a79d5a91f9ef52e4781dfb11618ec
     // Add an event listener to move the marker to the clicked location
     map.addListener("click", (event) => {
       const clickedLocation = event.latLng;
@@ -149,12 +175,16 @@
 
     map.setStreetView(panorama);
 
+<<<<<<< HEAD
     // Add a click event listener for the submit button
+=======
+>>>>>>> 442cf7174d0a79d5a91f9ef52e4781dfb11618ec
     document.getElementById("submitButton").addEventListener("click", () => {
       if (currentMarker) {
         let userLat = currentMarker.lat();
         let userLng = currentMarker.lng();
 
+<<<<<<< HEAD
         // If a correct marker already exists, remove it
         if (correctMarker) {
           correctMarker.setMap(null);
@@ -164,6 +194,17 @@
 
       } else {
         console.log("No marker placed yet!");
+=======
+        if (window.java) { // Check if 'window.java' is available
+          window.java.setUserLatitude(userLat);
+          window.java.setUserLongitude(userLng);
+          window.java.closeApplication();
+        } else {
+          alert("Java object not available!");
+        }
+      } else {
+        window.java.logMessage("Please place a marker before submitting!");
+>>>>>>> 442cf7174d0a79d5a91f9ef52e4781dfb11618ec
       }
     });
   }

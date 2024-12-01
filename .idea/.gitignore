@@ -5,6 +5,7 @@
 /dataSources/
 /dataSources.local.xml
 .idea/misc.xml
+pom.xml
 
 # Ignore compiled Java class files
 *.class

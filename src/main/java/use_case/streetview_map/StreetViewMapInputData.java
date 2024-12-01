@@ -1,15 +1,33 @@
 package use_case.streetview_map;
 
+/**
+ * Input Data for the StreetViewMap Use Case.
+ */
 public class StreetViewMapInputData {
-    private final double[] userCoordinates;
-    private final double[] goalCoordinates;
 
-    public StreetViewMapInputData(double[] userCoordinates, double[] goalCoordinates) {
-        this.userCoordinates = userCoordinates;
-        this.goalCoordinates = goalCoordinates;
+    private final double goalLongitude;
+    private final double goalLatitude;
+
+    public StreetViewMapInputData(double goalLatitude, double goalLongitude) {
+        this.goalLongitude = goalLongitude;
+        this.goalLatitude = goalLatitude;
     }
 
-    public double[] getUserCoordinates() { return userCoordinates; }
+    /**
+     * Gets the goal longitude.
+     *
+     * @return the goal longitude
+     */
+    public double getGoalLongitude() {
+        return goalLongitude;
+    }
 
-    public double[] getGoalCoordinates() { return goalCoordinates; }
+    /**
+     * Gets the goal latitude.
+     *
+     * @return the goal latitude
+     */
+    public double getGoalLatitude() {
+        return goalLatitude;
+    }
 }

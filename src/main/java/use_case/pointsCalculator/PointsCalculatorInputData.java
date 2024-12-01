@@ -13,15 +13,19 @@ public class PointsCalculatorInputData {
     private final String imagepath;
 
     /**
-     * The input data for the points calculator use case
+     * The input data for the points calculator use case.
      *
-     * @param randomLocation
-     * @param chosenLocation
-     * @param timespent
-     * @param hintsused
-     * @param imagepath
+     * @param randomLocation location that is randomly picked by program
+     * @param chosenLocation location user picks as their guess
+     * @param timespent time taken to make the guess
+     * @param hintsused amount of hints used
+     * @param imagepath image that shows the diff between randomLocation and chosenLocation
      */
-    public PointsCalculatorInputData(Map<String, Double> randomLocation, Map<String, Double> chosenLocation, double timespent, int hintsused, String imagepath) {
+    public PointsCalculatorInputData(Map<String, Double> randomLocation,
+                                     Map<String, Double> chosenLocation,
+                                     double timespent,
+                                     int hintsused,
+                                     String imagepath) {
         this.randomLocation = randomLocation;
         this.chosenLocation = chosenLocation;
         this.timespent = timespent;
@@ -30,7 +34,7 @@ public class PointsCalculatorInputData {
     }
 
     /**
-     * Getter method
+     * Getter method.
      *
      * @return randomLocation
      */
@@ -39,7 +43,7 @@ public class PointsCalculatorInputData {
     }
 
     /**
-     * Getter Method
+     * Getter Method.
      *
      * @return chosenLocation
      */
@@ -48,7 +52,7 @@ public class PointsCalculatorInputData {
     }
 
     /**
-     * Getter Method
+     * Getter Method.
      *
      * @return Time taken during the round
      */
@@ -57,7 +61,7 @@ public class PointsCalculatorInputData {
     }
 
     /**
-     * Getter Method
+     * Getter Method.
      *
      * @return the number of hints used
      */
@@ -66,10 +70,9 @@ public class PointsCalculatorInputData {
     }
 
     /**
-     * Getter Method
+     * Getter Method.
      *
-     * @return the imagepath of the image showing the distance
-     * between the guess and the correct answer.
+     * @return the imagepath of the image showing the distance between the guess and the correct answer.
      */
     String getImagepath() {
         return imagepath;

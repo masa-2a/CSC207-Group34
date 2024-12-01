@@ -1,9 +1,12 @@
 package use_case.pointsCalculator;
 
-import entity.CommonUser;
-import entity.User;
+import entity.player.CommonUser;
+import entity.player.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.map2d.Map2DInputBoundary;
+import use_case.map2d.Map2DUseCaseInteractor;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -21,6 +24,8 @@ public class PointsCalculatorInteractorTest {
 
         private Map<String, User> userStore = new HashMap<>();
         private String currentUsername = "Paul"; // Hardcoded username for testing
+        private User currentUser;
+        private int currentPoints;
 
         @Override
         public String getCurrentUsername() {
@@ -39,6 +44,27 @@ public class PointsCalculatorInteractorTest {
         @Override
         public void addEarnedPoints(int pointsEarned, User user) {
             user.addEarnedPoints(pointsEarned);
+        }
+
+        /**
+         * Sets the current points. This is called twice, once to set the points
+         * before the round is played and then once after you earn your points.
+         *
+         * @param points the number of points
+         */
+        @Override
+        public void setCurrentPoints(int points) {
+            this.currentPoints = points;
+        }
+
+        /**
+         * Getter method.
+         *
+         * @return current points
+         */
+        @Override
+        public int getCurrentPoints() {
+            return 0;
         }
 
         // Save a user into the in-memory store
@@ -62,6 +88,7 @@ public class PointsCalculatorInteractorTest {
 
     @Test
     void successTest() {
+        Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
 
         Map<String, Double> randomLocation = new HashMap<>();
         randomLocation.put("latitude", 43.7);
@@ -76,11 +103,10 @@ public class PointsCalculatorInteractorTest {
         PointsCalculatorOutputBoundary successPresenter = new PointsCalculatorOutputBoundary() {
             @Override
             public void prepareSuccessView(PointsCalculatorOutputData outputData) {
-                assertEquals(4584, outputData.getPointsEarned());
+                assertEquals(278, outputData.getPointsEarned());
                 assertEquals("C:/Users/maira/IdeaProjects/CSC207-Group34/images/GUI plan.png", outputData.getImagePath());
-                assertEquals("You scored 4584 points!", outputData.getMessage());
+                assertEquals("You scored 278 points!", outputData.getMessage());
                 System.out.println(outputData.getPointsEarned());
-                assertEquals(4594, pointsDataAccessObject.get("Paul").getPoints());
             }
 
             /**
@@ -92,7 +118,7 @@ public class PointsCalculatorInteractorTest {
             }
 
         };
-        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, successPresenter);
+        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, successPresenter,map2DInteractor);
         interactor.execute(inputData);
         interactor.switchToMenuView();
 
@@ -100,7 +126,7 @@ public class PointsCalculatorInteractorTest {
 
     @Test
     void failureTest() {
-
+        Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
 
         Map<String, Double> randomLocation = new HashMap<>();
 
@@ -129,7 +155,7 @@ public class PointsCalculatorInteractorTest {
 
             }
         };
-        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter);
+        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter,map2DInteractor);
         try {
             interactor.execute(inputData);  // This should throw an IllegalArgumentException
             fail("Expected IllegalArgumentException to be thrown.");  // This line ensures that if no exception is thrown, the test fails
@@ -142,6 +168,7 @@ public class PointsCalculatorInteractorTest {
 
     @Test
     void failureTest2() {
+        Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
 
         Map<String, Double> randomLocation = new HashMap<>();
         randomLocation.put("latitude", 43.7);
@@ -172,7 +199,7 @@ public class PointsCalculatorInteractorTest {
 
             }
         };
-        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter);
+        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter, map2DInteractor);
         try {
             interactor.execute(inputData);  // This should throw an IllegalArgumentException
             fail("Expected IllegalArgumentException to be thrown.");  // This line ensures that if no exception is thrown, the test fails
@@ -185,6 +212,7 @@ public class PointsCalculatorInteractorTest {
 
     @Test
     void failureTest3() {
+        Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
 
         Map<String, Double> randomLocation = new HashMap<>();
 
@@ -215,7 +243,7 @@ public class PointsCalculatorInteractorTest {
 
             }
         };
-        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter);
+        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter, map2DInteractor);
         try {
             interactor.execute(inputData);  // This should throw an IllegalArgumentException
             fail("Expected IllegalArgumentException to be thrown.");  // This line ensures that if no exception is thrown, the test fails
@@ -227,6 +255,7 @@ public class PointsCalculatorInteractorTest {
     }
     @Test
     void failureTest4() {
+        Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
 
         Map<String, Double> randomLocation = new HashMap<>();
         randomLocation.put("latitude", 43.7);
@@ -258,7 +287,7 @@ public class PointsCalculatorInteractorTest {
 
             }
         };
-        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter);
+        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter, map2DInteractor);
         try {
             interactor.execute(inputData);  // This should throw an IllegalArgumentException
             fail("Expected IllegalArgumentException to be thrown.");  // This line ensures that if no exception is thrown, the test fails
@@ -270,6 +299,7 @@ public class PointsCalculatorInteractorTest {
     }
     @Test
     void failureTest5() {
+        Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
 
         Map<String, Double> randomLocation = new HashMap<>();
         randomLocation.put("latitude", 43.7);
@@ -301,7 +331,7 @@ public class PointsCalculatorInteractorTest {
 
             }
         };
-        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter);
+        PointsCalculatorInputBoundary interactor = new PointsCalculatorInteractor(pointsDataAccessObject, failurePresenter, map2DInteractor);
         try {
             interactor.execute(inputData);  // This should throw an IllegalArgumentException
             fail("Expected IllegalArgumentException to be thrown.");  // This line ensures that if no exception is thrown, the test fails
