@@ -51,7 +51,7 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         //ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
         ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
         Image image = map.getImage();
-        Image newimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
         ImageIcon imageScaled = new ImageIcon(newimg);
 
         JLabel imageLabel = new JLabel(imageScaled);
@@ -108,7 +108,7 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         //ImageIcon map = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
         ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
         Image image = map.getImage();
-        Image newimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
         ImageIcon imageScaled = new ImageIcon(newimg);
 
         JLabel imageLabel = new JLabel(imageScaled);

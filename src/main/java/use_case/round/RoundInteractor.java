@@ -9,6 +9,9 @@ import java.util.Random;
 import org.jetbrains.annotations.NotNull;
 
 import use_case.hint.HintOutputData;
+import use_case.map2d.Map2DInputBoundary;
+import use_case.pointsCalculator.PointsCalculatorInputBoundary;
+import use_case.pointsCalculator.PointsCalculatorInputData;
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInputData;
 import use_case.streetview_map.StreetViewMapOutputData;
@@ -23,13 +26,16 @@ public class RoundInteractor implements RoundInputBoundary {
     private final RoundOutputBoundary roundPresenter;
     private final StreetViewMapInputBoundary streetViewMapInteractor;
     private final RoundDataAccessInterface roundDataAccess;
+    private final PointsCalculatorInputBoundary pointsCalculatorInteractor;
 
     public RoundInteractor(StreetViewMapInputBoundary streetViewMapInteractor,
                            RoundOutputBoundary roundPresenter,
-                           RoundDataAccessInterface roundDataAccess) {
+                           RoundDataAccessInterface roundDataAccess,
+                           PointsCalculatorInputBoundary pointsCalculatorInteractor) {
         this.roundPresenter = roundPresenter;
         this.streetViewMapInteractor = streetViewMapInteractor;
         this.roundDataAccess = roundDataAccess;
+        this.pointsCalculatorInteractor = pointsCalculatorInteractor;
     }
 
     @Override
@@ -57,6 +63,12 @@ public class RoundInteractor implements RoundInputBoundary {
                 + "," + roundInputData.getStreetViewMapInputData().getGoalLongitude());
         System.out.println("These are the guessed coords:" + streetViewMapOutputData.getUserLatitude() + ","
                 + streetViewMapOutputData.getUserLongitude());
+
+        final PointsCalculatorInputData inputData = new PointsCalculatorInputData(
+                roundOutputData.getRandomLocation(), roundOutputData.getChosenLocation(),
+                roundOutputData.getTimespent(), roundOutputData.getHintsused(),
+                roundOutputData.getImagepath());
+        pointsCalculatorInteractor.execute(inputData);
 
         roundPresenter.switchToPointsCalculator(roundOutputData);
     }

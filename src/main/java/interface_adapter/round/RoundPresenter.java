@@ -4,8 +4,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.points_calculator.PointsCalculatorViewModel;
 import use_case.countdown.CountdownOutputData;
 import use_case.hint.HintOutputData;
-import use_case.pointsCalculator.PointsCalculatorInputBoundary;
-import use_case.pointsCalculator.PointsCalculatorInputData;
 import use_case.round.RoundOutputBoundary;
 import use_case.round.RoundOutputData;
 
@@ -21,16 +19,13 @@ public class RoundPresenter implements RoundOutputBoundary {
     private final RoundViewModel roundViewModel;
     private final ViewManagerModel viewManagerModel;
     private final PointsCalculatorViewModel pointsCalculatorViewModel;
-    private final PointsCalculatorInputBoundary pointsCalculatorInteractor;
 
     public RoundPresenter(RoundViewModel roundViewModel,
                           ViewManagerModel viewManagerModel,
-                          PointsCalculatorViewModel pointsCalculatorViewModel,
-                          PointsCalculatorInputBoundary pointsCalculatorInteractor) {
+                          PointsCalculatorViewModel pointsCalculatorViewModel) {
         this.roundViewModel = roundViewModel;
         this.viewManagerModel = viewManagerModel;
         this.pointsCalculatorViewModel = pointsCalculatorViewModel;
-        this.pointsCalculatorInteractor = pointsCalculatorInteractor;
     }
 
     /**
@@ -63,12 +58,6 @@ public class RoundPresenter implements RoundOutputBoundary {
         System.out.println(ROUND_PRESENTER_LOG_PREFIX + roundOutputData.getChosenLocation());
         System.out.println(ROUND_PRESENTER_LOG_PREFIX + roundOutputData.getTimespent());
         System.out.println(ROUND_PRESENTER_LOG_PREFIX + roundOutputData.getHintsused());
-
-        final PointsCalculatorInputData inputData = new PointsCalculatorInputData(
-                roundOutputData.getRandomLocation(), roundOutputData.getChosenLocation(),
-                roundOutputData.getTimespent(), roundOutputData.getHintsused(),
-                roundOutputData.getImagepath());
-        pointsCalculatorInteractor.execute(inputData);
 
         roundViewModel.setState(roundState);
 

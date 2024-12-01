@@ -50,6 +50,8 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.map2d.Map2DInputBoundary;
+import use_case.map2d.Map2DUseCaseInteractor;
 import use_case.menu.MenuInputBoundary;
 import use_case.menu.MenuInteractor;
 import use_case.menu.MenuOutputBoundary;
@@ -301,27 +303,25 @@ public class AppBuilder {
      */
     public AppBuilder addRoundUseCase() {
         // Streetview Stuff
-
         final StreetViewMapInputBoundary mapInteractor = new StreetViewMapInteractor();
 
         // Hint Stuff
-
         final HintInputBoundary hintInteractor = new HintInteractor();
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
-                viewManagerModel, pointsCalculatorViewModel, pointsInteractor);
-        
+                viewManagerModel, pointsCalculatorViewModel);
+
         final RoundDataAccessInterface roundDataAccess = new
                 RoundDataAccess("src/main/resources/rand_locations.json");
 
         final RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(mapInteractor,
-                roundOutputBoundary, roundDataAccess);
+                roundOutputBoundary, roundDataAccess, pointsInteractor);
 
         final CountdownInputBoundary countdownInteractor = new
                 CountdownInteractor(roundOutputBoundary);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor,
-                countdownInteractor, pointsInteractor, hintInteractor);
+                countdownInteractor, hintInteractor);
 
         roundView.setRoundController(roundController);
         return this;
@@ -335,7 +335,10 @@ public class AppBuilder {
         final PointsCalculatorOutputBoundary pointsPresenter = new PointsCalculatorPresenter(pointsCalculatorViewModel,
                 viewManagerModel, menuViewModel);
 
-        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsPresenter);
+        // Map2D Stuff
+        final Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
+
+        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsPresenter,map2DInteractor);
 
         final PointsCalculatorController pointsController = new PointsCalculatorController(pointsInteractor);
         pointsView.setPointsCalculatorController(pointsController);

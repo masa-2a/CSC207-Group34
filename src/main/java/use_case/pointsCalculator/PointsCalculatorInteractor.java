@@ -2,6 +2,8 @@ package use_case.pointsCalculator;
 
 import java.util.Map;
 
+import use_case.map2d.Map2DInputBoundary;
+import use_case.map2d.Map2DInputData;
 import entity.points.PointsCalculator;
 import entity.player.User;
 
@@ -12,6 +14,7 @@ public class PointsCalculatorInteractor implements
         PointsCalculatorInputBoundary {
     private final PointsCalculatorDataAccessInterface pointsDataAccessObject;
     private final PointsCalculatorOutputBoundary pointsCalculatorPresenter;
+    private final Map2DInputBoundary map2DInteractor;
 
     /**
      * Interactor for Points Calculator Use Case.
@@ -22,9 +25,11 @@ public class PointsCalculatorInteractor implements
     public PointsCalculatorInteractor(PointsCalculatorDataAccessInterface
                                               pointsDataAccessInterface,
                                       PointsCalculatorOutputBoundary
-                                              pointsCalculatorPresenter) {
+                                              pointsCalculatorPresenter,
+                                      Map2DInputBoundary map2DInteractor) {
         this.pointsDataAccessObject = pointsDataAccessInterface;
         this.pointsCalculatorPresenter = pointsCalculatorPresenter;
+        this.map2DInteractor = map2DInteractor;
     }
 
     /**
@@ -47,6 +52,18 @@ public class PointsCalculatorInteractor implements
         System.out.println("Distance: " + distance);
         System.out.println("Timespent: " + timespent);
         System.out.println("Hintsused: " + hintsused);
+        int pixels= 300;
+        double k = (double)pixels * 156543.03392 * Math.cos(randomLocation.get("longitude") * Math.PI / 180);
+        int zoom = (int)((Math.round(Math.log((70 * k) / (distance * 1000 * 100)) / 0.6931471805599453)) - 1);
+        System.out.println("Zoom level is "+zoom);
+
+        Map2DInputData map2DInputData = new Map2DInputData(
+                300, 300, randomLocation.get("latitude"),
+                randomLocation.get("longitude"), zoom, randomLocation.get("latitude"),
+                randomLocation.get("longitude"), chosenLocation.get("latitude"),
+                chosenLocation.get("longitude"), true, true);
+
+        map2DInteractor.execute(map2DInputData);
 
         //        final int[] hintsCosts = {PointsCalculator.HINTS_COST1,
         //                                  PointsCalculator.HINTS_COST2,
