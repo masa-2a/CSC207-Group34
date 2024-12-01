@@ -28,7 +28,7 @@ This project was made for the course CSC207 - Software Design at University of T
          a. Head over to [Google FireBase](https://firebase.google.com/) and create a new project with Google Firestore (from the Go To Console button on the top                 right), you can call it Geogussr, MapMaster or whatever else you want.  
          b. Then create a new collection in the Firestore data base called "Users".
          c. Next, go to project settings -> Service Accounts click "Generate a new private key" for java and save that .json file somewhere safe on you device.    
-         c. Now go back to your IDE and check src/main/java/firebase/FirebaseInitialiser. Notice the line that has the following code. 
+         c. Now go back to your IDE and check src/main/java/data_acess/firebase/FirebaseInitialiser. Notice the line that has the following code. 
       ```FileInputStream serviceAccount = new FileInputStream("/ADD/YOUR/FILE/PATH");```  
             add the path of the json file from step c between the qoutes instead of our filler code.  
          e. Any of your friends that want to play the game must have the service key json file shared with them and they should repeat this same process. Keep in                 mind this key should only be shared with people you trust. You can play around with the sercuity feature of you project to delegate who can delete                    documents and such.
