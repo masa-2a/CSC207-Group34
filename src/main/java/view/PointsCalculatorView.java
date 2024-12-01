@@ -21,22 +21,25 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
     public PointsCalculatorView(PointsCalculatorViewModel pointsCalculatorViewModel) {
         this.pointsCalculatorViewModel = pointsCalculatorViewModel;
         this.pointsCalculatorViewModel.addPropertyChangeListener(this);
-
-        // Create the main panel for the view
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        this.setBackground(new Color(219, 229, 232));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Title label
-        JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        final JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
+        title.setFont(new Font("Agency FB", Font.BOLD, 40));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(title);
+
 
         // Image label
-        ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
-        JLabel imageLabel = new JLabel(image);
+        //ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
+        ImageIcon map = new ImageIcon("src/main/resources/MapMasterLgo.png");
+        Image image = map.getImage();
+        Image newimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon imageScaled = new ImageIcon(newimg);
+
+        JLabel imageLabel = new JLabel(imageScaled);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(imageLabel);
+
 
         // Points message label
 //        String message = "You scored " + pointsCalculatorViewModel.getState().getPointsEarned() + " points!";
@@ -44,19 +47,22 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
         pointsMessage.setFont(new Font("Arial", Font.PLAIN, 18));
         pointsMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(pointsMessage);
 
         // Create the toMenu button
+        final JPanel button = new JPanel();
+        button.setBackground(new Color(219, 229, 232));
         toMenu = new JButton(PointsCalculatorViewModel.TO_MENU_BUTTON_LABEL);
-        toMenu.setFont(new Font("Arial", Font.PLAIN, 16));
         toMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.add(toMenu);
         toMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pointsCalculatorController.switchToMenuView();
             }
         });
-        mainPanel.add(toMenu);
-        this.add(mainPanel);
+        this.add(title);
+        this.add(pointsMessage);
+        this.add(imageLabel);
+        this.add(button);
     }
 
     @Override
@@ -76,31 +82,44 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         // Clear the existing components before adding the new ones
         this.removeAll();
 
-        // Create a new main panel to update the view
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
-        // Title label
-        JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        final JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
+        title.setFont(new Font("Agency FB", Font.BOLD, 40));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(title);
+
 
         // Image label
-        ImageIcon image = new ImageIcon(state.getImagePath());
-        JLabel imageLabel = new JLabel(image);
+        //ImageIcon map = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
+        ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
+        Image image = map.getImage();
+        Image newimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon imageScaled = new ImageIcon(newimg);
+
+        JLabel imageLabel = new JLabel(imageScaled);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(imageLabel);
+
 
         // Points message label
+//        String message = "You scored " + pointsCalculatorViewModel.getState().getPointsEarned() + " points!";
+
         JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
         pointsMessage.setFont(new Font("Arial", Font.PLAIN, 18));
         pointsMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(pointsMessage);
 
-        // Add the toMenu button
-        mainPanel.add(toMenu);
-        this.add(mainPanel);
+        // Create the toMenu button
+        final JPanel button = new JPanel();
+        button.setBackground(new Color(219, 229, 232));
+
+        toMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.add(toMenu);
+        toMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pointsCalculatorController.switchToMenuView();
+            }
+        });
+        this.add(title);
+        this.add(pointsMessage);
+        this.add(imageLabel);
+        this.add(button);
 
         // Revalidate and repaint to update the view
         this.revalidate();
