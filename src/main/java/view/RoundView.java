@@ -37,9 +37,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     public RoundView(RoundViewModel roundViewModel) {
         this.roundViewModel = roundViewModel;
         this.roundViewModel.addPropertyChangeListener(this);
+        this.setBackground(new Color(219, 229, 232));
         roundViewModel.getState().setHintsUsed(0);
 
         final JPanel buttons = new JPanel();
+        buttons.setBackground(new Color(219, 229, 232));
         startRound = new JButton("Start Round");
         startRound.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttons.add(startRound);
@@ -79,7 +81,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         this.add(title);
         this.add(buttons);
         this.add(timerLabel);
+        this.add(Box.createVerticalGlue()); // Push content above to center this
         this.add(hintLabel);
+        this.add(Box.createVerticalGlue()); // Push content above to center this
+
+
     }
 
     /**

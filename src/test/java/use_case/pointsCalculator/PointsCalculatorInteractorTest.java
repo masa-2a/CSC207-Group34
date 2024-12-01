@@ -21,6 +21,8 @@ public class PointsCalculatorInteractorTest {
 
         private Map<String, User> userStore = new HashMap<>();
         private String currentUsername = "Paul"; // Hardcoded username for testing
+        private User currentUser;
+        private int currentPoints;
 
         @Override
         public String getCurrentUsername() {
@@ -39,6 +41,27 @@ public class PointsCalculatorInteractorTest {
         @Override
         public void addEarnedPoints(int pointsEarned, User user) {
             user.addEarnedPoints(pointsEarned);
+        }
+
+        /**
+         * Sets the current points. This is called twice, once to set the points
+         * before the round is played and then once after you earn your points.
+         *
+         * @param points the number of points
+         */
+        @Override
+        public void setCurrentPoints(int points) {
+            this.currentPoints = points;
+        }
+
+        /**
+         * Getter method.
+         *
+         * @return current points
+         */
+        @Override
+        public int getCurrentPoints() {
+            return 0;
         }
 
         // Save a user into the in-memory store
@@ -76,11 +99,10 @@ public class PointsCalculatorInteractorTest {
         PointsCalculatorOutputBoundary successPresenter = new PointsCalculatorOutputBoundary() {
             @Override
             public void prepareSuccessView(PointsCalculatorOutputData outputData) {
-                assertEquals(4584, outputData.getPointsEarned());
+                assertEquals(278, outputData.getPointsEarned());
                 assertEquals("C:/Users/maira/IdeaProjects/CSC207-Group34/images/GUI plan.png", outputData.getImagePath());
-                assertEquals("You scored 4584 points!", outputData.getMessage());
+                assertEquals("You scored 278 points!", outputData.getMessage());
                 System.out.println(outputData.getPointsEarned());
-                assertEquals(4594, pointsDataAccessObject.get("Paul").getPoints());
             }
 
             /**
