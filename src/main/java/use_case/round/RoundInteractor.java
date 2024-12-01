@@ -1,5 +1,6 @@
 package use_case.round;
 
+import use_case.hint.HintInputBoundary;
 import use_case.map2d.Map2DInputBoundary;
 import use_case.map2d.Map2DOutputData;
 
@@ -8,7 +9,7 @@ public class RoundInteractor implements RoundInputBoundary {
 
     private final Map2DInputBoundary map2DInteractor;
 
-    public RoundInteractor(Map2DInputBoundary map2DInteractor, RoundOutputBoundary roundPresenter) {
+    public RoundInteractor(Map2DInputBoundary map2DInteractor, HintInputBoundary hintInteractor, RoundOutputBoundary roundPresenter) {
         this.map2DInteractor = map2DInteractor;
         this.roundPresenter = roundPresenter;
     }

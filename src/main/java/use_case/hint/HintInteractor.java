@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HintInteractor {
+public class HintInteractor implements HintInputBoundary {
 
     private static Map<String, Map<String, String>> countryData = new HashMap<>();
 
@@ -22,29 +22,38 @@ public class HintInteractor {
     }
 
     private int hintCount = 0;
-    private final List<String> hints;
+    private final List<Map.Entry<String, String>> hints;
     private final String country;
+    private final HintOutputBoundary hintPresenter;
 
-    public HintInteractor(HintInputData inputData) {
+    public HintInteractor(HintInputData inputData, HintOutputBoundary hintPresenter) {
         this.country = inputData.getCountry();
+        this.hintPresenter = hintPresenter;
+
 
         // Generate hints based on the input country
         HintOutputData outputData = generateHint(country);
         this.hints = List.of(
-                outputData.getYearOfEstablishment(),
-                outputData.getOfficialLanguages(),
-                outputData.getFlag()
+                Map.entry("Year of Establishment", outputData.getYearOfEstablishment()),
+                Map.entry("Official Languages", outputData.getOfficialLanguages()),
+                Map.entry("Flag", outputData.getFlag())
         );
     }
 
     // Method to get the next hint
     public String getNextHint() {
         if (hintCount < hints.size()) {
-            String hint = hints.get(hintCount++);
-            return "Hint " + hintCount + ": " + hint;
+            Map.Entry<String, String> hint = hints.get(hintCount);
+            hintCount++;
+            return hint.getKey() + ": " + hint.getValue();
         } else {
             return "No more hints available.";
         }
+    }
+
+    // Returns the current number of hints shown so far
+    public int getHintCount() {
+        return hintCount;
     }
 
     // Generates the hint data
@@ -80,5 +89,10 @@ public class HintInteractor {
             countryMap.put("flag", countryDetails.optString("flag", "Unknown"));
             countryData.put(country, countryMap);
         }
+    }
+
+    @Override
+    public void execute(HintInputData hintinputData) {
+
     }
 }

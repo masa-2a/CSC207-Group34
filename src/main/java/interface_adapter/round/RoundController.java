@@ -8,11 +8,9 @@ import use_case.hint.HintInputData;
 public class RoundController {
 
     private final RoundInputBoundary roundUseCaseInteractor;
-    private final HintInputData hintInputData;
 
-    public RoundController(RoundInputBoundary roundUseCaseInteractor, HintInputData hintInputData) {
+    public RoundController(RoundInputBoundary roundUseCaseInteractor) {
         this.roundUseCaseInteractor = roundUseCaseInteractor;
-        this.hintInputData = hintInputData;
     }
 
     /**

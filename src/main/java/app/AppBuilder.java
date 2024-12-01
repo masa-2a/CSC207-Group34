@@ -14,6 +14,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.hint.HintViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -36,6 +37,8 @@ import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.hint.HintInputBoundary;
+import use_case.hint.HintInputData;
+import use_case.hint.HintInteractor;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -89,7 +92,9 @@ public class AppBuilder {
 
     private StreetViewMapViewModel streetViewMapViewModel;
     private MapView mapView;
-  
+
+    private HintView hintView;
+    private HintViewModel hintViewModel;
     private Map2DView map2DView;
     private Map2DViewModel map2DViewModel;
     private RoundView roundView;
@@ -189,12 +194,15 @@ public class AppBuilder {
         // Map2D Stuff
         map2DViewModel = new Map2DViewModel();
         map2DView = new Map2DView(map2DViewModel);
+        hintViewModel = new HintViewModel();
+        hintView = new HintView(hintViewModel);
         final Map2DInputBoundary map2DUseCaseInteractor = new Map2DUseCaseInteractor();
+        final HintInputBoundary hintInteractor = new HintInteractor();
 
 
         final RoundOutputBoundary roundOutputBoundary = new RoundPresenter(roundViewModel,
                 viewManagerModel);
-        final RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor,
+        final RoundInputBoundary roundUseCaseInteractor = new RoundInteractor(map2DUseCaseInteractor, hintInteractor,
                 roundOutputBoundary);
 
         final RoundController roundController = new RoundController(roundUseCaseInteractor);
