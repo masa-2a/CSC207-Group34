@@ -44,6 +44,7 @@ public class RoundInteractor implements RoundInputBoundary {
 
         final RoundOutputData roundOutputData = getRoundOutputData(roundInputData);
 
+        System.out.println("This is before I am calling streetviewmap interactor");
         streetViewMapInteractor.execute(streetViewMapInputData);
 
         roundPresenter.presentMapData(roundOutputData);

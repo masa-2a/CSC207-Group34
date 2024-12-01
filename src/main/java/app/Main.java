@@ -14,10 +14,7 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) {
-
         new JFXPanel();
-
-        Platform.runLater(() -> System.out.println("JavaFX initialized"));
 
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
