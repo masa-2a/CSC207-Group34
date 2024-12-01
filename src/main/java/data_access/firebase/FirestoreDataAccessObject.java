@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
-import CommonUser;
+import entity.User.CommonUser;
 import data_access.AbstractDataAccessObject;
 import entity.User.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;

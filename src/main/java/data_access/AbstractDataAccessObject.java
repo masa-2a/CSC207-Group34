@@ -2,7 +2,7 @@ package data_access;
 
 import java.util.ArrayList;
 
-import CommonUser;
+import entity.User.CommonUser;
 import entity.User.User;
 
 /**

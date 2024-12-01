@@ -1,6 +1,5 @@
 package use_case.login;
 
-import CommonUser;
 import entity.User.User;
 
 /**

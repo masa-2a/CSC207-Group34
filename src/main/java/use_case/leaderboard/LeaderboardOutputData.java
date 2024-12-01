@@ -2,7 +2,7 @@ package use_case.leaderboard;
 
 import java.util.Map;
 
-import CommonUser;
+import entity.User.CommonUser;
 
 /**
  * Holds output data for leaderboard use case.

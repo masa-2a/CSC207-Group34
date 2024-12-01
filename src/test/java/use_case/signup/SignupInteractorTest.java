@@ -1,7 +1,7 @@
 package use_case.signup;
 
 import data_access.non_persisting.InMemoryUserDataAccessObject;
-import CommonUserFactory;
+import entity.User.CommonUserFactory;
 import entity.User.User;
 import entity.User.UserFactory;
 import org.junit.jupiter.api.Test;

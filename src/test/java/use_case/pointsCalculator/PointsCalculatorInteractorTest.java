@@ -1,6 +1,6 @@
 package use_case.pointsCalculator;
 
-import CommonUser;
+import entity.User.CommonUser;
 import entity.User.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,6 +45,9 @@ public class PointsCalculatorInteractorTest {
         public void save(User user) {
             userStore.put(user.getName(), user);
         }
+
+        public int getCurrentPoints(){return 0;}
+        public void setCurrentPoints(int points){}
     }
 
     @BeforeEach

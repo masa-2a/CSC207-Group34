@@ -2,7 +2,7 @@ package use_case.leaderboard;
 
 import java.util.*;
 
-import CommonUser;
+import entity.User.CommonUser;
 
 /**
  * Leaderboard Interactor for the Leaderboard usecase.

@@ -1,7 +1,7 @@
 package use_case.leaderboard;
 
 import data_access.non_persisting.InMemoryUserDataAccessObject;
-import CommonUser;
+import entity.User.CommonUser;
 import entity.User.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
