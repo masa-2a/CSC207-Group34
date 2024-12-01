@@ -1,6 +1,6 @@
 package use_case.map2d;
 
-import entity.Map2D;
+import entity.map.Map2D;
 
 /**
  * Use Case Interactor for the Map2D Use Case.

@@ -1,4 +1,4 @@
-package entity;
+package entity.map;
 
 import java.nio.file.Paths;
 

@@ -2,8 +2,8 @@ package use_case.pointsCalculator;
 
 import java.util.Map;
 
-import entity.PointsCalculator;
-import entity.User;
+import entity.points.PointsCalculator;
+import entity.player.User;
 
 /**
  * Interactor for PointsCalculator.

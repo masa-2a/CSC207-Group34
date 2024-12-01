@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import entity.CommonUser;
+import entity.player.CommonUser;
 
 /**
  * This class contains the interactor for the leaderboard use case.

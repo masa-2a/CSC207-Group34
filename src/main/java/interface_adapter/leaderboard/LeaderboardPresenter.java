@@ -2,7 +2,7 @@ package interface_adapter.leaderboard;
 
 import java.util.Map;
 
-import entity.CommonUser;
+import entity.player.CommonUser;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.main_menu.MenuViewModel;
 import use_case.leaderboard.LeaderboardOutputBoundary;

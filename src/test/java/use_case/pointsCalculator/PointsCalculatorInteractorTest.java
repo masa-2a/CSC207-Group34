@@ -1,7 +1,7 @@
 package use_case.pointsCalculator;
 
-import entity.CommonUser;
-import entity.User;
+import entity.player.CommonUser;
+import entity.player.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
