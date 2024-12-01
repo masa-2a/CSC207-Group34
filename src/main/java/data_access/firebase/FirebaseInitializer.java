@@ -1,4 +1,4 @@
-package data_access;
+package data_access.firebase;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class FirebaseInitializer {
     public static Firestore initializeFirebase() {
         try {
             final FileInputStream serviceAccount =
-                    new FileInputStream("/Users/stevenqiao/IdeaProjects/geoguesser_firebase_service_account.json");
+                    new FileInputStream("/Users/masaarja/Desktop/geoguesser_firebase_service_account.json");
             final GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             final FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(credentials)

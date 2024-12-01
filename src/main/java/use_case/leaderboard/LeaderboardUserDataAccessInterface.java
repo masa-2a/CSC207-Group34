@@ -2,7 +2,7 @@ package use_case.leaderboard;
 
 import java.util.ArrayList;
 
-import entity.CommonUser;
+import entity.player.CommonUser;
 
 /**
  * Interface for the leaderboard user data access.
