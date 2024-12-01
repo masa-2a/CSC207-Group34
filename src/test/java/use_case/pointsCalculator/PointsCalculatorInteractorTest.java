@@ -41,6 +41,27 @@ public class PointsCalculatorInteractorTest {
             user.addEarnedPoints(pointsEarned);
         }
 
+        /**
+         * Sets the current points. This is called twice, once to set the points
+         * before the round is played and then once after you earn your points.
+         *
+         * @param points the number of points
+         */
+        @Override
+        public void setCurrentPoints(int points) {
+
+        }
+
+        /**
+         * Getter method.
+         *
+         * @return current points
+         */
+        @Override
+        public int getCurrentPoints() {
+            return 0;
+        }
+
         // Save a user into the in-memory store
         public void save(User user) {
             userStore.put(user.getName(), user);

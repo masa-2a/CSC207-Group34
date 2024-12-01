@@ -12,7 +12,7 @@ public class RoundInputData {
     private int hintsUsed;
 
     public RoundInputData(double lat, double longitude, String country) {
-        this.streetViewMapInputData = new StreetViewMapInputData(longitude, lat);
+        this.streetViewMapInputData = new StreetViewMapInputData(lat, longitude);
         this.country = country;
     }
 

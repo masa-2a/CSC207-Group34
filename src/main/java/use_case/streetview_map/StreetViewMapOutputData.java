@@ -29,4 +29,5 @@ public class StreetViewMapOutputData {
     public double getUserLongitude() {
         return userLongitude;
     }
+
 }
