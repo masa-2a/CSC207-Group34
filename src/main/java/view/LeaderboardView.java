@@ -21,30 +21,26 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
     public LeaderboardView(LeaderboardViewModel leaderboardViewModel) {
         this.leaderboardViewModel = leaderboardViewModel;
         this.leaderboardViewModel.addPropertyChangeListener(this);
+        this.setBackground(new Color(219, 230, 234));
 
         LeaderboardState leaderboardState = leaderboardViewModel.getState();
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBackground(new Color(219, 255, 240));
 
         JLabel title = new JLabel(LeaderboardViewModel.TITLE_LABEL);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setFont(new Font("Agency FB",Font.PLAIN, 40));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        //this.add(title, BorderLayout.NORTH);
+
         mainPanel.add(title);
 
-        //this.add(Box.createRigidArea(new Dimension(0, 20)));
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JPanel leaderboardPanel = new JPanel();
         leaderboardPanel.setLayout(new BoxLayout(leaderboardPanel, BoxLayout.Y_AXIS));
-        //leaderboardPanel.setBackground(Color.WHITE);
-
-        // populate with top users
-        //leaderboardPanel.removeAll();
-
-        //display top users
+        leaderboardPanel.setBackground(new Color(219, 229, 232));
 
         leaderboardPanel.add(createUserPanel(1,
                 leaderboardState.getFirstPlaceName(),
@@ -65,11 +61,14 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
                     leaderboardState.getCurrentUserPoints()));
         }
 
+
         mainPanel.add(leaderboardPanel);
+        mainPanel.setBackground(new Color(219, 229, 232));
 
         menu = new JButton(LeaderboardViewModel.BACK_TO_MENU_BUTTON);
         menu.setFont(new Font("Arial", Font.PLAIN, 16));
         menu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        menu.setBackground(new Color(219, 229, 232));
         menu.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -81,6 +80,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         mainPanel.add(menu);
 
         JScrollPane scrollPane = new JScrollPane(mainPanel);
+        scrollPane.setBackground(new Color(219, 229, 232));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         this.add(scrollPane);
         this.setVisible(true);
@@ -88,12 +88,14 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
     }
 
     private JPanel createUserPanel(Integer rank, String name, int avgPoints) {
+        Color darkBlue = new Color(86, 135, 130);
+        Color lightYellow = new Color(252,252, 197);
         JPanel userPanel = new JPanel();
         userPanel.setLayout(new BorderLayout());
         userPanel.setPreferredSize(new Dimension(350, 80));
         userPanel.setMaximumSize(new Dimension(350, 80)); // Fixed size
         userPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        userPanel.setBackground(rank == 1 ? Color.YELLOW : rank <= 3 ? Color.LIGHT_GRAY : Color.WHITE);
+        userPanel.setBackground(rank == 1 ? lightYellow: rank <= 3 ? darkBlue : Color.WHITE);
 
         JLabel rankLabel = new JLabel(String.valueOf(rank));
         rankLabel.setFont(new Font("Arial", Font.BOLD, 36));
@@ -112,11 +114,11 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         userDetails.add(nameLabel, BorderLayout.WEST);
         userDetails.add(pointsLabel, BorderLayout.EAST);
         userDetails.setPreferredSize(new Dimension(300, 50));
+        userDetails.setBackground(new Color(219, 229, 232));
 
         userPanel.add(rankLabel, BorderLayout.WEST);
         userPanel.add(userDetails, BorderLayout.CENTER);
         userPanel.add(pointsLabel, BorderLayout.EAST);
-
         return userPanel;
     }
 
@@ -133,11 +135,13 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         removeAll();
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBackground(new Color(219, 229, 232));
 
         JLabel title = new JLabel(LeaderboardViewModel.TITLE_LABEL);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setFont(new Font("Agency FB",Font.PLAIN, 40));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setBackground(new Color(219, 229, 232));
         mainPanel.add(title);
 
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -153,7 +157,7 @@ public class LeaderboardView extends JPanel implements ActionListener, PropertyC
         if (state.getCurrentUserPlace() != null) {
             leaderboardPanel.add(createUserPanel(Integer.valueOf(state.getCurrentUserPlace()), LeaderboardViewModel.YOU_LABEL, state.getCurrentUserPoints()));
         }
-
+        leaderboardPanel.setBackground(new Color(219, 229, 232));
         mainPanel.add(leaderboardPanel);
 
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
