@@ -1,4 +1,5 @@
-###Accessibility Report
+### Accessibility Report ###
+
 
 **1.** As a group, answer the following questions — place your answers in a file called accessibility-report.md in your group's GitHub repository:
 For each Principle of Universal Design, write 2-3 sentences — or point form notes — explaining which features of your program adhere to that principle. If you do not have any such features, you can either:  
