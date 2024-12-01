@@ -8,7 +8,7 @@ public class StreetViewMapInputData {
     private final double goalLongitude;
     private final double goalLatitude;
 
-    public StreetViewMapInputData(double goalLongitude, double goalLatitude) {
+    public StreetViewMapInputData(double goalLatitude, double goalLongitude) {
         this.goalLongitude = goalLongitude;
         this.goalLatitude = goalLatitude;
     }
