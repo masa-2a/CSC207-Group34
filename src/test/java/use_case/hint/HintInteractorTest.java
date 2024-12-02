@@ -28,7 +28,7 @@ public class HintInteractorTest {
         };
 
         // Create interactor and execute
-        HintInputBoundary interactor = new HintInteractor(inputData, successPresenter);
+        HintInputBoundary interactor = new HintInteractor();
         interactor.execute(inputData);
 
         // Verify hints can be retrieved in sequence

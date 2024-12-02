@@ -13,10 +13,11 @@ public class HintController {
     /**
      * Executes the Points Calculator Use Case.
      * @param country the country the user is trying to guess.
+     * @param filePath the file the game is accessing.
      */
-    public void execute(String country) {
+    public void execute(String country, String filePath) {
         final HintInputData pointsCalculatorInputData =
-                new HintInputData(country);
+                new HintInputData(country, filePath);
 
         hintInteractor.execute(pointsCalculatorInputData);
     }

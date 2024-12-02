@@ -16,7 +16,6 @@ import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardViewModel;
-import interface_adapter.hint.HintViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -31,12 +30,7 @@ import interface_adapter.points_calculator.PointsCalculatorViewModel;
 import interface_adapter.round.RoundController;
 import interface_adapter.round.RoundPresenter;
 import interface_adapter.round.RoundViewModel;
-import interface_adapter.map2d.Map2DController;
-import interface_adapter.map2d.Map2DPresenter;
 import interface_adapter.map2d.Map2DViewModel;
-import interface_adapter.round.RoundController;
-import interface_adapter.round.RoundPresenter;
-import interface_adapter.round.RoundViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -45,7 +39,6 @@ import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.hint.HintInputBoundary;
-import use_case.hint.HintInputData;
 import use_case.hint.HintInteractor;
 import use_case.countdown.CountdownInputBoundary;
 import use_case.countdown.CountdownInteractor;
@@ -77,6 +70,7 @@ import use_case.signup.SignupOutputBoundary;
 import use_case.streetview_map.StreetViewMapInputBoundary;
 import use_case.streetview_map.StreetViewMapInteractor;
 import view.*;
+import view.game.MapView;
 import view.game.PointsCalculatorView;
 import view.game.RoundView;
 
@@ -124,8 +118,6 @@ public class AppBuilder {
 
     private MapView mapView;
 
-    private HintView hintView;
-    private HintViewModel hintViewModel;
     private Map2DView map2DView;
     private Map2DViewModel map2DViewModel;
 
