@@ -35,11 +35,12 @@ This project was made for the course CSC207 - Software Design at University of T
 4. Javafx SDK   
          a. Download from https://gluonhq.com/products/javafx/  
          b. Then unzip it and move the folder to this project's main directory.
-
-5. Google API, //add pls
-
-
-
+5. Google Maps API         
+      a. Head over to [Google Cloud Console Platform](https://console.cloud.google.com/) and create a new project with Google Maps JavaScript API enabled.      
+      b. Then create a new API key from the hamburger menu by following API & Services -> Credentials -> Create Credentials -> API Key.   
+      c. In the ```Map.html``` file, locate this line and replace the placeholder with your API key:    
+       ```<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initialize&v=weekly"></script>```
+   
 ## Usage
 1. In your IDE, navigate to src/main/java/app
 2. Locate the Main.java file and Run it.
