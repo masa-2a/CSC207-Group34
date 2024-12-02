@@ -28,7 +28,6 @@ This project was made for the course CSC207 - Software Design at University of T
 - Firestore API, which stores the user data of everyone who has played the game using your API key on any device.   
   - Head over to [Google FireBase](https://firebase.google.com/) and create a new project with Google Firestore (from the Go To Console button on the top right), you can call it Geogussr, MapMaster or whatever else you want.  
   - Then create a new collection in the Firestore data base called "Users".
-  - Then create a new collection in the Firestore data base called "Users".
   - Next, go to project settings -> Service Accounts click "Generate a new private key" for java and save that .json file somewhere safe on you device.    
   - Now go back to your IDE and check src/main/java/data_acess/firebase/FirebaseInitialiser. Notice the line that has the following code. 
   ```FileInputStream serviceAccount = new FileInputStream("/ADD/YOUR/FILE/PATH");``` add the path of the json file from step c between the qoutes instead of our filler code.  
