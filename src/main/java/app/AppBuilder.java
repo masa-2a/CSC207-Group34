@@ -33,7 +33,6 @@ import interface_adapter.round.RoundViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.streetview_map.StreetViewMapViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -112,7 +111,6 @@ public class AppBuilder {
     private LeaderboardViewModel leaderboardViewModel;
     private LeaderboardView leaderboardView;
 
-    private StreetViewMapViewModel streetViewMapViewModel;
     private RoundView roundView;
     private RoundViewModel roundViewModel;
     private LeaderboardInputBoundary leaderboardInteractor;

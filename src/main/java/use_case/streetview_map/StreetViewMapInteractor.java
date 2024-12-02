@@ -2,6 +2,7 @@ package use_case.streetview_map;
 
 import entity.map.Map;
 import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
 
 /**
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
     private final Map map;
     private final PlatformRunner platformRunner;
+    private Stage stage;
 
     /**
      * Constructor using default Platform.runLater.
@@ -32,11 +34,20 @@ public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
 
     @Override
     public void execute(StreetViewMapInputData streetViewInputData) {
+
+        // Ensure JavaFX platform is initialized if it hasn't been already
+        if (!Platform.isFxApplicationThread()) {
+            new JFXPanel(); // Force initialization of JavaFX
+        }
+
         final double goalLatitude = streetViewInputData.getGoalLatitude();
         final double goalLongitude = streetViewInputData.getGoalLongitude();
 
         platformRunner.run(() -> {
-            final Stage stage = new Stage();
+            System.out.println("JavaFX initialized");
+            if (stage == null || !stage.isShowing()) {
+                stage = new Stage();
+            }
             map.giveCoords(goalLatitude, goalLongitude);
             map.start(stage);
         });

@@ -111,6 +111,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
                     roundViewModel.getState().getGuessedLongitude(),
                     roundViewModel.getState().getCountry(),
                     roundViewModel.getState().getHintsUsed());
+            startRound.setVisible(true);
+            submitGuess.setVisible(false);
+            hintLabel.setVisible(false);
+            timerLabel.setVisible(false);
+            showHint.setVisible(false);
         }
         if (e.getSource().equals(showHint)) {
             hintLabel.setVisible(true);

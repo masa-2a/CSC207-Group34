@@ -14,16 +14,16 @@ import use_case.round.RoundOutputBoundary;
 public class CountdownInteractor implements CountdownInputBoundary {
     private static final int SECONDSTOMINUTE = 60;
     private Instant startTime;
-    private final ScheduledExecutorService scheduler;
+    private ScheduledExecutorService scheduler;
     private final RoundOutputBoundary roundPresenter;
 
     public CountdownInteractor(RoundOutputBoundary roundPresenter) {
-        this.scheduler = Executors.newScheduledThreadPool(1);
         this.roundPresenter = roundPresenter;
     }
 
     @Override
     public void startCountdown(CountdownInputData countdownInputData) {
+        scheduler = Executors.newScheduledThreadPool(1);
         final Duration countdownDuration = countdownInputData.getCountdownDuration();
         // Record start time
         this.startTime = Instant.now();
