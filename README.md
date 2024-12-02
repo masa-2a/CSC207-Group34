@@ -20,26 +20,31 @@ This project was made for the course CSC207 - Software Design at University of T
 - **Leaderboard**: A leaderboard displays the highest-ranked players, sorted by their average points.
 
 ## Installation Instructions
-1. Clone the repository from GitHub:
-   ```bash
-   git clone https://github.com/masa-2a/CSC207-Group34.git
-2. Open the project in your IDE
-3. Firestore API, which stores the user data of everyone who has played the game using your API key on any device.   
-         a. Head over to [Google FireBase](https://firebase.google.com/) and create a new project with Google Firestore (from the Go To Console button on the top                 right), you can call it Geogussr, MapMaster or whatever else you want.  
-         b. Then create a new collection in the Firestore data base called "Users".
-         c. Next, go to project settings -> Service Accounts click "Generate a new private key" for java and save that .json file somewhere safe on you device.    
-         c. Now go back to your IDE and check src/main/java/data_acess/firebase/FirebaseInitialiser. Notice the line that has the following code. 
-      ```FileInputStream serviceAccount = new FileInputStream("/ADD/YOUR/FILE/PATH");```  
-            add the path of the json file from step c between the qoutes instead of our filler code.  
-         e. Any of your friends that want to play the game must have the service key json file shared with them and they should repeat this same process. Keep in                 mind this key should only be shared with people you trust. You can play around with the sercuity feature of you project to delegate who can delete                    documents and such.
-4. Javafx SDK   
-         a. Download from https://gluonhq.com/products/javafx/  
-         b. Then unzip it and move the folder to this project's main directory.
-5. Google Maps API         
-      a. Head over to [Google Cloud Console Platform](https://console.cloud.google.com/) and create a new project with Google Maps JavaScript API enabled.      
-      b. Then create a new API key from the hamburger menu by following API & Services -> Credentials -> Create Credentials -> API Key.   
-      c. In the ```Map.html``` file, locate this line and replace the placeholder with your API key:    
-       ```<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initialize&v=weekly"></script>```
+- Clone the repository from GitHub:
+  - ```bash
+     git clone https://github.com/masa-2a/CSC207-Group34.git
+    
+- Open the project in your IDE
+- Firestore API, which stores the user data of everyone who has played the game using your API key on any device.   
+  - Head over to [Google FireBase](https://firebase.google.com/) and create a new project with Google Firestore (from the Go To Console button on the top right), you can call it Geogussr, MapMaster or whatever else you want.  
+  - Then create a new collection in the Firestore data base called "Users".
+  - Then create a new collection in the Firestore data base called "Users".
+  - Next, go to project settings -> Service Accounts click "Generate a new private key" for java and save that .json file somewhere safe on you device.    
+  - Now go back to your IDE and check src/main/java/data_acess/firebase/FirebaseInitialiser. Notice the line that has the following code. 
+  ```FileInputStream serviceAccount = new FileInputStream("/ADD/YOUR/FILE/PATH");``` add the path of the json file from step c between the qoutes instead of our filler code.  
+  - Any of your friends that want to play the game must have the service key json file shared with them and they should repeat this same process. Keep in mind this key should only be shared with people you trust. You can play around with the sercuity feature of you project to delegate who can delete documents and such. 
+- Javafx SDK
+  - Download from https://gluonhq.com/products/javafx/  
+  - Then unzip it and move the folder to this project's main directory.
+  - Edit your run configuration and click 'Modify options'. Then Click Add VM and insert this into the space provided
+  ```--module-path $PATH_TO_JAVAFX/lib --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.swing --add-exports javafx.base/com.sun.javafx.logging=ALL-UNNAMED```
+- Google Maps API         
+  - Head over to [Google Cloud Console Platform](https://console.cloud.google.com/) and create a new project with Google Maps JavaScript API enabled.      
+  - Then create a new API key from the hamburger menu by following API & Services -> Credentials -> Create Credentials -> API Key.
+  - In the ```Map.html``` file, locate this line and replace the placeholder with your API key:
+  ```<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initialize&v=weekly"></script>```
+  - Then with the API key, create a run configuration and add it as an environment variable with this  
+        ```API_KEY=[Insert API Key here]```
    
 ## Usage
 1. In your IDE, navigate to src/main/java/app
