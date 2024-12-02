@@ -9,7 +9,6 @@ import java.util.Random;
 import org.jetbrains.annotations.NotNull;
 
 import use_case.hint.HintOutputData;
-import use_case.map2d.Map2DInputBoundary;
 import use_case.pointsCalculator.PointsCalculatorInputBoundary;
 import use_case.pointsCalculator.PointsCalculatorInputData;
 import use_case.streetview_map.StreetViewMapInputBoundary;
