@@ -18,11 +18,14 @@ import interface_adapter.round.RoundViewModel;
  * View for the Round Use Case.
  */
 public class RoundView extends JPanel implements ActionListener, PropertyChangeListener {
-    private static final int FONT_SIZE = 20;
-    public static final int R = 219;
-    public static final int G = 229;
+
     public static final int B = 232;
+    public static final int G = 229;
+    public static final int R = 219;
+
+    private static final int FONT_SIZE = 20;
     private final String viewName = "Round View";
+
     private final RoundViewModel roundViewModel;
     private RoundController roundController;
     private final JButton startRound;

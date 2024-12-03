@@ -23,6 +23,7 @@ public class PointsCalculatorInteractor implements
      *
      * @param pointsDataAccessInterface the data access interface for points calc
      * @param pointsCalculatorPresenter the presenter for points calc
+     * @param map2DInteractor the interactor for map2D
      */
     public PointsCalculatorInteractor(PointsCalculatorDataAccessInterface
                                               pointsDataAccessInterface,

@@ -22,15 +22,15 @@ import interface_adapter.points_calculator.PointsCalculatorViewModel;
 public class PointsCalculatorView extends JPanel implements ActionListener, PropertyChangeListener {
 
     // Constants
-    private static final String FONT_NAME = "Arial";
-    private static final int TITLE_FONT_SIZE = 24;
-    private static final int MESSAGE_FONT_SIZE = 18;
-    private static final int BUTTON_FONT_SIZE = 16;
-    public static final int SIZE = 40;
-    public static final int R = 219;
-    public static final int G = 229;
     public static final int B = 232;
+    public static final int G = 229;
+    public static final int R = 219;
+    public static final int SIZE = 40;
 
+    private static final int MESSAGE_FONT_SIZE = 18;
+    private static final int WIDTH_HEIGHT = 300;
+
+    private static final String FONT_NAME = "Arial";
     private final String viewName = "PointsCalculatorView";
 
     private final PointsCalculatorViewModel pointsCalculatorViewModel;
@@ -54,7 +54,7 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         // ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
         final ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
         final Image image = map.getImage();
-        final Image newimg = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        final Image newimg = image.getScaledInstance(WIDTH_HEIGHT, WIDTH_HEIGHT, Image.SCALE_SMOOTH);
         final ImageIcon imageScaled = new ImageIcon(newimg);
 
         final JLabel imageLabel = new JLabel(imageScaled);
@@ -108,14 +108,14 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         // ImageIcon map = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
         final ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
         final Image image = map.getImage();
-        final Image newimg = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        final Image newimg = image.getScaledInstance(WIDTH_HEIGHT, WIDTH_HEIGHT, Image.SCALE_SMOOTH);
         final ImageIcon imageScaled = new ImageIcon(newimg);
 
         final JLabel imageLabel = new JLabel(imageScaled);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
-        pointsMessage.setFont(new Font("Arial", Font.PLAIN, 18));
+        pointsMessage.setFont(new Font("Arial", Font.PLAIN, MESSAGE_FONT_SIZE));
         pointsMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Create the toMenu button
