@@ -2,6 +2,8 @@ package use_case.hint;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,18 +49,19 @@ public class HintInteractor implements HintInputBoundary {
 
     // Loads the country data from the JSON file
     private void loadCountryData(String filePath) throws IOException {
-        final FileInputStream fileInputStream = new FileInputStream(filePath);
-        final JSONTokener tokener = new JSONTokener(fileInputStream);
-        final JSONObject jsonObject = new JSONObject(tokener);
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8)) {
+            final JSONTokener tokener = new JSONTokener(reader);
+            final JSONObject jsonObject = new JSONObject(tokener);
 
-        // Populate the country data map
-        for (String country : jsonObject.keySet()) {
-            final JSONObject countryDetails = jsonObject.getJSONObject(country);
-            final Map<String, String> countryMap = new HashMap<>();
-            countryMap.put(EST_YEAR, countryDetails.optString(EST_YEAR, UNKNOWN));
-            countryMap.put(OFFICIAL_LANGUAGES, countryDetails.optString(OFFICIAL_LANGUAGES, UNKNOWN));
-            countryMap.put(FLAG, countryDetails.optString("flag", UNKNOWN));
-            countryData.put(country, countryMap);
+            // Populate the country data map
+            for (String country : jsonObject.keySet()) {
+                final JSONObject countryDetails = jsonObject.getJSONObject(country);
+                final Map<String, String> countryMap = new HashMap<>();
+                countryMap.put(EST_YEAR, countryDetails.optString(EST_YEAR, UNKNOWN));
+                countryMap.put(OFFICIAL_LANGUAGES, countryDetails.optString(OFFICIAL_LANGUAGES, UNKNOWN));
+                countryMap.put(FLAG, countryDetails.optString(FLAG, UNKNOWN));
+                countryData.put(country, countryMap);
+            }
         }
     }
 
@@ -76,10 +79,13 @@ public class HintInteractor implements HintInputBoundary {
 
     // Method to get the next hint
     private HintOutputData getNextHint() {
+        final List<String> hintTitles = List.of("Year of Establishment", "Official Languages", "Flag");
+
         if (hintCount < hints.size()) {
             final String hint = hints.get(hintCount);
+            final String hintTitle = hintTitles.get(hintCount);
             hintCount++;
-            final String hintFinal = "Hint " + hintCount + ": " + hint;
+            final String hintFinal = hintTitle + ": " + hint;
             return new HintOutputData(hintFinal, hintCount);
         }
         else {
