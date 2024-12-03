@@ -12,6 +12,8 @@ import use_case.map2d.Map2DInputData;
  */
 public class PointsCalculatorInteractor implements
         PointsCalculatorInputBoundary {
+    public static final String LONGITUDE = "longitude";
+    public static final String LATITUDE = "latitude";
     private final PointsCalculatorDataAccessInterface pointsDataAccessObject;
     private final PointsCalculatorOutputBoundary pointsCalculatorPresenter;
     private final Map2DInputBoundary map2DInteractor;
@@ -21,7 +23,7 @@ public class PointsCalculatorInteractor implements
      *
      * @param pointsDataAccessInterface the data access interface for points calc
      * @param pointsCalculatorPresenter the presenter for points calc
-     * @param map2DInteractor interactor for map2d
+     * @param map2DInteractor the interactor for map2D
      */
     public PointsCalculatorInteractor(PointsCalculatorDataAccessInterface
                                               pointsDataAccessInterface,
@@ -52,14 +54,14 @@ public class PointsCalculatorInteractor implements
 
         // Generating Image Displayed - Calling another Use Case
         final int pixels = 300;
-        final double k = (double) pixels * 156543.03392 * Math.cos(randomLocation.get("longitude") * Math.PI / 180);
-        int zoom = (int) ((Math.round(Math.log((70 * k) / (distance * 1000 * 100)) / 0.6931471805599453)) - 1);
+        final double k = (double) pixels * 156543.03392 * Math.cos(randomLocation.get(LONGITUDE) * Math.PI / 180);
+        final int zoom = (int) ((Math.round(Math.log((70 * k) / (distance * 1000 * 100)) / 0.6931471805599453)) - 1);
 
-        Map2DInputData map2DInputData = new Map2DInputData(
-                300, 300, randomLocation.get("latitude"),
-                randomLocation.get("longitude"), zoom, randomLocation.get("latitude"),
-                randomLocation.get("longitude"), chosenLocation.get("latitude"),
-                chosenLocation.get("longitude"), true, true);
+        final Map2DInputData map2DInputData = new Map2DInputData(
+                300, 300, randomLocation.get(LATITUDE),
+                randomLocation.get(LONGITUDE), zoom, randomLocation.get(LATITUDE),
+                randomLocation.get(LONGITUDE), chosenLocation.get(LATITUDE),
+                chosenLocation.get(LONGITUDE), true, true);
 
         map2DInteractor.execute(map2DInputData);
 
@@ -100,7 +102,7 @@ public class PointsCalculatorInteractor implements
      */
     public double getDistance(Map<String, Double> randomLocation,
                               Map<String, Double> chosenLocation) {
-        final String lat = "latitude";
+        final String lat = LATITUDE;
         final String lon = "longitude";
         if (!randomLocation.containsKey(lat)
                 || !randomLocation.containsKey(lon)

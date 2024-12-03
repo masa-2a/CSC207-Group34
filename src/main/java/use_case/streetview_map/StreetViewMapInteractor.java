@@ -37,7 +37,8 @@ public class StreetViewMapInteractor implements StreetViewMapInputBoundary {
 
         // Ensure JavaFX platform is initialized if it hasn't been already
         if (!Platform.isFxApplicationThread()) {
-            new JFXPanel(); // Force initialization of JavaFX
+            new JFXPanel();
+            // Force initialization of JavaFX
         }
 
         final double goalLatitude = streetViewInputData.getGoalLatitude();

@@ -110,7 +110,7 @@ c. Now you will see the Main Menu and you can decide what you would like to do b
 - When you click "new round" you will be met with a google street view map and a world view map.  
     1. You must guess the location of the street view map and place a guess on the world view map.
        ![image](https://github.com/user-attachments/assets/0a79c604-4612-4f36-9790-2a43ee2bc020)
-    2. If you would like you can check the hints, press the button and you have three possible hints with varying difficulty.
+    2. If you would like you can check the hints, press the button and you have three possible hints with varying difficulty. the hints are categorized into 1. year of establishment 2. official languages 3. flags of the country where the random location is at.
        ![image](https://github.com/user-attachments/assets/91c93a13-4176-41c8-a1c2-65ed6db744ac)
     3. After you submit your coordinates on the pop up browser, press the guess submit on the original and you will be given points depending on how accurate your guess is, how long you took and how many hints you used.
        ![image](https://github.com/user-attachments/assets/da8f9cd5-f963-44fb-b3ee-161d680696a2)

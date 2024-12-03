@@ -22,11 +22,15 @@ import interface_adapter.points_calculator.PointsCalculatorViewModel;
 public class PointsCalculatorView extends JPanel implements ActionListener, PropertyChangeListener {
 
     // Constants
-    private static final String FONT_NAME = "Arial";
-    private static final int TITLE_FONT_SIZE = 24;
-    private static final int MESSAGE_FONT_SIZE = 18;
-    private static final int BUTTON_FONT_SIZE = 16;
+    public static final int B = 232;
+    public static final int G = 229;
+    public static final int R = 219;
+    public static final int SIZE = 40;
 
+    private static final int MESSAGE_FONT_SIZE = 18;
+    private static final int WIDTH_HEIGHT = 300;
+
+    private static final String FONT_NAME = "Arial";
     private final String viewName = "PointsCalculatorView";
 
     private final PointsCalculatorViewModel pointsCalculatorViewModel;
@@ -37,26 +41,24 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         this.pointsCalculatorViewModel = pointsCalculatorViewModel;
         this.pointsCalculatorViewModel.addPropertyChangeListener(this);
 
-        this.setBackground(new Color(219, 229, 232));
+        this.setBackground(new Color(R, G, B));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Title label
         final JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
-        title.setFont(new Font("Agency FB", Font.BOLD, 40));
+        title.setFont(new Font("Agency FB", Font.BOLD, SIZE));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
 
         // Image label
 
-        //ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
-        ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
-        Image image = map.getImage();
-        Image newimg = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-        ImageIcon imageScaled = new ImageIcon(newimg);
+        // ImageIcon image = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
+        final ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
+        final Image image = map.getImage();
+        final Image newimg = image.getScaledInstance(WIDTH_HEIGHT, WIDTH_HEIGHT, Image.SCALE_SMOOTH);
+        final ImageIcon imageScaled = new ImageIcon(newimg);
 
-        JLabel imageLabel = new JLabel(imageScaled);
+        final JLabel imageLabel = new JLabel(imageScaled);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
 
         // Points message label
         final JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
@@ -65,7 +67,7 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
 
         // Create the toMenu button
         final JPanel button = new JPanel();
-        button.setBackground(new Color(219, 229, 232));
+        button.setBackground(new Color(R, G, B));
         toMenu = new JButton(PointsCalculatorViewModel.TO_MENU_BUTTON_LABEL);
 
         toMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -98,34 +100,32 @@ public class PointsCalculatorView extends JPanel implements ActionListener, Prop
         // Clear the existing components before adding the new ones
         this.removeAll();
 
-
         final JLabel title = new JLabel(PointsCalculatorViewModel.TITLE_LABEL);
-        title.setFont(new Font("Agency FB", Font.BOLD, 40));
+        title.setFont(new Font("Agency FB", Font.BOLD, SIZE));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         // Image label
-        //ImageIcon map = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
-        ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
-        Image image = map.getImage();
-        Image newimg = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-        ImageIcon imageScaled = new ImageIcon(newimg);
+        // ImageIcon map = new ImageIcon(pointsCalculatorViewModel.getState().getImagePath());
+        final ImageIcon map = new ImageIcon("src/main/resources/static_map.png");
+        final Image image = map.getImage();
+        final Image newimg = image.getScaledInstance(WIDTH_HEIGHT, WIDTH_HEIGHT, Image.SCALE_SMOOTH);
+        final ImageIcon imageScaled = new ImageIcon(newimg);
 
-        JLabel imageLabel = new JLabel(imageScaled);
+        final JLabel imageLabel = new JLabel(imageScaled);
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
-        pointsMessage.setFont(new Font("Arial", Font.PLAIN, 18));
+        final JLabel pointsMessage = new JLabel(pointsCalculatorViewModel.getState().getMessage());
+        pointsMessage.setFont(new Font("Arial", Font.PLAIN, MESSAGE_FONT_SIZE));
         pointsMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Create the toMenu button
         final JPanel button = new JPanel();
-        button.setBackground(new Color(219, 229, 232));
+        button.setBackground(new Color(R, G, B));
 
         toMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.add(toMenu);
         toMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
                 pointsCalculatorController.switchToMenuView();
             }
         });
