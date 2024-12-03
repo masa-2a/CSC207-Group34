@@ -10,7 +10,6 @@ import use_case.countdown.CountdownOutputData;
 import use_case.hint.HintInputBoundary;
 import use_case.hint.HintInputData;
 import use_case.hint.HintOutputData;
-import use_case.pointsCalculator.PointsCalculatorInputBoundary;
 import use_case.round.RoundInputBoundary;
 import use_case.round.RoundInputData;
 

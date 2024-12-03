@@ -71,10 +71,10 @@ import view.LeaderboardView;
 import view.LoggedInView;
 import view.LoginView;
 import view.MenuView;
-import view.game.PointsCalculatorView;
-import view.game.RoundView;
 import view.SignupView;
 import view.ViewManager;
+import view.game.PointsCalculatorView;
+import view.game.RoundView;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -336,7 +336,7 @@ public class AppBuilder {
         // Map2D Stuff
         final Map2DInputBoundary map2DInteractor = new Map2DUseCaseInteractor();
 
-        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsPresenter,map2DInteractor);
+        pointsInteractor = new PointsCalculatorInteractor(userDataAccessObject, pointsPresenter, map2DInteractor);
 
         final PointsCalculatorController pointsController = new PointsCalculatorController(pointsInteractor);
         pointsView.setPointsCalculatorController(pointsController);

@@ -2,10 +2,10 @@ package use_case.pointsCalculator;
 
 import java.util.Map;
 
+import entity.player.User;
+import entity.points.PointsCalculator;
 import use_case.map2d.Map2DInputBoundary;
 import use_case.map2d.Map2DInputData;
-import entity.points.PointsCalculator;
-import entity.player.User;
 
 /**
  * Interactor for PointsCalculator.
@@ -52,10 +52,10 @@ public class PointsCalculatorInteractor implements
         System.out.println("Distance: " + distance);
         System.out.println("Timespent: " + timespent);
         System.out.println("Hintsused: " + hintsused);
-        int pixels= 300;
-        double k = (double)pixels * 156543.03392 * Math.cos(randomLocation.get("longitude") * Math.PI / 180);
-        int zoom = (int)((Math.round(Math.log((70 * k) / (distance * 1000 * 100)) / 0.6931471805599453)) - 1);
-        System.out.println("Zoom level is "+zoom);
+        int pixels = 300;
+        double k = (double) pixels * 156543.03392 * Math.cos(randomLocation.get("longitude") * Math.PI / 180);
+        int zoom = (int) ((Math.round(Math.log((70 * k) / (distance * 1000 * 100)) / 0.6931471805599453)) - 1);
+        System.out.println("Zoom level is " + zoom);
 
         Map2DInputData map2DInputData = new Map2DInputData(
                 300, 300, randomLocation.get("latitude"),

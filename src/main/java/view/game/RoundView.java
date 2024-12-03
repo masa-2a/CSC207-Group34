@@ -76,10 +76,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
         this.add(title);
         this.add(buttons);
         this.add(timerLabel);
-        this.add(Box.createVerticalGlue()); // Push content above to center this
+        // Push content above to center this
+        this.add(Box.createVerticalGlue());
         this.add(hintLabel);
-        this.add(Box.createVerticalGlue()); // Push content above to center this
-
+        // Push content above to center this
+        this.add(Box.createVerticalGlue());
 
     }
 

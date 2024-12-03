@@ -67,7 +67,7 @@ public class Map extends Application {
             if (stage != null) {
                 stage.hide();
             }
-//            Platform.exit();
+            //            Platform.exit();
         });
     }
 
@@ -76,8 +76,10 @@ public class Map extends Application {
      * @param primaryStage the stage to load the map on
      */
     public void loadMap(Stage primaryStage) {
-        if (stage == null) {  // Check if the stage is already created
-            stage = primaryStage;  // Create a new stage if necessary
+        // Check if the stage is already created
+        if (stage == null) {
+            // Create a new stage if necessary
+            stage = primaryStage;
         }
         final Engine engine = Engine.newInstance(EngineOptions.newBuilder(RenderingMode.OFF_SCREEN)
                 .licenseKey("OK6AEKNYF2KFR6YGPA0GCYPPB72XLN3MY23BQUDMBVBH16NZHXTGMGGFTQW5FLHQKINRCZEOMFN8HA7V"

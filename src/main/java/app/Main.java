@@ -2,7 +2,6 @@ package app;
 
 import javax.swing.JFrame;
 
-import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 
 /**
