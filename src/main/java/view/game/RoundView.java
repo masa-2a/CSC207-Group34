@@ -19,6 +19,9 @@ import interface_adapter.round.RoundViewModel;
  */
 public class RoundView extends JPanel implements ActionListener, PropertyChangeListener {
     private static final int FONT_SIZE = 20;
+    public static final int R = 219;
+    public static final int G = 229;
+    public static final int B = 232;
     private final String viewName = "Round View";
     private final RoundViewModel roundViewModel;
     private RoundController roundController;
@@ -32,11 +35,11 @@ public class RoundView extends JPanel implements ActionListener, PropertyChangeL
     public RoundView(RoundViewModel roundViewModel) {
         this.roundViewModel = roundViewModel;
         this.roundViewModel.addPropertyChangeListener(this);
-        this.setBackground(new Color(219, 229, 232));
+        this.setBackground(new Color(R, G, B));
         roundViewModel.getState().setHintsUsed(0);
 
         final JPanel buttons = new JPanel();
-        buttons.setBackground(new Color(219, 229, 232));
+        buttons.setBackground(new Color(R, G, B));
         startRound = new JButton("Start Round");
         startRound.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttons.add(startRound);
