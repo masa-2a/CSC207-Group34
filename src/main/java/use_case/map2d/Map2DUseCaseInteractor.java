@@ -30,6 +30,8 @@ public class Map2DUseCaseInteractor implements Map2DInputBoundary {
         map2D.createMap(width, height, latitude, longitude,
                 zoom, guessLat, guessLong, answerLat, answerLong, guessed, answered);
         final String path = map2D.saveMap();
-        return new Map2DOutputData(path);
+        Map2DOutputData mapOutput = new Map2DOutputData(path);
+        System.out.println(mapOutput.getMapPath());
+        return mapOutput;
     }
 }

@@ -77,12 +77,8 @@ public class RoundDataAccess implements RoundDataAccessInterface {
 
         }
         catch (IOException ioException) {
-            System.err.println("An error occurred while reading the file: " + ioException.getMessage());
-            ioException.printStackTrace();
-        }
-        catch (JsonParseException jsonParseException) {
-            System.err.println("An error occurred while parsing the JSON: " + jsonParseException.getMessage());
-            jsonParseException.printStackTrace();
+            System.err.println("An error occurred while reading the file");
+            throw new RuntimeException(ioException);
         }
 
         return countryData;

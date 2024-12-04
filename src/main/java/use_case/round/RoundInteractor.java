@@ -54,6 +54,7 @@ public class RoundInteractor implements RoundInputBoundary {
         final StreetViewMapOutputData streetViewMapOutputData = streetViewMapInteractor.guessSubmit();
 
         final RoundOutputData roundOutputData = getRoundOutputData(roundInputData, streetViewMapOutputData);
+        System.out.println(roundOutputData.getCountry());
         System.out.println("Round interactor" + roundInputData.getHintsUsed());
         roundOutputData.setHintsused(roundInputData.getHintsUsed());
         System.out.println("Round interactor" + roundOutputData.getTimespent());
